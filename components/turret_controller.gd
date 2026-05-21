@@ -1,0 +1,2 @@
+class_name TurretController
+extends Node2D

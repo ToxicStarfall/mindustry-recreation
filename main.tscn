@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://13tvefgy3kup"]
+
+[ext_resource type="PackedScene" uid="uid://dvhnkpjr827m6" path="res://units/stell/stell.tscn" id="1_ig7tw"]
+
+[node name="Main" type="Node2D" unique_id=1594855064]
+
+[node name="Stell" parent="." unique_id=1595817732 instance=ExtResource("1_ig7tw")]
+unique_name_in_owner = true

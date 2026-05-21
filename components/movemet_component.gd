@@ -6,7 +6,7 @@ extends Node
 @export var rot_speed: float = 120.0
 
 
-@onready var entity: Node2D = get_parent()
+@onready var unit: Node2D = get_parent()
 
 var dir: Vector2
 
@@ -16,12 +16,14 @@ var dir: Vector2
 
 
 func _physics_process(delta: float) -> void:
-	var x = Input.get_axis("move_left", "move_right")
-	var y = Input.get_axis("move_down", "move_up")
-	dir = Vector2(x, y)
-	
-	entity.position += Vector2(0, y * speed * delta).rotated(entity.rotation)
-	entity.rotation_degrees += x * rot_speed * delta
-	entity.get_node("Tracks").material.set_shader_parameter("dir_x", x)
-	entity.get_node("Tracks").material.set_shader_parameter("dir_y", y)
-	
+	if unit.can_move:
+		var x = Input.get_axis("move_left", "move_right")
+		var y = Input.get_axis("move_up", "move_down")
+		dir = Vector2(x, y)
+		
+		unit.position += Vector2(0, y * speed * delta).rotated(unit.rotation)
+		unit.rotation_degrees += x * rot_speed * delta
+		
+		unit.get_node("Tracks").material.set_shader_parameter("dir_x", x)
+		unit.get_node("Tracks").material.set_shader_parameter("dir_y", y)
+		#unit.get_node("Tracks").region_rect.position.y -= (48.0 / 64) * y

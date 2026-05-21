@@ -1,8 +1,12 @@
 [gd_scene format=3 uid="uid://13tvefgy3kup"]
 
+[ext_resource type="Script" uid="uid://dlkyvbtsohh1u" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dvhnkpjr827m6" path="res://units/stell/stell.tscn" id="1_ig7tw"]
 
 [node name="Main" type="Node2D" unique_id=1594855064]
+script = ExtResource("1_0xm2m")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=986141999]
 
 [node name="Stell" parent="." unique_id=1595817732 instance=ExtResource("1_ig7tw")]
 unique_name_in_owner = true

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://cga2o27k20gn8"]
+
+[ext_resource type="Texture2D" uid="uid://hh027ogyfvga" path="res://assets/scrap-wall5.png" id="2_iuee5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xduj2"]
+size = Vector2(32, 32)
+
+[node name="Wall" type="StaticBody2D" unique_id=25492494]
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1247725909]
+texture = ExtResource("2_iuee5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=898936017]
+shape = SubResource("RectangleShape2D_xduj2")

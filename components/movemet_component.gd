@@ -1,4 +1,4 @@
-class_name MovementComponent
+class_name MovementComponent2
 extends Node
 
 
@@ -27,3 +27,4 @@ func _physics_process(delta: float) -> void:
 		unit.get_node("Tracks").material.set_shader_parameter("dir_x", x)
 		unit.get_node("Tracks").material.set_shader_parameter("dir_y", y)
 		#unit.get_node("Tracks").region_rect.position.y -= (48.0 / 64) * y
+	pass

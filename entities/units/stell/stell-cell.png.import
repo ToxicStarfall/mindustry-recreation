@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bntad4464u8s"
-path="res://.godot/imported/casing.png-989a33bc46d390761a2b9929ee191140.ctex"
+uid="uid://bhykvirmwmuu"
+path="res://.godot/imported/stell-cell.png-29dde975e38672a6e50207138940fb6b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://projectiles/casing.png"
-dest_files=["res://.godot/imported/casing.png-989a33bc46d390761a2b9929ee191140.ctex"]
+source_file="res://entities/units/stell/stell-cell.png"
+dest_files=["res://.godot/imported/stell-cell.png-29dde975e38672a6e50207138940fb6b.ctex"]
 
 [params]
 

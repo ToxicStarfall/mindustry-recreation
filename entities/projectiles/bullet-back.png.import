@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cktcjb4stlfbe"
-path="res://.godot/imported/stell.png-0569a553209ceaeeb2967f9efcca1b34.ctex"
+uid="uid://cgxjsolqlhpm8"
+path="res://.godot/imported/bullet-back.png-849221cfff5414c0b89cf9e20388c0a4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://units/stell/stell.png"
-dest_files=["res://.godot/imported/stell.png-0569a553209ceaeeb2967f9efcca1b34.ctex"]
+source_file="res://entities/projectiles/bullet-back.png"
+dest_files=["res://.godot/imported/bullet-back.png-849221cfff5414c0b89cf9e20388c0a4.ctex"]
 
 [params]
 

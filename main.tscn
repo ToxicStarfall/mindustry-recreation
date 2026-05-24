@@ -1,12 +1,29 @@
 [gd_scene format=3 uid="uid://13tvefgy3kup"]
 
 [ext_resource type="Script" uid="uid://dlkyvbtsohh1u" path="res://main.gd" id="1_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://dvhnkpjr827m6" path="res://units/stell/stell.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://dvhnkpjr827m6" path="res://entities/units/stell/stell.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://cga2o27k20gn8" path="res://entities/blocks/wall.tscn" id="2_h2yge"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1bvp3"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_lquwl"]
+scenes/1/scene = ExtResource("2_h2yge")
+
+[sub_resource type="TileSet" id="TileSet_7mycd"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 2
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_1bvp3")
+sources/0 = SubResource("TileSetScenesCollectionSource_lquwl")
 
 [node name="Main" type="Node2D" unique_id=1594855064]
 script = ExtResource("1_0xm2m")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=986141999]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1673399299]
+tile_map_data = PackedByteArray(0, 0, 246, 255, 255, 255, 0, 0, 0, 0, 0, 0, 1, 0)
+tile_set = SubResource("TileSet_7mycd")
 
 [node name="Stell" parent="." unique_id=1595817732 instance=ExtResource("1_ig7tw")]
 unique_name_in_owner = true

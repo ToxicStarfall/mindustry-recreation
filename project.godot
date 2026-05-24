@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Events="*uid://dixnmsrmwieew"
 Game="*uid://ccxymib2uqhs0"
 
 [display]
@@ -28,6 +29,12 @@ window/size/viewport_height=900
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://ui/": "green"
+}
 
 [input]
 
@@ -76,12 +83,19 @@ zoom_out={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Blocks"
+2d_physics/layer_2="Units"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
+2d/default_gravity=0.0
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

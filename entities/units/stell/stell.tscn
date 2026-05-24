@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://dvhnkpjr827m6"]
+
+[ext_resource type="Script" uid="uid://bhsguese4xrmc" path="res://entities/units/unit.gd" id="1_8s8vx"]
+[ext_resource type="Texture2D" uid="uid://cktcjb4stlfbe" path="res://entities/units/stell/stell.png" id="2_dh7rc"]
+[ext_resource type="Shader" uid="uid://crttb8gsli0lb" path="res://entities/units/stell/track.gdshader" id="2_w73jq"]
+[ext_resource type="Script" uid="uid://2x6gxs5cypcd" path="res://entities/body/body.gd" id="2_yjvtu"]
+[ext_resource type="Script" uid="uid://capwm6jqredjg" path="res://components/resource/health_component.gd" id="3_mbmgr"]
+[ext_resource type="Texture2D" uid="uid://rkcxuebfj7ji" path="res://entities/units/stell/stell-treads-short.png" id="3_w73jq"]
+[ext_resource type="Script" uid="uid://bwug1nqyeoi7p" path="res://components/resource/movemet_component.gd" id="4_elbxa"]
+[ext_resource type="Texture2D" uid="uid://bhykvirmwmuu" path="res://entities/units/stell/stell-cell.png" id="5_vr3tf"]
+[ext_resource type="Texture2D" uid="uid://uj3cyumcvnl6" path="res://entities/units/stell/stell-weapon.png" id="6_vr3tf"]
+[ext_resource type="Script" uid="uid://bqu1e2r0e0sn5" path="res://components/turret_controller.gd" id="7_a4mkq"]
+[ext_resource type="Script" uid="uid://br7ax4emslu3d" path="res://entities/body/turret.gd" id="9_52snb"]
+[ext_resource type="Script" uid="uid://dqbskq33gkjmw" path="res://components/resource/sub_comps/damage_component.gd" id="12_au8vn"]
+
+[sub_resource type="Resource" id="Resource_cnajb"]
+script = ExtResource("2_yjvtu")
+metadata/_custom_type_script = "uid://2x6gxs5cypcd"
+
+[sub_resource type="Resource" id="Resource_elbxa"]
+script = ExtResource("3_mbmgr")
+metadata/_custom_type_script = "uid://capwm6jqredjg"
+
+[sub_resource type="Resource" id="Resource_63p1g"]
+script = ExtResource("4_elbxa")
+movement_type = 1
+rot_speed = 180.0
+metadata/_custom_type_script = "uid://bwug1nqyeoi7p"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjvtu"]
+shader = ExtResource("2_w73jq")
+shader_parameter/enabled = true
+shader_parameter/pixels = 64.0
+shader_parameter/speed = 64.0
+shader_parameter/dir_x = 0
+shader_parameter/dir_y = 0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbmgr"]
+size = Vector2(44, 48)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bbvc1"]
+radius = 23.0
+height = 50.0
+
+[sub_resource type="Resource" id="Resource_qa0yu"]
+script = ExtResource("12_au8vn")
+metadata/_custom_type_script = "uid://dqbskq33gkjmw"
+
+[node name="Stell" type="CharacterBody2D" unique_id=686862671]
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_8s8vx")
+body = SubResource("Resource_cnajb")
+HealthComp = SubResource("Resource_elbxa")
+MovementComp = SubResource("Resource_63p1g")
+
+[node name="Tracks" type="Sprite2D" parent="." unique_id=44361417]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_yjvtu")
+texture = ExtResource("3_w73jq")
+region_enabled = true
+region_rect = Rect2(0, 7, 64, 51)
+
+[node name="Body" type="Sprite2D" parent="." unique_id=1182832936]
+texture = ExtResource("2_dh7rc")
+
+[node name="Cell" type="Sprite2D" parent="." unique_id=1560672049]
+visible = false
+texture = ExtResource("5_vr3tf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1483858453]
+shape = SubResource("RectangleShape2D_mbmgr")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=770591015]
+visible = false
+shape = SubResource("CapsuleShape2D_bbvc1")
+disabled = true
+
+[node name="TurretController" type="Node2D" parent="." unique_id=1312501852]
+rotation = -1.5707964
+script = ExtResource("7_a4mkq")
+
+[node name="Turret" type="Sprite2D" parent="TurretController" unique_id=1774245838]
+texture = ExtResource("6_vr3tf")
+script = ExtResource("9_52snb")
+damage_comp = SubResource("Resource_qa0yu")
+rotation_speed = 210.0

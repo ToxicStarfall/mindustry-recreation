@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 16 16"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="heart_component.svg"
+   inkscape:version="1.4.4 (dcaf3e7, 2026-05-05)"
+   width="16"
+   height="16"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="false"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="22.627417"
+     inkscape:cx="0.35355339"
+     inkscape:cy="14.341009"
+     inkscape:window-width="2560"
+     inkscape:window-height="1494"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1"
+     showgrid="true">
+    <inkscape:grid
+       id="grid1"
+       units="px"
+       originx="0"
+       originy="0"
+       spacingx="1"
+       spacingy="1"
+       empcolor="#0099e5"
+       empopacity="0.30196078"
+       color="#0099e5"
+       opacity="0.14901961"
+       empspacing="4"
+       enabled="true"
+       visible="true" />
+  </sodipodi:namedview>
+  <!--!Font Awesome Free 7.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+  <path
+     d="M 7.53125,2.7218751 8,3.3687501 8.46875,2.7218751 C 9.25,1.6406251 10.50625,1 11.840625,1 14.1375,1 16,2.8625001 16,5.8046876 16,8.7468751 11.628125,12.81875 9.346875,14.559375 8.959375,14.853125 8.484375,15.25 8,15.25 7.515625,15.25 7.0375,14.85625 6.653125,14.559375 4.371875,12.81875 0.015625,8.9421875 0.015625,6 0.015625,3.0578125 1.8625,1 4.159375,1 5.49375,1 6.75,1.6406251 7.53125,2.7218751 Z"
+     id="path1"
+     style="fill:#e0e0e0;fill-opacity:1;stroke:none;stroke-width:0.03125;stroke-opacity:1"
+     sodipodi:nodetypes="cccsccsccsc" />
+</svg>

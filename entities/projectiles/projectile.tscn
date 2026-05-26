@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dbmtjqy8t7d4c"]
+
+[ext_resource type="Script" uid="uid://bh166ebltc085" path="res://entities/projectiles/projectile.gd" id="1_ek2yu"]
+[ext_resource type="Texture2D" uid="uid://cgxjsolqlhpm8" path="res://entities/projectiles/bullet-back.png" id="2_4yeyn"]
+[ext_resource type="Texture2D" uid="uid://bit6kkpubmehl" path="res://entities/projectiles/bullet.png" id="3_n3d54"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4yeyn"]
+height = 28.0
+
+[node name="Projectile" type="Area2D" unique_id=663925303]
+z_index = -1
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_ek2yu")
+
+[node name="ProjectileBackSprite" type="Sprite2D" parent="." unique_id=2080071794]
+position = Vector2(0, 6)
+texture = ExtResource("2_4yeyn")
+
+[node name="ProjectileSprite" type="Sprite2D" parent="." unique_id=966289844]
+modulate = Color(0.73, 0.5888667, 0.30660003, 1)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_n3d54")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=175219917]
+shape = SubResource("CapsuleShape2D_4yeyn")

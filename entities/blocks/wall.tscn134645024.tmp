@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://cga2o27k20gn8"]
 
-[ext_resource type="Script" uid="uid://c40ltfv6qhs3l" path="res://entities/blocks/block.gd" id="1_rgf68"]
+[ext_resource type="Script" uid="uid://c40ltfv6qhs3l" path="res://entities/blocks/block.gd" id="1_ml5k4"]
 [ext_resource type="Texture2D" uid="uid://hh027ogyfvga" path="res://assets/scrap-wall5.png" id="2_iuee5"]
-[ext_resource type="Script" uid="uid://capwm6jqredjg" path="res://components/node/health_component.gd" id="2_rgf68"]
 [ext_resource type="Script" uid="uid://bcnsah84lvxth" path="res://components/node/hitbox_component.gd" id="3_tc4kq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xduj2"]
@@ -10,17 +9,13 @@ size = Vector2(32, 32)
 
 [node name="Wall" type="StaticBody2D" unique_id=25492494]
 collision_mask = 6
-script = ExtResource("1_rgf68")
+script = ExtResource("1_ml5k4")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1247725909]
 texture = ExtResource("2_iuee5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=898936017]
 shape = SubResource("RectangleShape2D_xduj2")
-
-[node name="HealthComponent" type="Node" parent="." unique_id=1911643976]
-script = ExtResource("2_rgf68")
-metadata/_custom_type_script = "uid://capwm6jqredjg"
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=1610417139]
 collision_layer = 0

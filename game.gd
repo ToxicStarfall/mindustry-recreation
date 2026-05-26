@@ -9,17 +9,14 @@ var camera_locked: bool = false
 
 
 func _ready() -> void:
-	#Events.projectile_fired.connect( _on_projectile_fired )
+	Events.projectile_spawned.connect( _on_projectile_spawned )
 		
 	current_unit = Main.get_node("Stell")
 	Camera.reparent(current_unit)
 
 
-#func _on_projectile_fired(data: Projectile, dir):
-	#var projectile = preload("res://projectile.tscn").instantiate() 
-	#projectile.linear_velocity = dir
-	#Main.add_child( projectile )
-	#pass
+func _on_projectile_spawned(projectile: Projectile):
+	Main.add_child( projectile )
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -36,7 +33,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("zoom_in"):
 		Camera.zoom = (Camera.zoom + (Vector2.ONE * zoom_factor)).minf(2.5)
 	if event.is_action_pressed("zoom_out"):
-		Camera.zoom = (Camera.zoom - (Vector2.ONE * zoom_factor)).maxf(0.25)
+		Camera.zoom = (Camera.zoom - (Vector2.ONE * zoom_factor)).maxf(0.5)
 
 	#if !camera_locked:
 		#var pan_x = Input.get_axis("camera_pan_left", "camera_pan_right")

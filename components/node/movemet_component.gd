@@ -1,19 +1,20 @@
 class_name MovementComponent
-extends Resource
+extends Node
 
 
 enum MovementType {
 	NONE, TRACKED, WHEELED, LEGGED, HOVERING, FLYING, FLOATING,
 }
 
-@export var movement_type: MovementType = MovementType.NONE:
-	set(value):
-		movement_type = value
-		pass
+@export var movement_type: MovementType = MovementType.NONE#:
+	#set(value):
+		#movement_type = value
+		#pass
 @export var speed: float = 120.0
 @export var rot_speed: float = 120.0
 
-@export_subgroup("Toggles")
+#@export_group("Toggles")
+@export_category("Toggles")
 @export var can_move: bool = true
 @export var is_ai_controllable: bool = true
 @export var is_player_controllable: bool = true
@@ -22,7 +23,8 @@ var unit: CharacterBody2D
 var dir: Vector2
 
 
-func _init() -> void:
+func _ready() -> void:
+	unit = get_parent()
 	pass
 
 

@@ -2,21 +2,27 @@ class_name Unit
 extends CharacterBody2D
 
 
-@export var body: Body
-@export var turrets = []
+enum Faction { NONE, PLAYER, ENEMY }
 
-@export_subgroup("Components")
-#@export var health: float = 100.0
-#@export var defense: float = 0.0
-#@export var shield: float = 0.0
-@export var HealthComp: HealthComponent
+@export var body: Body
+@export var faction: Faction = Faction.NONE
+	
+#@export_subgroup("Components")
+#@export var HealthComp: HealthComponent
 #@export var DefenseComp: DefenseComponent
 #@export var ShieldComp: ShieldComponent
-@export var MovementComp: MovementComponent
+#@export var MovementComp: MovementComponent
 
 @export_subgroup("Traits")
-@export var can_attack: bool = true
 @export var is_targetable: bool = true
+
+
+var HitboxComp: HitboxComponent
+var HealthComp: HealthComponent
+var DefenseComp: DefenseComponent
+var ShieldComp: ShieldComponent
+var MovementComp: MovementComponent
+var AttackComp: AttackComponent
 
 
 var statuses: Array
@@ -26,17 +32,23 @@ var is_controlled: bool = false  ## Whether or not this unit is currently contro
 var is_selected: bool = false  ## Whether or not this unit is currently selected by the player.
 
 
+
 func _ready() -> void:
 	_setup()
 	
 	
 func _setup():
+	if has_node("HitboxComponent"):  HitboxComp = $HitboxComponent
+	if has_node("HealthComponent"):  HealthComp = $HealthComponent
+	if has_node("MovementComponent"):  MovementComp = $MovementComponent
+	if has_node("AttackComponent"):  AttackComp = $AttackComponent
+	
+	if HitboxComp:
+		HitboxComp.hit.connect( _on_hitbox_hit )
 	if HealthComp:
-		pass
+		HealthComp.damaged.connect( _on_health_damaged )
 	if MovementComp:
 		MovementComp.unit = self
-		
-	pass
 
 
 func _physics_process(delta: float) -> void:
@@ -49,4 +61,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		is_attacking = true
 	if event.is_action_released("attack"):
 		is_attacking = false
-	pass
+
+
+func _on_hitbox_hit():
+	if HealthComp:
+		HealthComp.damage(1.0)
+
+
+func _on_health_damaged():
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:v", modulate.v - modulate.v, 0.15)
+	tween.tween_property(self, "modulate:v", modulate.v, 0.1)
+
+#func _

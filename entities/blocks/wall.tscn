@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cga2o27k20gn8"]
 
 [ext_resource type="Script" uid="uid://c40ltfv6qhs3l" path="res://entities/blocks/block.gd" id="1_rgf68"]
-[ext_resource type="Texture2D" uid="uid://hh027ogyfvga" path="res://assets/scrap-wall5.png" id="2_iuee5"]
+[ext_resource type="Texture2D" uid="uid://hh027ogyfvga" path="res://assets/sprites/entities/blocks/scrap-wall5.png" id="2_iuee5"]
 [ext_resource type="Script" uid="uid://capwm6jqredjg" path="res://components/node/health_component.gd" id="2_rgf68"]
 [ext_resource type="Script" uid="uid://bcnsah84lvxth" path="res://components/node/hitbox_component.gd" id="3_tc4kq"]
 

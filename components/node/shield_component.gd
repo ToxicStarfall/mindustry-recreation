@@ -1,11 +1,11 @@
 class_name ShieldComponent
-extends Resource
+extends Node
 
 
 @warning_ignore_start("unused_signal")
 signal recharged
 signal damaged
-signal zero
+signal zeroed
 
 
 @export var max_shield: float = 100.0

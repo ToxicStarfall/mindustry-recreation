@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bit6kkpubmehl"
-path="res://.godot/imported/bullet.png-bf903b661d62e908e84c254c5eda70e7.ctex"
+uid="uid://obkvk50bcuns"
+path="res://.godot/imported/floors.png-39f9fd200d32233158d05b183b473925.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/projectiles/bullet.png"
-dest_files=["res://.godot/imported/bullet.png-bf903b661d62e908e84c254c5eda70e7.ctex"]
+source_file="res://assets/sprites/environment/floors.png"
+dest_files=["res://.godot/imported/floors.png-39f9fd200d32233158d05b183b473925.ctex"]
 
 [params]
 

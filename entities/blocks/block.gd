@@ -10,9 +10,9 @@ func _setup():
 	super()
 
 
-func _on_hitbox_hit():
-	if HealthComp:
-		HealthComp.damage(1.0)
+#func _on_hitbox_hit():
+	#if HealthComp:
+		#HealthComp.damage(1.0)
 
 
 func _on_health_damaged():

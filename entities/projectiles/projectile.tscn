@@ -1,14 +1,13 @@
 [gd_scene format=3 uid="uid://dbmtjqy8t7d4c"]
 
 [ext_resource type="Script" uid="uid://bh166ebltc085" path="res://entities/projectiles/projectile.gd" id="1_ek2yu"]
-[ext_resource type="Texture2D" uid="uid://cgxjsolqlhpm8" path="res://entities/projectiles/bullet-back.png" id="2_4yeyn"]
-[ext_resource type="Texture2D" uid="uid://bit6kkpubmehl" path="res://entities/projectiles/bullet.png" id="3_n3d54"]
+[ext_resource type="Texture2D" uid="uid://cgxjsolqlhpm8" path="res://assets/sprites/entities/projectiles/bullet-back.png" id="2_4yeyn"]
+[ext_resource type="Texture2D" uid="uid://bit6kkpubmehl" path="res://assets/sprites/entities/projectiles/bullet.png" id="3_n3d54"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4yeyn"]
 height = 28.0
 
 [node name="Projectile" type="Area2D" unique_id=663925303]
-z_index = -1
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_ek2yu")
@@ -24,3 +23,6 @@ texture = ExtResource("3_n3d54")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=175219917]
 shape = SubResource("CapsuleShape2D_4yeyn")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1984904171]
+rect = Rect2(-10, -14, 20, 40)

@@ -5,14 +5,16 @@
 [ext_resource type="Shader" uid="uid://crttb8gsli0lb" path="res://effects/shaders/tracks.gdshader" id="2_w73jq"]
 [ext_resource type="Texture2D" uid="uid://rkcxuebfj7ji" path="res://entities/units/stell/stell-treads-short.png" id="3_w73jq"]
 [ext_resource type="Texture2D" uid="uid://bhykvirmwmuu" path="res://entities/units/stell/stell-cell.png" id="5_vr3tf"]
+[ext_resource type="Script" uid="uid://bcnsah84lvxth" path="res://components/node/hitbox_component.gd" id="6_qa0yu"]
 [ext_resource type="Texture2D" uid="uid://uj3cyumcvnl6" path="res://entities/units/stell/stell-weapon.png" id="6_vr3tf"]
-[ext_resource type="Script" uid="uid://bqu1e2r0e0sn5" path="res://components/node/turret_controller.gd" id="7_a4mkq"]
-[ext_resource type="Script" uid="uid://br7ax4emslu3d" path="res://entities/body/turret.gd" id="9_52snb"]
+[ext_resource type="Script" uid="uid://c6clt6s3n5xf4" path="res://components/node/defense_component.gd" id="8_qa0yu"]
+[ext_resource type="Script" uid="uid://dkeiv4mg3ytus" path="res://weapons/turret.gd" id="10_ncd0l"]
 [ext_resource type="Script" uid="uid://capwm6jqredjg" path="res://components/node/health_component.gd" id="11_au8vn"]
-[ext_resource type="Script" uid="uid://dqbskq33gkjmw" path="res://components/resource/damage_component.gd" id="12_au8vn"]
+[ext_resource type="PackedScene" uid="uid://dbmtjqy8t7d4c" path="res://entities/projectiles/projectile.tscn" id="11_qa0yu"]
 [ext_resource type="Script" uid="uid://bwug1nqyeoi7p" path="res://components/node/movemet_component.gd" id="12_nkf8w"]
-[ext_resource type="PackedScene" uid="uid://dbmtjqy8t7d4c" path="res://entities/projectiles/projectile.tscn" id="12_qa0yu"]
+[ext_resource type="Script" uid="uid://dqbskq33gkjmw" path="res://components/resource/damage_component.gd" id="13_nkf8w"]
 [ext_resource type="Script" uid="uid://d00es5tts4om7" path="res://components/node/attack_component.gd" id="13_qa0yu"]
+[ext_resource type="Script" uid="uid://cyth0wwtyo0ym" path="res://components/node/targeting_component.gd" id="15_bbvc1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yjvtu"]
 shader = ExtResource("2_w73jq")
@@ -25,9 +27,12 @@ shader_parameter/dir_y = 0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mbmgr"]
 size = Vector2(44, 48)
 
-[sub_resource type="Resource" id="Resource_qa0yu"]
-script = ExtResource("12_au8vn")
+[sub_resource type="Resource" id="Resource_bbvc1"]
+script = ExtResource("13_nkf8w")
 metadata/_custom_type_script = "uid://dqbskq33gkjmw"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bbvc1"]
+radius = 960.0
 
 [node name="Stell" type="CharacterBody2D" unique_id=686862671]
 collision_layer = 2
@@ -46,38 +51,60 @@ region_rect = Rect2(0, 7, 64, 51)
 texture = ExtResource("2_dh7rc")
 
 [node name="Cell" type="Sprite2D" parent="." unique_id=1560672049]
-visible = false
 texture = ExtResource("5_vr3tf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1483858453]
+shape = SubResource("RectangleShape2D_mbmgr")
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1249276938]
+collision_layer = 0
+collision_mask = 6
+script = ExtResource("6_qa0yu")
+metadata/_custom_type_script = "uid://bcnsah84lvxth"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=785027833]
+visible = false
 shape = SubResource("RectangleShape2D_mbmgr")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1730491802]
 script = ExtResource("11_au8vn")
 metadata/_custom_type_script = "uid://capwm6jqredjg"
 
+[node name="DefenseComponent" type="Node" parent="." unique_id=200269811]
+script = ExtResource("8_qa0yu")
+metadata/_custom_type_script = "uid://c6clt6s3n5xf4"
+
 [node name="MovementComponent" type="Node" parent="." unique_id=1774487529]
 script = ExtResource("12_nkf8w")
 movement_type = 1
-rot_speed = 90.0
+speed = 5.625
+rot_speed = 210.0
 metadata/_custom_type_script = "uid://bwug1nqyeoi7p"
 
-[node name="AttackComponent" type="Node" parent="." unique_id=1968296636 node_paths=PackedStringArray("turrets")]
+[node name="AttackComponent" type="Node" parent="." unique_id=1968296636 node_paths=PackedStringArray("weapons")]
 script = ExtResource("13_qa0yu")
-turrets = [NodePath("../TurretController/Turret")]
+weapons = [NodePath("../Turret")]
 metadata/_custom_type_script = "uid://d00es5tts4om7"
 
-[node name="TurretController" type="Node2D" parent="." unique_id=1312501852]
+[node name="Turret" type="Node2D" parent="." unique_id=1879076284]
 rotation = -1.5707964
-script = ExtResource("7_a4mkq")
-
-[node name="Turret" type="Node2D" parent="TurretController" unique_id=1879076284]
-script = ExtResource("9_52snb")
-rotation_speed = 210.0
-projectile_scene = ExtResource("12_qa0yu")
-damage_comp = SubResource("Resource_qa0yu")
-cooldown = 0.75
+script = ExtResource("10_ncd0l")
+rotation_speed = 132.0
+projectile_scene = ExtResource("11_qa0yu")
+damage_comp = SubResource("Resource_bbvc1")
 metadata/_custom_type_script = "uid://br7ax4emslu3d"
 
-[node name="Sprite2D" type="Sprite2D" parent="TurretController/Turret" unique_id=1664754225]
+[node name="Sprite2D" type="Sprite2D" parent="Turret" unique_id=1664754225]
 texture = ExtResource("6_vr3tf")
+
+[node name="TargetingComponent" type="Area2D" parent="." unique_id=1149713576]
+z_index = -1
+collision_layer = 0
+collision_mask = 7
+script = ExtResource("15_bbvc1")
+attack_range = 25.0
+metadata/_custom_type_script = "uid://cyth0wwtyo0ym"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetingComponent" unique_id=1979789748]
+visible = false
+shape = SubResource("CircleShape2D_bbvc1")

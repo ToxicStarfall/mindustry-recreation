@@ -1,6 +1,8 @@
 extends Node
 
 
+const TILE_SIZE: int = 32
+
 @onready var Main = get_tree().root.get_node("Main")
 @onready var Camera = Main.get_node("Camera2D")
 
@@ -12,7 +14,9 @@ func _ready() -> void:
 	Events.projectile_spawned.connect( _on_projectile_spawned )
 		
 	current_unit = Main.get_node("Stell")
+	current_unit.is_controlled = true
 	Camera.reparent(current_unit)
+	Camera.position = Vector2.ZERO
 
 
 func _on_projectile_spawned(projectile: Projectile):

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgxjsolqlhpm8"
-path="res://.godot/imported/bullet-back.png-849221cfff5414c0b89cf9e20388c0a4.ctex"
+uid="uid://chv36eoq3ac68"
+path="res://.godot/imported/sight.svg-67d4ac8e2999b295b09061b8a8d0d4ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/projectiles/bullet-back.png"
-dest_files=["res://.godot/imported/bullet-back.png-849221cfff5414c0b89cf9e20388c0a4.ctex"]
+source_file="res://assets/icons/components/sight.svg"
+dest_files=["res://.godot/imported/sight.svg-67d4ac8e2999b295b09061b8a8d0d4ef.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

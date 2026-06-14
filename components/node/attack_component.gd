@@ -1,24 +1,44 @@
+@icon("res://assets/icons/components/attack_component.svg")
 class_name AttackComponent
 extends Node
 
 
-@export var turrets: Array[Turret]
+@export_group("Main Attack")
+@export var weapons: Array[Weapon]
+#@export_category("Special Attack")
 
 @export_category("Toggles")
 @export var can_attack: bool = true
 
-var is_attacking: bool = false
+var is_attacking: bool = false  ## True when player is overriding attack
 
-
-@onready var unit: Unit = get_parent()
+#@onready var unit: Unit = get_parent()
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack"):
-		is_attacking = true
-		for turret in turrets:
-			turret.attacking = true
-	if event.is_action_released("attack"):
-		is_attacking = false
-		for turret in turrets:
-			turret.attacking = false
+	if get_parent().is_controlled:
+		if event.is_action_pressed("attack"):
+			is_attacking = true
+		elif event.is_action_released("attack"):
+			is_attacking = false
+	
+	if event.is_action("attack"):
+		if is_attacking:
+				for weapon in weapons:
+					#weapon.attacking = true
+					weapon.attacking = true #if weapon.target != null else false
+		else:
+				for weapon in weapons:
+					#weapon.attacking = false
+					weapon.attacking = false if weapon.target == null else true
+					pass
+
+
+func _physics_process(_delta: float) -> void:
+	if is_attacking:
+		for weapon in weapons:
+			weapon.target_position = get_parent().get_global_mouse_position()
+
+
+func attack_target():
+	pass

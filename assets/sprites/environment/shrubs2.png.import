@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hh027ogyfvga"
-path="res://.godot/imported/scrap-wall5.png-337b9596d42fa4d34b17d6dcf1b6e19c.ctex"
+uid="uid://bc8fgu2myn5o"
+path="res://.godot/imported/shrubs2.png-747e612b82cfa93769b71ce91d81f1a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/scrap-wall5.png"
-dest_files=["res://.godot/imported/scrap-wall5.png-337b9596d42fa4d34b17d6dcf1b6e19c.ctex"]
+source_file="res://assets/sprites/environment/shrubs2.png"
+dest_files=["res://.godot/imported/shrubs2.png-747e612b82cfa93769b71ce91d81f1a9.ctex"]
 
 [params]
 

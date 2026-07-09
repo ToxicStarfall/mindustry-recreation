@@ -70,8 +70,9 @@ func _physics_process(_delta: float) -> void:
 
 func _on_body_entered(body: Node2D):
 	if body is Entity:
-		if !body == self.get_parent():
-			entities.append(body)
+		if !body == self.get_parent():  # Disallow self
+			if body.faction != self.get_parent().faction:  # Disallow same faction
+				entities.append(body)
 	
 	
 func _on_body_exited(body: Node2D):

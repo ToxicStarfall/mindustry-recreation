@@ -16,7 +16,11 @@ extends Weapon
 
 #func _physics_process(delta: float) -> void:
 	#pass
-		
+
+
+#func _attack():
+	#fire_projectile()
+
 
 func fire_projectile(dir: Vector2, angle):
 	var projectile: Projectile = projectile_scene.instantiate()

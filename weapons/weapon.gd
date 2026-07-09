@@ -27,13 +27,13 @@ var target_position: Vector2
 
 
 func _physics_process(_delta: float) -> void:
-	if get_parent() is Unit and !get_parent().is_controlled:
-	#else:
-		if target:
-			target_position = target.global_position
-			print(target.global_position)
+	#if get_parent() is Unit and !get_parent().is_controlled:
+		#if target:
+			#target_position = target.global_position
+			#print(target.global_position)
 	#else:
 		#target_position = get_global_mouse_position()
+	pass
 		
 
 func _attack():

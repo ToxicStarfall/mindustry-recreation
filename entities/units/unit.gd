@@ -18,13 +18,7 @@ extends Entity
 var MovementComp: MovementComponent
 #var AttackComp: AttackComponent
 
-
-#var statuses: Array
-
 #var is_attacking: bool = false
-var is_controlled: bool = false  ## Whether or not this unit is currently controlled by the player.
-var is_selected: bool = false  ## Whether or not this unit is currently selected by the player.
-
 
 
 func _ready() -> void:
@@ -34,7 +28,7 @@ func _ready() -> void:
 func _setup():
 	super()
 	if has_node("MovementComponent"):  MovementComp = $MovementComponent
-	if has_node("AttackComponent"):  AttackComp = $AttackComponent
+	#if has_node("AttackComponent"):  AttackComp = $AttackComponent
 	
 	if MovementComp:
 		MovementComp.unit = self
@@ -55,23 +49,5 @@ func _physics_process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	#if AttackComp: 
-		#if is_controlled:
-			#if event.is_action_pressed("attack"):
-				#AttackComp.is_attacking = true
-			#if event.is_action_released("attack"):
-				#AttackComp.is_attacking = false
-		#if is_selected:
-			#pass
+	super(event)
 	pass
-
-
-#func _on_hitbox_hit(damage_comp: DamageComponent):
-	#if HealthComp:
-		#HealthComp.damage(1.0)
-
-
-#func _on_health_damaged():
-	#var tween = create_tween()
-	#tween.tween_property(self, "modulate:v", modulate.v - modulate.v, 0.15)
-	#tween.tween_property(self, "modulate:v", modulate.v, 0.1)

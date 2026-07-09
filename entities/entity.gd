@@ -40,6 +40,7 @@ func _setup():
 	if has_node("HealthComponent"):  HealthComp = $HealthComponent
 	if has_node("DefenseComponent"):  DefenseComp = $DefenseComponent
 	if has_node("ShieldComponent"):  ShieldComp = $ShieldComponent
+	if has_node("AttackComponent"):  AttackComp = $AttackComponent
 	if has_node("TargetingComponent"):  TargetingComp = $TargetingComponent
 	
 	if HitboxComp:
@@ -64,9 +65,37 @@ func _on_child_exiting_tree(child: Node):
 		weapons.erase(child)
 
 
+func _draw() -> void:
+	if is_selected:
+		#var rect = get_node("CollisionShape2D").shape.get_rect()
+		#rect.size *= 1.1
+		#draw_rect(rect, Color.WHITE, false, 4)
+		pass
+
+
+func _process(_delta: float) -> void:
+	queue_redraw()
+
+
 #func _physics_process(delta: float) -> void:
 	#if MovementComp:
 		#MovementComp._physics_process(delta)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if AttackComp: 
+		if is_controlled:
+			if event.is_action_pressed("attack"):
+				AttackComp.is_attacking = true
+			if event.is_action_released("attack"):
+				AttackComp.is_attacking = false
+		if is_selected:
+			pass
+
+	if event.is_action_pressed("control"):
+		if mouse_hovered:
+			is_controlled = true
+			Events.entity_controlled.emit(self)
 
 
 func _on_hitbox_hit(damage_comp: DamageComponent):

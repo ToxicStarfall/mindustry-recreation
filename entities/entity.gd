@@ -9,6 +9,11 @@ enum Faction { NONE, PLAYER, ENEMY }
 
 @export_group("Toggles")
 @export var is_targetable: bool = true
+@export var is_controllable: bool = true  ## Whether or not this entity is able to be controlled by the player.
+@export var is_selectable: bool = true  ## Whether or not this entity is able to be selected by the player.
+
+@export var is_controlled: bool = false  ## Whether or not this entity is currently controlled by the player.
+@export var is_selected: bool = false  ## Whether or not this entity is currently selected by the player.
 
 
 var HitboxComp: HitboxComponent
@@ -22,13 +27,15 @@ var AttackComp: AttackComponent
 var weapons: Array[Weapon]
 var statuses: Array
 
-#var is_controlled: bool = false  ## Whether or not this entity is currently controlled by the player.
-#var is_selected: bool = false  ## Whether or not this entity is currently selected by the player.
+@export var mouse_hovered: bool = false
+
 
 
 func _init() -> void:
 	child_entered_tree.connect( _on_child_entered_tree )
 	child_exiting_tree.connect( _on_child_exiting_tree )
+	self.mouse_entered.connect( func(): mouse_hovered = true )
+	self.mouse_exited.connect( func(): mouse_hovered = false )
 
 
 func _ready() -> void:
@@ -117,17 +124,19 @@ func _on_health_zeroed():
 
 
 func _on_target_found(entity: Entity):
-	if entity.is_targetable:
-		print("target found: ", entity)
-		for weapon in weapons:
-			weapon.attacking = true
-			#weapon.target_position = entity.global_position
-			weapon.target = entity
+	if !is_controlled:
+		if entity.is_targetable:
+			#print("target found: ", entity)
+			for weapon in weapons:
+				weapon.attacking = true
+				#weapon.target_position = entity.global_position
+				weapon.target = entity
+			pass
 
 
 func _on_target_changed(entity: Entity):
 	if entity.is_targetable:
-		print("target changed: ", entity)
+		#print("target changed: ", entity)
 		for weapon in weapons:
 			#weapon.attacking = true
 			#weapon.target_position = entity.global_position
@@ -135,7 +144,7 @@ func _on_target_changed(entity: Entity):
 	
 
 func _on_target_lost(entity: Entity):
-	print("target lost: ", entity)
+	#print("target lost: ", entity)
 	for weapon in weapons:
 		weapon.attacking = false
 		weapon.target = null

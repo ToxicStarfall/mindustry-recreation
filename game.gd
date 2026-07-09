@@ -1,35 +1,29 @@
 extends Node
 
 
+
 const TILE_SIZE: int = 32
 
-@onready var Main = get_tree().root.get_node("Main")
-@onready var Camera = Main.get_node("Camera2D")
+@onready var World = get_tree().root.get_node("World")
+@onready var Camera = World.get_node("Camera2D")
 
-var current_unit: Unit
 var camera_locked: bool = false
+
+var controlled_entity: Entity
+var selected_entities: Array[Entity]
 
 
 func _ready() -> void:
+	Events.entity_controlled.connect( _on_entity_controlled )
+	Events.entity_selected.connect( _on_entity_selected )
 	Events.projectile_spawned.connect( _on_projectile_spawned )
-		
-	current_unit = Main.get_node("Stell")
-	current_unit.is_controlled = true
-	Camera.reparent(current_unit)
-	Camera.position = Vector2.ZERO
-
-
-func _on_projectile_spawned(projectile: Projectile):
-	Main.add_child( projectile )
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	# NOTE: event.factor is used for variable inputs such as trackpad scroll speed
 	var zoom_factor = 0.1
-	if event is InputEventMouseButton:
-		#print(event.factor)
-		pass
 	#if event is InputEventMouseButton and !event.factor == 1:
+		#print(event.factor)
 		#zoom_factor = event.factor
 		#zoom_factor = 0.01
 		#print(zoom_factor)
@@ -70,3 +64,20 @@ func _on_camera_lock_changed():
 		#Camera.drag_bottom_margin = 0.05
 		#Camera.drag_left_margin = 0.05
 		#Camera.drag_right_margin = 0.05
+
+
+func _on_entity_controlled(entity: Entity):
+	if controlled_entity:
+		controlled_entity.is_controlled = false  # Un-control the previous controlled entity
+	controlled_entity = entity
+	Camera.reparent(controlled_entity)
+	Camera.position = Vector2.ZERO
+
+
+func _on_entity_selected(entity: Entity):
+	selected_entities.append(entity)
+	pass
+
+
+func _on_projectile_spawned(projectile: Projectile):
+	World.add_child( projectile )

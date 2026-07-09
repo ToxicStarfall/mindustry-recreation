@@ -43,8 +43,8 @@ func _physics_process(_delta: float) -> void:
 				targets.append(entity)
 		else:
 			targets.erase(entity)
-			#target_lost.emit(current_target)
-			#current_target = null
+			target_lost.emit(entity)
+			current_target = null
 	
 	if !targets.is_empty():
 		var distances = targets.map( func(target): return self.global_position.distance_to(target.global_position))
@@ -57,15 +57,10 @@ func _physics_process(_delta: float) -> void:
 				current_target = closest
 				target_found.emit(current_target)
 			elif current_target != null:
-				# Check if not same target
 				if current_target != closest:
-					# Runs when a different target is closer
-					print("AJSD")
+					# Change targets when a different target is closer.
 					current_target = closest
 					target_changed.emit(current_target)
-	#else:
-		#if current_target:
-			
 
 
 func _on_body_entered(body: Node2D):
@@ -85,17 +80,3 @@ func _on_body_exited(body: Node2D):
 			target_lost.emit(current_target)
 			current_target = null
 	#print(body)
-		
-	
-#func set_sight_range(value):
-	#print("sight_range set to ", value)
-	##set("sight_range", value)
-	#sight_range = value
-	#if has_node("CollisionShape2D"):
-		#var collision = $CollisionShape2D
-		#if collision.shape and collision.shape is CircleShape2D:
-			#collision.shape.radius = sight_range * Game.TILE_SIZE
-		#else:
-			#collision.shape = CircleShape2D.new()
-			#collision.shape.radius = sight_range * Game.TILE_SIZE
-				

@@ -6,9 +6,9 @@ enum MovementType {
 	NONE, TRACKED, WHEELED, LEGGED, HOVERING, FLYING, FLOATING,
 }
 
-@export var movement_type: MovementType = MovementType.NONE
-@export var speed: float = 120.0
-@export var rot_speed: float = 120.0
+@export var movement_type: MovementType = MovementType.NONE  ## Movement method. Determines how 
+@export var speed: float = 5.0  ## Movement speed in tiles/s.
+@export var rot_speed: float = 120.0  ## Body rotation speed in degrees/s
 
 #@export_group("Toggles")
 @export_category("Toggles")
@@ -44,8 +44,15 @@ func physics_process(delta: float) -> void:
 				unit.get_node("Tracks").material.set_shader_parameter("dir_y", y)
 				#unit.get_node("Tracks").region_rect.position.y -= (48.0 / 64) * y
 				pass
+				
+			MovementType.LEGGED:
+				unit.velocity = Vector2(x, y) * speed * Game.TILE_SIZE
+				unit.move_and_slide()
+				pass
+				
 			MovementType.WHEELED:
 				pass
+				
 			_:
 				#print("default")
 				pass

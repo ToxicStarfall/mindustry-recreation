@@ -5,6 +5,7 @@ extends Node
 
 @export_group("Main Attack")
 @export var weapons: Array[Weapon]
+@export var groups: Array[WeaponGroup]
 #@export_category("Special Attack")
 
 @export_category("Toggles")

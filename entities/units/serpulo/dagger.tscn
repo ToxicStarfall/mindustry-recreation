@@ -1,0 +1,154 @@
+[gd_scene format=3 uid="uid://dqn7lmf30e67d"]
+
+[ext_resource type="Script" uid="uid://bhsguese4xrmc" path="res://entities/units/unit.gd" id="1_6pfi5"]
+[ext_resource type="Shader" uid="uid://b18i3ewnkii0c" path="res://entities/units/serpulo/unit_outline_shader.gdshader" id="1_y5dy5"]
+[ext_resource type="Texture2D" uid="uid://cbvgvlbq3iiuk" path="res://assets/sprites/entities/units/dagger-leg.png" id="2_xevnv"]
+[ext_resource type="Texture2D" uid="uid://c2j38hvlsp6kk" path="res://assets/sprites/entities/units/dagger-base.png" id="3_p3vrm"]
+[ext_resource type="Texture2D" uid="uid://doahpndk8ykpg" path="res://assets/sprites/entities/units/dagger.png" id="4_6pfi5"]
+[ext_resource type="Script" uid="uid://bcnsah84lvxth" path="res://components/node/hitbox_component.gd" id="5_igvuf"]
+[ext_resource type="Script" uid="uid://capwm6jqredjg" path="res://components/node/health_component.gd" id="6_t0bvi"]
+[ext_resource type="Script" uid="uid://c6clt6s3n5xf4" path="res://components/node/defense_component.gd" id="7_dylhh"]
+[ext_resource type="Script" uid="uid://bwug1nqyeoi7p" path="res://components/node/movement_component.gd" id="8_tidit"]
+[ext_resource type="Script" uid="uid://d00es5tts4om7" path="res://components/node/attack_component.gd" id="9_i5yey"]
+[ext_resource type="Script" uid="uid://hyaclsf4mdaw" path="res://components/resource/weapon_group.gd" id="9_igvuf"]
+[ext_resource type="Script" uid="uid://cyth0wwtyo0ym" path="res://components/node/targeting_component.gd" id="10_gbal3"]
+[ext_resource type="PackedScene" uid="uid://dbmtjqy8t7d4c" path="res://entities/projectiles/projectile.tscn" id="12_p3vrm"]
+[ext_resource type="Script" uid="uid://dkeiv4mg3ytus" path="res://weapons/turret.gd" id="13_igvuf"]
+[ext_resource type="Script" uid="uid://dqbskq33gkjmw" path="res://components/resource/damage_component.gd" id="13_y5dy5"]
+[ext_resource type="Texture2D" uid="uid://dbhgtwmkcvpb8" path="res://assets/sprites/entities/units/weapons/large-weapon.png" id="14_p3vrm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbmgr"]
+size = Vector2(44, 48)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bbvc1"]
+radius = 960.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y5dy5"]
+shader = ExtResource("1_y5dy5")
+shader_parameter/thickness = 2.000000095
+shader_parameter/ring_count = 16
+shader_parameter/ring_offset = 0.0
+shader_parameter/outline_color = Color(0, 0, 0, 1)
+shader_parameter/border_clipping_fix = true
+shader_parameter/aspect_ratio = 1.0
+shader_parameter/square_border = false
+shader_parameter/offset = Vector2(0, 0)
+shader_parameter/max_or_add = false
+
+[sub_resource type="Resource" id="Resource_igvuf"]
+script = ExtResource("13_y5dy5")
+metadata/_custom_type_script = "uid://dqbskq33gkjmw"
+
+[node name="Dagger" type="CharacterBody2D" unique_id=686862671]
+collision_layer = 2
+collision_mask = 3
+input_pickable = true
+motion_mode = 1
+script = ExtResource("1_6pfi5")
+
+[node name="Legs" type="Node2D" parent="." unique_id=1654096471]
+visible = false
+use_parent_material = true
+
+[node name="LegLeft" type="Sprite2D" parent="Legs" unique_id=44361417]
+position = Vector2(-2, 1)
+texture = ExtResource("2_xevnv")
+flip_h = true
+
+[node name="LegRight" type="Sprite2D" parent="Legs" unique_id=429078176]
+position = Vector2(1, 1)
+texture = ExtResource("2_xevnv")
+
+[node name="Base" type="Sprite2D" parent="." unique_id=1754193387]
+texture = ExtResource("3_p3vrm")
+
+[node name="Cell" type="Sprite2D" parent="." unique_id=1560672049]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1483858453]
+visible = false
+shape = SubResource("RectangleShape2D_mbmgr")
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1249276938]
+collision_layer = 0
+collision_mask = 6
+script = ExtResource("5_igvuf")
+metadata/_custom_type_script = "uid://bcnsah84lvxth"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=785027833]
+visible = false
+shape = SubResource("RectangleShape2D_mbmgr")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1730491802]
+script = ExtResource("6_t0bvi")
+metadata/_custom_type_script = "uid://capwm6jqredjg"
+
+[node name="DefenseComponent" type="Node" parent="." unique_id=200269811]
+script = ExtResource("7_dylhh")
+metadata/_custom_type_script = "uid://c6clt6s3n5xf4"
+
+[node name="MovementComponent" type="Node" parent="." unique_id=1774487529]
+script = ExtResource("8_tidit")
+movement_type = 3
+speed = 4.5
+rot_speed = 210.0
+metadata/_custom_type_script = "uid://bwug1nqyeoi7p"
+
+[node name="AttackComponent" type="Node" parent="." unique_id=1968296636 node_paths=PackedStringArray("weapons", "groups")]
+script = ExtResource("9_i5yey")
+weapons = [NodePath("../Body/Turret"), NodePath("../Body/Turret2")]
+groups = [NodePath("WeaponGroup")]
+metadata/_custom_type_script = "uid://d00es5tts4om7"
+
+[node name="WeaponGroup" type="Node" parent="AttackComponent" unique_id=530325738 node_paths=PackedStringArray("weapons")]
+script = ExtResource("9_igvuf")
+weapons = [NodePath("../../Body/Turret"), NodePath("../../Body/Turret2")]
+metadata/_custom_type_script = "uid://hyaclsf4mdaw"
+
+[node name="TargetingComponent" type="Area2D" parent="." unique_id=1149713576]
+z_index = -1
+collision_layer = 0
+collision_mask = 7
+script = ExtResource("10_gbal3")
+attack_range = 25.0
+metadata/_custom_type_script = "uid://cyth0wwtyo0ym"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetingComponent" unique_id=1979789748]
+visible = false
+shape = SubResource("CircleShape2D_bbvc1")
+
+[node name="Body" type="Sprite2D" parent="." unique_id=1182832936]
+material = SubResource("ShaderMaterial_y5dy5")
+rotation = 0.008726646
+texture = ExtResource("4_6pfi5")
+
+[node name="Turret" type="Node2D" parent="Body" unique_id=755576741]
+position = Vector2(16, 0)
+script = ExtResource("13_igvuf")
+rotation_limit_left = 45.0
+projectile_scene = ExtResource("12_p3vrm")
+recoil_dist = 4.0
+damage_comp = SubResource("Resource_igvuf")
+delay = 0.0
+cooldown = 0.25
+metadata/_custom_type_script = "uid://dkeiv4mg3ytus"
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/Turret" unique_id=156577280]
+texture = ExtResource("14_p3vrm")
+offset = Vector2(0, -7)
+
+[node name="Turret2" type="Node2D" parent="Body" unique_id=874210564]
+position = Vector2(-16, 0)
+script = ExtResource("13_igvuf")
+rotation_limit_right = 45.0
+projectile_scene = ExtResource("12_p3vrm")
+recoil_dist = 4.0
+damage_comp = SubResource("Resource_igvuf")
+delay = 0.0
+cooldown = 0.25
+metadata/_custom_type_script = "uid://dkeiv4mg3ytus"
+
+[node name="Sprite2D" type="Sprite2D" parent="Body/Turret2" unique_id=976435731]
+texture = ExtResource("14_p3vrm")
+offset = Vector2(0, -7)
+flip_h = true

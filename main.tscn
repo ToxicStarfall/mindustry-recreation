@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dvhnkpjr827m6" path="res://entities/units/stell/stell.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://cga2o27k20gn8" path="res://entities/blocks/wall.tscn" id="2_h2yge"]
 [ext_resource type="Texture2D" uid="uid://ipw05bvtan7u" path="res://assets/sprites/environment/floors_atlas.tres" id="3_lquwl"]
+[ext_resource type="PackedScene" uid="uid://dqn7lmf30e67d" path="res://entities/units/serpulo/dagger.tscn" id="5_lquwl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1bvp3"]
 
@@ -31,7 +32,7 @@ custom_data_layer_0/type = 2
 sources/0 = SubResource("TileSetScenesCollectionSource_lquwl")
 sources/2 = SubResource("TileSetAtlasSource_7mycd")
 
-[node name="Main" type="Node2D" unique_id=1594855064]
+[node name="World" type="Node2D" unique_id=1594855064]
 script = ExtResource("1_0xm2m")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=986141999]
@@ -45,8 +46,13 @@ tile_set = SubResource("TileSet_7mycd")
 tile_map_data = PackedByteArray("AAD2////AAAAAAAAAQD1////AAAAAAAAAQD1//7/AAAAAAAAAQD2//7/AAAAAAAAAQA=")
 tile_set = SubResource("TileSet_7mycd")
 
+[node name="Dagger" parent="." unique_id=166380295 instance=ExtResource("5_lquwl")]
+position = Vector2(229, -247)
+faction = 1
+
 [node name="Stell" parent="." unique_id=1595817732 instance=ExtResource("1_ig7tw")]
-position = Vector2(343, -16)
+position = Vector2(549, -32)
+faction = 1
 
 [node name="Stell2" parent="." unique_id=686862671 instance=ExtResource("1_ig7tw")]
 position = Vector2(-678, 353)

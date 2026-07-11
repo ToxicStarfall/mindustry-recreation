@@ -17,22 +17,19 @@ var is_attacking: bool = false  ## True when player is overriding attack
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if get_parent().is_controlled:
-		if event.is_action_pressed("attack"):
-			is_attacking = true
-		elif event.is_action_released("attack"):
-			is_attacking = false
+	#if get_parent().is_controlled:
+		#if event.is_action_pressed("attack"):
+			#is_attacking = true
+		#if event.is_action_released("attack"):
+			#is_attacking = false
 	
-	if event.is_action("attack"):
-		if is_attacking:
-				for weapon in weapons:
-					#weapon.attacking = true
-					weapon.attacking = true #if weapon.target != null else false
-		else:
-				for weapon in weapons:
-					#weapon.attacking = false
-					weapon.attacking = false if weapon.target == null else true
-					pass
+		#if is_attacking:
+			#for weapon in weapons:
+				#weapon.attacking = true
+		#else:
+			#for weapon in weapons:
+				#weapon.attacking = false #if weapon.target == null else true  # Attacking stays true if there is a target.
+	pass
 
 
 func _physics_process(_delta: float) -> void:
@@ -41,5 +38,16 @@ func _physics_process(_delta: float) -> void:
 			weapon.target_position = get_parent().get_global_mouse_position()
 
 
-func attack_target():
-	pass
+func set_attack_status(status: bool):
+	is_attacking = status
+
+	for weapon in weapons:
+		weapon.attacking = is_attacking
+		#print(weapon.attacking)
+
+		if !owner.is_controlled and !is_attacking:
+			if weapon.target != null:
+				weapon.attacking = true  # Enable attacking if there was a previous target once player control stops.
+		#if is_attacking == false and :
+			#if weapon.target != null:
+				#weapon.attacking = true

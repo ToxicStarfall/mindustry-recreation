@@ -92,10 +92,12 @@ func _process(_delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if AttackComp: 
 		if is_controlled:
-			if event.is_action_pressed("attack"):
-				AttackComp.is_attacking = true
+			if event.is_action_pressed("attack", false, true):
+				#AttackComp.is_attacking = true
+				AttackComp.set_attack_status(true)
 			if event.is_action_released("attack"):
-				AttackComp.is_attacking = false
+				#AttackComp.is_attacking = false
+				AttackComp.set_attack_status(false)
 		if is_selected:
 			pass
 
@@ -123,10 +125,11 @@ func _on_health_zeroed():
 		self.queue_free()
 
 
+## Runs when there is no current target and a new target is found.
 func _on_target_found(entity: Entity):
 	if !is_controlled:
+		print(self, " - target found: ", entity)
 		if entity.is_targetable:
-			#print("target found: ", entity)
 			for weapon in weapons:
 				weapon.attacking = true
 				#weapon.target_position = entity.global_position
@@ -134,18 +137,23 @@ func _on_target_found(entity: Entity):
 			pass
 
 
+## Runs when the current target changes to another valid target.
 func _on_target_changed(entity: Entity):
-	if entity.is_targetable:
-		#print("target changed: ", entity)
-		for weapon in weapons:
-			#weapon.attacking = true
-			#weapon.target_position = entity.global_position
-			weapon.target = entity
+	if !is_controlled:
+		print(self, " - target changed: ", entity)
+		if entity.is_targetable:
+			for weapon in weapons:
+				#weapon.attacking = true
+				#weapon.target_position = entity.global_position
+				weapon.target = entity
 	
 
+## Runs when the current target is lost and there are no other valid targets.
 func _on_target_lost(entity: Entity):
-	#print("target lost: ", entity)
-	for weapon in weapons:
-		weapon.attacking = false
-		weapon.target = null
-		weapon.target_position = Vector2.ZERO
+	if !is_controlled:
+		#if entity.is_targetable:
+			print(self, " - target lost: ", entity)
+			for weapon in weapons:
+				weapon.attacking = false
+				weapon.target = null
+				weapon.target_position = Vector2.ZERO

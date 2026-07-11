@@ -14,7 +14,7 @@ signal target_lost (entity: Entity)
 
 @export_group("Targeting")
 @export var targets_closest: bool = true
-@export var targets_weakest: bool = true
+@export var targets_strongest: bool = true
 
 
 var entities: Array[Entity] = []  ## The entities which are in sight range.
@@ -43,7 +43,7 @@ func _physics_process(_delta: float) -> void:
 				targets.append(entity)
 		else:
 			targets.erase(entity)
-			target_lost.emit(entity)
+			#target_lost.emit(entity)
 			current_target = null
 	
 	if !targets.is_empty():
@@ -66,17 +66,18 @@ func _physics_process(_delta: float) -> void:
 func _on_body_entered(body: Node2D):
 	if body is Entity:
 		if !body == self.get_parent():  # Disallow self
-			if body.faction != self.get_parent().faction:  # Disallow same faction
+			if body.faction != self.get_parent().faction or body.faction == Entity.Faction.NONE:  # Disallow same faction
 				entities.append(body)
 	
 	
 func _on_body_exited(body: Node2D):
-	# NOTE: Delted entities send exit signals
+	# NOTE: Deleted entities send exit signals
 	if body is Entity:
 		if !body == self.get_parent():
-			entities.erase(body)
-			targets.erase(body)
-			
-			target_lost.emit(current_target)
-			current_target = null
+			if entities.has(body):
+				entities.erase(body)
+				targets.erase(body)
+				
+				target_lost.emit(current_target)
+				current_target = null
 	#print(body)

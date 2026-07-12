@@ -10,15 +10,24 @@
 [ext_resource type="Script" uid="uid://c6clt6s3n5xf4" path="res://components/node/defense_component.gd" id="7_dylhh"]
 [ext_resource type="Script" uid="uid://bwug1nqyeoi7p" path="res://components/node/movement_component.gd" id="8_tidit"]
 [ext_resource type="Script" uid="uid://d00es5tts4om7" path="res://components/node/attack_component.gd" id="9_i5yey"]
-[ext_resource type="Script" uid="uid://hyaclsf4mdaw" path="res://components/resource/weapon_group.gd" id="9_igvuf"]
+[ext_resource type="Script" uid="uid://hyaclsf4mdaw" path="res://components/resource/weapon_group.gd" id="9_t0bvi"]
 [ext_resource type="Script" uid="uid://cyth0wwtyo0ym" path="res://components/node/targeting_component.gd" id="10_gbal3"]
 [ext_resource type="PackedScene" uid="uid://dbmtjqy8t7d4c" path="res://entities/projectiles/projectile.tscn" id="12_p3vrm"]
 [ext_resource type="Script" uid="uid://dkeiv4mg3ytus" path="res://weapons/turret.gd" id="13_igvuf"]
 [ext_resource type="Script" uid="uid://dqbskq33gkjmw" path="res://components/resource/damage_component.gd" id="13_y5dy5"]
 [ext_resource type="Texture2D" uid="uid://dbhgtwmkcvpb8" path="res://assets/sprites/entities/units/weapons/large-weapon.png" id="14_p3vrm"]
+[ext_resource type="AudioStream" uid="uid://bc375eituxqg8" path="res://assets/sounds/blaster.ogg" id="17_t0bvi"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t0bvi"]
+radius = 14.0
+height = 40.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mbmgr"]
 size = Vector2(44, 48)
+
+[sub_resource type="Resource" id="Resource_dylhh"]
+script = ExtResource("9_t0bvi")
+metadata/_custom_type_script = "uid://hyaclsf4mdaw"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bbvc1"]
 radius = 960.0
@@ -66,8 +75,8 @@ texture = ExtResource("3_p3vrm")
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1483858453]
-visible = false
-shape = SubResource("RectangleShape2D_mbmgr")
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_t0bvi")
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=1249276938]
 collision_layer = 0
@@ -94,23 +103,18 @@ speed = 4.5
 rot_speed = 210.0
 metadata/_custom_type_script = "uid://bwug1nqyeoi7p"
 
-[node name="AttackComponent" type="Node" parent="." unique_id=1968296636 node_paths=PackedStringArray("weapons", "groups")]
+[node name="AttackComponent" type="Node" parent="." unique_id=1968296636 node_paths=PackedStringArray("weapons")]
 script = ExtResource("9_i5yey")
 weapons = [NodePath("../Body/Turret"), NodePath("../Body/Turret2")]
-groups = [NodePath("WeaponGroup")]
+groups = Array[ExtResource("9_t0bvi")]([SubResource("Resource_dylhh")])
 metadata/_custom_type_script = "uid://d00es5tts4om7"
-
-[node name="WeaponGroup" type="Node" parent="AttackComponent" unique_id=530325738 node_paths=PackedStringArray("weapons")]
-script = ExtResource("9_igvuf")
-weapons = [NodePath("../../Body/Turret"), NodePath("../../Body/Turret2")]
-metadata/_custom_type_script = "uid://hyaclsf4mdaw"
 
 [node name="TargetingComponent" type="Area2D" parent="." unique_id=1149713576]
 z_index = -1
 collision_layer = 0
 collision_mask = 7
 script = ExtResource("10_gbal3")
-attack_range = 25.0
+attack_range = 30.0
 metadata/_custom_type_script = "uid://cyth0wwtyo0ym"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TargetingComponent" unique_id=1979789748]
@@ -136,6 +140,11 @@ metadata/_custom_type_script = "uid://dkeiv4mg3ytus"
 [node name="Sprite2D" type="Sprite2D" parent="Body/Turret" unique_id=156577280]
 texture = ExtResource("14_p3vrm")
 offset = Vector2(0, -7)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Body/Turret" unique_id=129542808]
+stream = ExtResource("17_t0bvi")
+max_polyphony = 2
+area_mask = 2
 
 [node name="Turret2" type="Node2D" parent="Body" unique_id=874210564]
 position = Vector2(-16, 0)

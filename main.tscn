@@ -1,10 +1,11 @@
 [gd_scene format=4 uid="uid://13tvefgy3kup"]
 
-[ext_resource type="Script" uid="uid://dlkyvbtsohh1u" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://dlkyvbtsohh1u" path="res://world.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dvhnkpjr827m6" path="res://entities/units/stell/stell.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://cga2o27k20gn8" path="res://entities/blocks/wall.tscn" id="2_h2yge"]
 [ext_resource type="Texture2D" uid="uid://ipw05bvtan7u" path="res://assets/sprites/environment/floors_atlas.tres" id="3_lquwl"]
 [ext_resource type="PackedScene" uid="uid://dqn7lmf30e67d" path="res://entities/units/serpulo/dagger.tscn" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://er5bdrdfukxt" path="res://ui/debugger/debugger.tscn" id="6_7mycd"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1bvp3"]
 
@@ -36,6 +37,7 @@ sources/2 = SubResource("TileSetAtlasSource_7mycd")
 script = ExtResource("1_0xm2m")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=986141999]
+unique_name_in_owner = true
 
 [node name="FloorTileMap" type="TileMapLayer" parent="." unique_id=1673399299]
 z_index = -1
@@ -51,8 +53,12 @@ position = Vector2(229, -247)
 faction = 1
 
 [node name="Stell" parent="." unique_id=1595817732 instance=ExtResource("1_ig7tw")]
-position = Vector2(549, -32)
+position = Vector2(881, -6)
 faction = 1
 
 [node name="Stell2" parent="." unique_id=686862671 instance=ExtResource("1_ig7tw")]
 position = Vector2(-678, 353)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=479641234]
+
+[node name="MarginContainer" parent="UI" unique_id=743379157 instance=ExtResource("6_7mycd")]

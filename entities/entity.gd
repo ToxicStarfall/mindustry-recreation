@@ -27,15 +27,15 @@ var AttackComp: AttackComponent
 var weapons: Array[Weapon]
 var statuses: Array
 
-@export var mouse_hovered: bool = false
+#@export var mouse_hovered: bool = false
 
 
 
 func _init() -> void:
 	child_entered_tree.connect( _on_child_entered_tree )
 	child_exiting_tree.connect( _on_child_exiting_tree )
-	self.mouse_entered.connect( func(): mouse_hovered = true )
-	self.mouse_exited.connect( func(): mouse_hovered = false )
+	#self.mouse_entered.connect( func(): mouse_hovered = true )
+	#self.mouse_exited.connect( func(): mouse_hovered = false )
 
 
 func _ready() -> void:
@@ -101,10 +101,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		if is_selected:
 			pass
 
-	if event.is_action_pressed("control"):
-		if mouse_hovered:
-			is_controlled = true
-			Events.entity_controlled.emit(self)
+	#if event.is_action_pressed("control"):
+		#if mouse_hovered:
+			#is_controlled = true
+			#Events.entity_controlled.emit(self)
 
 
 func _on_hitbox_hit(damage_comp: DamageComponent):

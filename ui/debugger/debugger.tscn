@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://er5bdrdfukxt"]
+
+[ext_resource type="Script" uid="uid://dmq13clxo6nbw" path="res://ui/nodes/close_button.gd" id="1_em0o5"]
+
+[node name="MarginContainer" type="MarginContainer" unique_id=743379157]
+offset_right = 132.0
+offset_bottom = 55.0
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1107729551]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=939882899]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=795931530]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1347282376]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1175158309]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[b]Debugger[/b]"
+fit_content = true
+
+[node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1229661706]
+layout_mode = 2
+text = "Hide"
+script = ExtResource("1_em0o5")
+metadata/_custom_type_script = "uid://dmq13clxo6nbw"
+
+[node name="DebugText" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=510951942]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+fit_content = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1971350584]
+layout_mode = 2
+
+[node name="MoveUnitCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1976309222]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Move Unit"

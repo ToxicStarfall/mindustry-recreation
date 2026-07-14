@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://bcnsah84lvxth" path="res://components/node/hitbox_component.gd" id="6_qa0yu"]
 [ext_resource type="Texture2D" uid="uid://uj3cyumcvnl6" path="res://entities/units/stell/stell-weapon.png" id="6_vr3tf"]
 [ext_resource type="Script" uid="uid://c6clt6s3n5xf4" path="res://components/node/defense_component.gd" id="8_qa0yu"]
-[ext_resource type="Script" uid="uid://dkeiv4mg3ytus" path="res://weapons/turret.gd" id="10_ncd0l"]
+[ext_resource type="Script" uid="uid://dkeiv4mg3ytus" path="res://weapons/ranged/turrets/turret.gd" id="10_ncd0l"]
 [ext_resource type="Script" uid="uid://capwm6jqredjg" path="res://components/node/health_component.gd" id="11_au8vn"]
 [ext_resource type="PackedScene" uid="uid://dbmtjqy8t7d4c" path="res://entities/projectiles/projectile.tscn" id="11_qa0yu"]
 [ext_resource type="Script" uid="uid://bwug1nqyeoi7p" path="res://components/node/movement_component.gd" id="12_nkf8w"]
@@ -102,6 +102,9 @@ texture = ExtResource("6_vr3tf")
 stream = ExtResource("15_1kibx")
 max_polyphony = 2
 area_mask = 2
+
+[node name="Marker2D" type="Marker2D" parent="Turret" unique_id=249404725]
+position = Vector2(13, 5.68248e-07)
 
 [node name="TargetingComponent" type="Area2D" parent="." unique_id=1149713576]
 z_index = -1

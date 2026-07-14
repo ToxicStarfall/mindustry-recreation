@@ -8,3 +8,4 @@ signal entity_controlled (entity: Entity)
 signal entity_selected (entity: Entity)
 
 signal projectile_spawned (projectile: Projectile)
+#signal projectile_spawn_requested (projectile: Projectile)

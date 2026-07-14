@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://hyaclsf4mdaw" path="res://components/resource/weapon_group.gd" id="9_t0bvi"]
 [ext_resource type="Script" uid="uid://cyth0wwtyo0ym" path="res://components/node/targeting_component.gd" id="10_gbal3"]
 [ext_resource type="PackedScene" uid="uid://dbmtjqy8t7d4c" path="res://entities/projectiles/projectile.tscn" id="12_p3vrm"]
-[ext_resource type="Script" uid="uid://dkeiv4mg3ytus" path="res://weapons/turret.gd" id="13_igvuf"]
+[ext_resource type="Script" uid="uid://dkeiv4mg3ytus" path="res://weapons/ranged/turrets/turret.gd" id="13_igvuf"]
 [ext_resource type="Script" uid="uid://dqbskq33gkjmw" path="res://components/resource/damage_component.gd" id="13_y5dy5"]
 [ext_resource type="Texture2D" uid="uid://dbhgtwmkcvpb8" path="res://assets/sprites/entities/units/weapons/large-weapon.png" id="14_p3vrm"]
 [ext_resource type="AudioStream" uid="uid://bc375eituxqg8" path="res://assets/sounds/blaster.ogg" id="17_t0bvi"]

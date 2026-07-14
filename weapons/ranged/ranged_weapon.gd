@@ -10,22 +10,37 @@ extends Weapon
 #@export_file("*.tscn") var projectile_scene: String = "res://scenes/enemies/"
 @export var projectile_scene: PackedScene
 
-@export_subgroup("Animation")
+#@export var overheats: bool = false
+#@export var heat_threshold: float = 100.0
+#@export var heat_rate: float = 10.0
+#@export var cool_rate: float = 8.0
+
+@export_group("Animation")
 @export var recoil_dist: float = 10.0  ## Distance of recoil effect in pixels.
+
+@export_group("Sounds")
+@export var fire_sound: AudioStream
+@export var reload_sound: AudioStream
+#@export var charge: AudioStream
+#@export var heatup_sound: AudioStream
+#@export var cooldown_sound: AudioStream
+
+#@export_group("Toggles")
+#@export var infinite_ammo: bool = false
 
 
 #func _physics_process(delta: float) -> void:
 	#pass
 
 
-#func _attack():
-	#fire_projectile()
+func attack():
+	fire_projectile(targeted_position)
 
 
-func fire_projectile(dir: Vector2, angle):
+func fire_projectile(dir: Vector2):
 	var projectile: Projectile = projectile_scene.instantiate()
-	projectile.faction = get_parent().faction
-	projectile.spawner_entity = get_parent()
+	projectile.faction = self.owner.faction
+	projectile.spawner_entity = self.owner
 	projectile.damage_comp = damage_comp
 	projectile.direction = dir.normalized()
 	projectile.position = self.global_position

@@ -10,12 +10,18 @@ func _ready() -> void:
 
 
 func _on_scene_tree_node_added(node: Node):
+	if node is Entity:
+		if node.input_pickable == false:
+			node.input_pickable = true
+
+	# Auto add collision
 	if node is HitboxComponent:
 		if !node.has_node("CollisionShape2D"):
 			var collision_shape = CollisionShape2D.new()
 			node.add_child( collision_shape )
 			collision_shape.owner = get_tree().edited_scene_root
 		
+	# Auto add and set collision
 	elif node is TargetingComponent:
 		if !node.has_node("CollisionShape2D"):
 			node.collision_layer = 0

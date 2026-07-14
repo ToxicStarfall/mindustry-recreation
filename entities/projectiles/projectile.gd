@@ -9,8 +9,8 @@ enum Faction { NONE, PLAYER, ENEMY }
 #@export var projectile: Texture2D
 #@export var projectile_back: Texture2D
 #@export var casing: Texture2D
-@export var speed: float = 10.0
-@export var lifetime: float = 10.0
+@export var speed: float = 10.0  ## Projectile speed in tiles/second.
+@export var lifetime: float = 10.0  ## Projectile lifeitme in seconds.
 #@export var falloff_curve: Curve
 #@export var spread: float
 #@export var casing_speed: float

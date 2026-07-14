@@ -78,6 +78,21 @@ func _on_body_exited(body: Node2D):
 				entities.erase(body)
 				targets.erase(body)
 				
-				target_lost.emit(current_target)
+				target_lost.emit(current_target)  # NOTE: emitted when valid active or inactive targets exit attack range.
 				current_target = null
 	#print(body)
+
+
+func attack_target(target: Entity = null):
+	if target:
+		pass
+	else:
+		if current_target:
+			target_found.emit(current_target)
+		else:
+			pass
+			
+
+
+func find_target() -> Entity:
+	return

@@ -8,7 +8,7 @@ enum Faction { NONE, PLAYER, ENEMY }
 #@export var body: Body
 
 @export_group("Toggles")
-@export var is_targetable: bool = true
+@export var is_targetable: bool = true  ## Whether or not this entity is able to be targeted by other entities.
 @export var is_controllable: bool = true  ## Whether or not this entity is able to be controlled by the player.
 @export var is_selectable: bool = true  ## Whether or not this entity is able to be selected by the player.
 
@@ -27,15 +27,11 @@ var AttackComp: AttackComponent
 var weapons: Array[Weapon]
 var statuses: Array
 
-#@export var mouse_hovered: bool = false
-
 
 
 func _init() -> void:
 	child_entered_tree.connect( _on_child_entered_tree )
 	child_exiting_tree.connect( _on_child_exiting_tree )
-	#self.mouse_entered.connect( func(): mouse_hovered = true )
-	#self.mouse_exited.connect( func(): mouse_hovered = false )
 
 
 func _ready() -> void:
@@ -101,11 +97,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		if is_selected:
 			pass
 
-	#if event.is_action_pressed("control"):
-		#if mouse_hovered:
-			#is_controlled = true
-			#Events.entity_controlled.emit(self)
-
 
 func _on_hitbox_hit(damage_comp: DamageComponent):
 	#if DefenseComp:
@@ -128,13 +119,13 @@ func _on_health_zeroed():
 ## Runs when there is no current target and a new target is found.
 func _on_target_found(entity: Entity):
 	if !is_controlled:
+		# TODO Fix target found spam when a target is on the edge of attack range.
 		print(self, " - target found: ", entity)
 		if entity.is_targetable:
 			for weapon in weapons:
 				weapon.attacking = true
-				#weapon.target_position = entity.global_position
-				weapon.target = entity
-			pass
+				#weapon.targeted_position = entity.global_position
+				weapon.targeted_entity = entity
 
 
 ## Runs when the current target changes to another valid target.
@@ -144,9 +135,9 @@ func _on_target_changed(entity: Entity):
 		if entity.is_targetable:
 			for weapon in weapons:
 				#weapon.attacking = true
-				#weapon.target_position = entity.global_position
-				weapon.target = entity
-	
+				#weapon.targeted_position = entity.global_position
+				weapon.targeted_entity = entity
+
 
 ## Runs when the current target is lost and there are no other valid targets.
 func _on_target_lost(entity: Entity):
@@ -155,5 +146,5 @@ func _on_target_lost(entity: Entity):
 			print(self, " - target lost: ", entity)
 			for weapon in weapons:
 				weapon.attacking = false
-				weapon.target = null
-				weapon.target_position = Vector2.ZERO
+				weapon.targeted_entity = null
+				weapon.targeted_position = Vector2.ZERO

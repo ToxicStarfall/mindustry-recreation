@@ -22,9 +22,9 @@ func _on_hitbox_area_entered(area):
 	if area is Projectile:
 		var projectile: Projectile = area
 		# Allow hitting only entities which did not spawn this projectile.
-		if projectile.spawner_entity != get_parent():
+		if projectile.spawner_entity != owner:
 			# Allow hitting only entities which belong to differing or NONE faction.
-			if get_parent().faction != projectile.faction or projectile.faction == Entity.Faction.NONE:
+			if owner.faction != projectile.faction or projectile.faction == Factions.NONE:
 				hit.emit(projectile.damage_comp)
 				projectile.collided()
 

@@ -19,7 +19,7 @@ signal target_lost (entity: Entity)
 
 var entities: Array[Entity] = []  ## The entities which are in sight range.
 var targets: Array[Entity]  ## The entities which are in attack range and are valid attack targets.
-var current_target: Entity
+var current_target: Entity  ## The current ai target.
 
 
 func _ready() -> void:
@@ -65,8 +65,8 @@ func _physics_process(_delta: float) -> void:
 
 func _on_body_entered(body: Node2D):
 	if body is Entity:
-		if !body == self.get_parent():  # Disallow self
-			if body.faction != self.get_parent().faction or body.faction == Entity.Faction.NONE:  # Disallow same faction
+		if !body == self.owner:  # Disallow self
+			if body.faction != self.owner.faction or body.faction == Factions.NONE:  # Disallow same faction
 				entities.append(body)
 	
 	

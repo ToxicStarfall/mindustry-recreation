@@ -10,7 +10,7 @@ var units: Array[Unit]
 
 
 func _init() -> void:
-	Events.projectile_spawned.connect( _on_projectile_spawned )
+	Events.projectile_spawn_requested.connect( _on_projectile_spawn_requested )
 	
 	child_entered_tree.connect( _on_child_entered_tree )
 	child_exiting_tree.connect( _on_child_exiting_tree )
@@ -81,7 +81,7 @@ func _on_child_exiting_tree(node: Node):
 			units.erase(node)
 
 	
-func _on_projectile_spawned(projectile: Projectile):
+func _on_projectile_spawn_requested(projectile: Projectile):
 	add_child( projectile )
 
 

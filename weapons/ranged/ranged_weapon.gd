@@ -2,6 +2,7 @@
 class_name RangedWeapon
 extends Weapon
 
+
 #@export var ammo: int = 60
 #@export var magazine: int = 20
 #@export var max_ammo: int = 0  # 
@@ -42,12 +43,13 @@ func fire_projectile(dir: Vector2):
 	projectile.faction = self.owner.faction
 	projectile.spawner_entity = self.owner
 	projectile.damage_comp = damage_comp
+	
 	projectile.direction = dir.normalized()
 	projectile.position = self.global_position
 	projectile.rotation = dir.normalized().rotated(deg_to_rad(90)).angle()
 	_animate_recoil()
 	
-	Events.projectile_spawned.emit( projectile )
+	Events.projectile_spawn_requested.emit( projectile )
 
 
 func _animate_recoil():

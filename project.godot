@@ -20,9 +20,10 @@ config/icon="res://icon.svg"
 
 EditorTool="*uid://ckv26xuyvs2dr"
 Events="*uid://dixnmsrmwieew"
+Factions="*uid://cd0an5smhdhjh"
 Game="*uid://ccxymib2uqhs0"
-Debugger="*uid://1yufg282k3ip"
 AudioManager="*uid://810tvwr6vpby"
+Debugger="*uid://1yufg282k3ip"
 
 [display]
 

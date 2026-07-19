@@ -2,9 +2,10 @@ class_name Projectile
 extends Area2D
 
 
-enum Faction { NONE, PLAYER, ENEMY }
+#enum Faction { NONE, PLAYER, ENEMY }
 
-@export var faction: Faction = Faction.NONE
+#@export var faction: Faction = Faction.NONE
+@export var faction: Faction = Factions.NONE
 
 #@export var projectile: Texture2D
 #@export var projectile_back: Texture2D

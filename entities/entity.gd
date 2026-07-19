@@ -2,9 +2,13 @@ class_name Entity
 extends Node2D
 
 
-enum Faction { NONE, PLAYER, ENEMY }
+#enum Faction { NONE, PLAYER, ENEMY }
 
-@export var faction: Faction = Faction.NONE
+#@export var faction: Faction = Faction.NONE
+@export var faction: Faction = Factions.NONE
+#@export_enum("None", "Shard", "Crux") var faction: String
+	#get:
+		#return Factions.get_faction(faction)
 #@export var body: Body
 
 @export_group("Toggles")

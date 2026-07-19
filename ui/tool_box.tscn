@@ -1,0 +1,260 @@
+[gd_scene format=3 uid="uid://ooibjg5fi532"]
+
+[ext_resource type="Theme" uid="uid://d3r3pl4o1n7ui" path="res://assets/theme.tres" id="1_sygiw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sygiw"]
+bg_color = Color(0.19966345, 0.19966345, 0.19966345, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aw2tu"]
+bg_color = Color(0.95, 0.09500002, 0.09500002, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ksc7r"]
+bg_color = Color(0.09500002, 0.6222499, 0.95, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pskj0"]
+bg_color = Color(1, 0.8666667, 0, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_aw2tu"]
+color = Color(0.4, 0.4, 0.4, 1)
+thickness = 4
+vertical = true
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_sygiw"]
+color = Color(0.4, 0.4, 0.4, 1)
+thickness = 4
+
+[node name="ToolBox" type="Control" unique_id=620957327]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1737052445]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -131.0
+offset_top = -104.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="InfoPanel" type="PanelContainer" parent="VBoxContainer" unique_id=1555594994]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 80)
+layout_mode = 2
+theme = ExtResource("1_sygiw")
+theme_type_variation = &"PanelContainerCorner1"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/InfoPanel" unique_id=1443750939]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/InfoPanel/MarginContainer" unique_id=1705761385]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="TitleLabel" type="RichTextLabel" parent="VBoxContainer/InfoPanel/MarginContainer/VBoxContainer" unique_id=823646931]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Selected Thing"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/InfoPanel/MarginContainer/VBoxContainer" unique_id=1719582141]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="VBoxContainer/InfoPanel/MarginContainer/VBoxContainer" unique_id=1584525199]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "Thing description"
+fit_content = true
+
+[node name="CostLabel" type="RichTextLabel" parent="VBoxContainer/InfoPanel/MarginContainer/VBoxContainer" unique_id=585130709]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="HealthBar" type="ProgressBar" parent="VBoxContainer/InfoPanel/MarginContainer/VBoxContainer" unique_id=1338399131]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_sygiw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_aw2tu")
+value = 100.0
+show_percentage = false
+
+[node name="ShieldBar" type="ProgressBar" parent="VBoxContainer/InfoPanel/MarginContainer/VBoxContainer" unique_id=65577426]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_sygiw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ksc7r")
+value = 100.0
+show_percentage = false
+
+[node name="PowerBar" type="ProgressBar" parent="VBoxContainer/InfoPanel/MarginContainer/VBoxContainer" unique_id=1432544870]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_sygiw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pskj0")
+value = 100.0
+show_percentage = false
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/InfoPanel/MarginContainer/VBoxContainer" unique_id=404694779]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "Faction: [color=red]FACTION[/color]"
+fit_content = true
+horizontal_alignment = 2
+
+[node name="SelectorPanel" type="PanelContainer" parent="VBoxContainer" unique_id=1039681025]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme = ExtResource("1_sygiw")
+theme_type_variation = &"PanelContainerCorner1"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/SelectorPanel" unique_id=752299219]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="Units" type="HBoxContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer" unique_id=678933743]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units" unique_id=116621264]
+layout_mode = 2
+size_flags_horizontal = 3
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="UnitsGrid" type="GridContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units/ScrollContainer" unique_id=1846816690]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units" unique_id=146108770]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_aw2tu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units" unique_id=56993563]
+layout_mode = 2
+
+[node name="AllUnitButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=653428628]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="GroundUnitButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=799682998]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="AirUnitButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=815381539]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="NavalUnitButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=75626112]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="CustomUnitButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=1356224327]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Blocks" type="HBoxContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer" unique_id=657360125]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks" unique_id=1158275857]
+layout_mode = 2
+size_flags_horizontal = 3
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="BlocksGrid" type="GridContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks/ScrollContainer" unique_id=355937736]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks" unique_id=1120430091]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_aw2tu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks" unique_id=634314651]
+layout_mode = 2
+
+[node name="AllBlocksButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=806360170]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="DefenseBlockButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=598114924]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="TurretBlockButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=888294196]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="CustomBlockButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=259648996]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/SelectorPanel/VBoxContainer" unique_id=1829798856]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_sygiw")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer" unique_id=367310817]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="UnitsButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/HBoxContainer3" unique_id=469717324]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Units"
+
+[node name="BlocksButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/HBoxContainer3" unique_id=227118434]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Blocks"

@@ -37,7 +37,7 @@ fit_content = true
 
 [node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1229661706]
 layout_mode = 2
-text = "Hide"
+text = "Close"
 script = ExtResource("1_em0o5")
 metadata/_custom_type_script = "uid://dmq13clxo6nbw"
 
@@ -55,3 +55,16 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 text = "Move Unit"
+
+[node name="FactionEditCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1034174477]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Edit Factoin"
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=842394853]
+layout_mode = 2
+
+[node name="UncontrolButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1868988659]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Un-control Unit"

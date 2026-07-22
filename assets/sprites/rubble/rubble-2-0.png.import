@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hh027ogyfvga"
-path="res://.godot/imported/scrap-wall5.png-ab5e5fbd343ed338cd0d3f151e679b37.ctex"
+uid="uid://wamrlln3gxtc"
+path="res://.godot/imported/rubble-2-0.png-b9fa5c54df8c647306c20eebdb1e6398.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/entities/blocks/scrap-wall5.png"
-dest_files=["res://.godot/imported/scrap-wall5.png-ab5e5fbd343ed338cd0d3f151e679b37.ctex"]
+source_file="res://assets/sprites/rubble/rubble-2-0.png"
+dest_files=["res://.godot/imported/rubble-2-0.png-b9fa5c54df8c647306c20eebdb1e6398.ctex"]
 
 [params]
 

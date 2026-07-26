@@ -40,8 +40,8 @@ func physics_process(delta: float) -> void:
 				unit.move_and_slide()
 				unit.rotation_degrees += x * rot_speed * delta
 				
-				unit.get_node("Tracks").material.set_shader_parameter("dir_x", x)
-				unit.get_node("Tracks").material.set_shader_parameter("dir_y", y)
+				unit.get_node("%Tracks").material.set_shader_parameter("dir_x", x)
+				unit.get_node("%Tracks").material.set_shader_parameter("dir_y", y)
 				#unit.get_node("Tracks").region_rect.position.y -= (48.0 / 64) * y
 				pass
 				

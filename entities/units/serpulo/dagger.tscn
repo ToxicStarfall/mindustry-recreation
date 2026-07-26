@@ -10,9 +10,10 @@
 [ext_resource type="Script" uid="uid://c6clt6s3n5xf4" path="res://components/node/defense_component.gd" id="7_dylhh"]
 [ext_resource type="Script" uid="uid://bwug1nqyeoi7p" path="res://components/node/movement_component.gd" id="8_tidit"]
 [ext_resource type="Script" uid="uid://d00es5tts4om7" path="res://components/node/attack_component.gd" id="9_i5yey"]
-[ext_resource type="Script" uid="uid://hyaclsf4mdaw" path="res://components/resource/weapon_group.gd" id="9_t0bvi"]
 [ext_resource type="Script" uid="uid://cyth0wwtyo0ym" path="res://components/node/targeting_component.gd" id="10_gbal3"]
+[ext_resource type="Script" uid="uid://hyaclsf4mdaw" path="res://components/resource/weapon_group.gd" id="10_t0bvi"]
 [ext_resource type="PackedScene" uid="uid://dbmtjqy8t7d4c" path="res://entities/projectiles/projectile.tscn" id="12_p3vrm"]
+[ext_resource type="Texture2D" uid="uid://5wo4m237yyif" path="res://assets/sprites/entities/units/power-cell.png" id="13_dylhh"]
 [ext_resource type="Script" uid="uid://dkeiv4mg3ytus" path="res://weapons/ranged/turrets/turret.gd" id="13_igvuf"]
 [ext_resource type="Script" uid="uid://dqbskq33gkjmw" path="res://components/resource/damage_component.gd" id="13_y5dy5"]
 [ext_resource type="Texture2D" uid="uid://dbhgtwmkcvpb8" path="res://assets/sprites/entities/units/weapons/large-weapon.png" id="14_p3vrm"]
@@ -24,10 +25,6 @@ height = 40.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mbmgr"]
 size = Vector2(44, 48)
-
-[sub_resource type="Resource" id="Resource_dylhh"]
-script = ExtResource("9_t0bvi")
-metadata/_custom_type_script = "uid://hyaclsf4mdaw"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bbvc1"]
 radius = 960.0
@@ -56,7 +53,6 @@ motion_mode = 1
 script = ExtResource("1_6pfi5")
 
 [node name="Legs" type="Node2D" parent="." unique_id=1654096471]
-visible = false
 use_parent_material = true
 
 [node name="LegLeft" type="Sprite2D" parent="Legs" unique_id=44361417]
@@ -70,9 +66,6 @@ texture = ExtResource("2_xevnv")
 
 [node name="Base" type="Sprite2D" parent="." unique_id=1754193387]
 texture = ExtResource("3_p3vrm")
-
-[node name="Cell" type="Sprite2D" parent="." unique_id=1560672049]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1483858453]
 rotation = 1.5707964
@@ -103,10 +96,9 @@ speed = 4.5
 rot_speed = 210.0
 metadata/_custom_type_script = "uid://bwug1nqyeoi7p"
 
-[node name="AttackComponent" type="Node" parent="." unique_id=1968296636 node_paths=PackedStringArray("weapons")]
+[node name="AttackComponent" type="Node" parent="." unique_id=1968296636 node_paths=PackedStringArray("groups")]
 script = ExtResource("9_i5yey")
-weapons = [NodePath("../Body/Turret"), NodePath("../Body/Turret2")]
-groups = Array[ExtResource("9_t0bvi")]([SubResource("Resource_dylhh")])
+groups = [NodePath("../WeaponGroup")]
 metadata/_custom_type_script = "uid://d00es5tts4om7"
 
 [node name="TargetingComponent" type="Area2D" parent="." unique_id=1149713576]
@@ -121,43 +113,53 @@ metadata/_custom_type_script = "uid://cyth0wwtyo0ym"
 visible = false
 shape = SubResource("CircleShape2D_bbvc1")
 
-[node name="Body" type="Sprite2D" parent="." unique_id=1182832936]
+[node name="WeaponGroup" type="Node2D" parent="." unique_id=1511550592 node_paths=PackedStringArray("weapons")]
+script = ExtResource("10_t0bvi")
+weapons = [NodePath("Turret"), NodePath("Turret2")]
+metadata/_custom_type_script = "uid://hyaclsf4mdaw"
+
+[node name="Body" type="Sprite2D" parent="WeaponGroup" unique_id=1182832936]
 material = SubResource("ShaderMaterial_y5dy5")
-rotation = 0.008726646
 texture = ExtResource("4_6pfi5")
 
-[node name="Turret" type="Node2D" parent="Body" unique_id=755576741]
+[node name="Cell" type="Sprite2D" parent="WeaponGroup" unique_id=1560672049]
+modulate = Color(0.98039216, 0.8156863, 0.34117648, 1)
+texture = ExtResource("13_dylhh")
+
+[node name="Turret" type="Node2D" parent="WeaponGroup" unique_id=755576741]
 position = Vector2(16, 0)
 script = ExtResource("13_igvuf")
-rotation_limit_left = 45.0
+rotation_limit_left = 90.0
 projectile_scene = ExtResource("12_p3vrm")
-recoil_dist = 4.0
+projectile_size = Vector2(7, 9)
+speed = 7.0
+recoil_dist = 5.0
 damage_comp = SubResource("Resource_igvuf")
-delay = 0.0
-cooldown = 0.25
+cooldown = 0.5
 metadata/_custom_type_script = "uid://dkeiv4mg3ytus"
 
-[node name="Sprite2D" type="Sprite2D" parent="Body/Turret" unique_id=156577280]
+[node name="Sprite2D" type="Sprite2D" parent="WeaponGroup/Turret" unique_id=156577280]
 texture = ExtResource("14_p3vrm")
 offset = Vector2(0, -7)
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Body/Turret" unique_id=129542808]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="WeaponGroup/Turret" unique_id=129542808]
 stream = ExtResource("17_t0bvi")
 max_polyphony = 2
 area_mask = 2
 
-[node name="Turret2" type="Node2D" parent="Body" unique_id=874210564]
+[node name="Turret2" type="Node2D" parent="WeaponGroup" unique_id=874210564]
 position = Vector2(-16, 0)
 script = ExtResource("13_igvuf")
-rotation_limit_right = 45.0
+rotation_limit_right = 90.0
 projectile_scene = ExtResource("12_p3vrm")
-recoil_dist = 4.0
+projectile_size = Vector2(7, 9)
+speed = 7.0
+recoil_dist = 5.0
 damage_comp = SubResource("Resource_igvuf")
-delay = 0.0
-cooldown = 0.25
+cooldown = 0.5
 metadata/_custom_type_script = "uid://dkeiv4mg3ytus"
 
-[node name="Sprite2D" type="Sprite2D" parent="Body/Turret2" unique_id=976435731]
+[node name="Sprite2D" type="Sprite2D" parent="WeaponGroup/Turret2" unique_id=976435731]
 texture = ExtResource("14_p3vrm")
 offset = Vector2(0, -7)
 flip_h = true

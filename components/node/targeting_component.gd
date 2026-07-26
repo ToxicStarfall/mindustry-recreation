@@ -1,5 +1,6 @@
 #@tool
 #@icon("res://assets/icons/components/sight.svg")
+## Handles AI Targeting
 class_name TargetingComponent
 extends Area2D
 
@@ -14,7 +15,9 @@ signal target_lost (entity: Entity)
 
 @export_group("Targeting")
 @export var targets_closest: bool = true
-@export var targets_strongest: bool = true
+#@export var targets_strongest: bool = true
+#@export var targets_healthiest: bool = true
+#@export var targeting_priority: Array
 
 
 var entities: Array[Entity] = []  ## The entities which are in sight range.
@@ -43,8 +46,6 @@ func _physics_process(_delta: float) -> void:
 				targets.append(entity)
 		else:
 			targets.erase(entity)
-			#target_lost.emit(entity)
-			current_target = null
 	
 	if !targets.is_empty():
 		var distances = targets.map( func(target): return self.global_position.distance_to(target.global_position))
@@ -54,6 +55,7 @@ func _physics_process(_delta: float) -> void:
 		var closest = targets.get(distances.find( distances_sorted.get(0) ))
 		if closest:
 			if current_target == null:
+				#print(current_target)
 				current_target = closest
 				target_found.emit(current_target)
 			elif current_target != null:
@@ -80,7 +82,6 @@ func _on_body_exited(body: Node2D):
 				
 				target_lost.emit(current_target)  # NOTE: emitted when valid active or inactive targets exit attack range.
 				current_target = null
-	#print(body)
 
 
 func attack_target(target: Entity = null):

@@ -22,7 +22,6 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("control"):
 		if hovered_entity:
-			hovered_entity.is_controlled = true
 			Events.entity_controlled.emit(hovered_entity)
 
 
@@ -31,6 +30,7 @@ func _on_entity_controlled(entity: Entity):
 		controlled_entity.is_controlled = false  # Un-control the previous controlled entity
 		controlled_entity.TargetingComp.attack_target()
 	controlled_entity = entity
+	controlled_entity.is_controlled = true
 	
 	Camera.reparent(controlled_entity)
 	Camera.position = Vector2.ZERO

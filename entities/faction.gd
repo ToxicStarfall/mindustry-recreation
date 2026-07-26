@@ -28,7 +28,7 @@ func get_relation(faction_id: String):
 	pass
 
 
-## A FactionRelation defines properties of the current relationsihp status
+## A FactionRelation defines properties of the relation status with another faction.
 class FactionRelation extends Resource:
 	#static var HOSTILE = true
 	

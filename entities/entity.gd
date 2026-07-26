@@ -30,6 +30,7 @@ var AttackComp: AttackComponent
 
 var weapons: Array[Weapon]
 var statuses: Array
+#var orders: Array  ## An array which represents a queue of orders to enact.
 
 
 
@@ -38,10 +39,22 @@ func _init() -> void:
 	child_exiting_tree.connect( _on_child_exiting_tree )
 
 
+func _on_child_entered_tree(child: Node):
+	if child is Weapon:
+		if !weapons.has(child):  # prevent duplicate entires
+			weapons.append(child)
+
+
+func _on_child_exiting_tree(child: Node):
+	if child is Weapon:
+		weapons.erase(child)
+
+
+
 func _ready() -> void:
 	_setup()
 	
-	
+
 func _setup():
 	if has_node("HitboxComponent"):  HitboxComp = $HitboxComponent
 	if has_node("HealthComponent"):  HealthComp = $HealthComponent
@@ -61,15 +74,6 @@ func _setup():
 		TargetingComp.target_changed.connect( _on_target_changed )
 		TargetingComp.target_lost.connect( _on_target_lost )
 
-
-func _on_child_entered_tree(child: Node):
-	if child is Weapon:
-		weapons.append(child)
-
-
-func _on_child_exiting_tree(child: Node):
-	if child is Weapon:
-		weapons.erase(child)
 
 
 func _draw() -> void:
@@ -123,32 +127,21 @@ func _on_health_zeroed():
 ## Runs when there is no current target and a new target is found.
 func _on_target_found(entity: Entity):
 	if !is_controlled:
-		# TODO Fix target found spam when a target is on the edge of attack range.
-		print(self, " - target found: ", entity)
 		if entity.is_targetable:
-			for weapon in weapons:
-				weapon.attacking = true
-				#weapon.targeted_position = entity.global_position
-				weapon.targeted_entity = entity
+			#print(self, " - target found: ", entity)
+			AttackComp.set_target(entity)
 
 
 ## Runs when the current target changes to another valid target.
 func _on_target_changed(entity: Entity):
 	if !is_controlled:
-		print(self, " - target changed: ", entity)
 		if entity.is_targetable:
-			for weapon in weapons:
-				#weapon.attacking = true
-				#weapon.targeted_position = entity.global_position
-				weapon.targeted_entity = entity
+			#print(self, " - target changed: ", entity)
+			AttackComp.set_target(entity)
 
 
 ## Runs when the current target is lost and there are no other valid targets.
 func _on_target_lost(entity: Entity):
 	if !is_controlled:
-		#if entity.is_targetable:
-			print(self, " - target lost: ", entity)
-			for weapon in weapons:
-				weapon.attacking = false
-				weapon.targeted_entity = null
-				weapon.targeted_position = Vector2.ZERO
+			#print(self, " - target lost: ", entity)
+			AttackComp.set_target(null)

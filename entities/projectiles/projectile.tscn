@@ -4,25 +4,39 @@
 [ext_resource type="Texture2D" uid="uid://cgxjsolqlhpm8" path="res://assets/sprites/entities/projectiles/bullet-back.png" id="2_4yeyn"]
 [ext_resource type="Texture2D" uid="uid://bit6kkpubmehl" path="res://assets/sprites/entities/projectiles/bullet.png" id="3_n3d54"]
 
+[sub_resource type="Curve" id="Curve_ouac8"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
+point_count = 2
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4yeyn"]
-height = 28.0
+height = 40.0
 
 [node name="Projectile" type="Area2D" unique_id=663925303]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_ek2yu")
+default_size = Vector2(26, 26)
 
 [node name="ProjectileBackSprite" type="Sprite2D" parent="." unique_id=2080071794]
-position = Vector2(0, 6)
+modulate = Color(0.9843137, 0.827451, 0.40392157, 1)
 texture = ExtResource("2_4yeyn")
 
 [node name="ProjectileSprite" type="Sprite2D" parent="." unique_id=966289844]
-modulate = Color(0.73, 0.5888667, 0.30660003, 1)
-scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_n3d54")
 
+[node name="Trail" type="Line2D" parent="." unique_id=1237613088]
+visible = false
+z_index = -1
+points = PackedVector2Array(0, 0, 0, 47)
+width = 20.0
+width_curve = SubResource("Curve_ouac8")
+default_color = Color(0.9843137, 0.827451, 0.40392157, 1)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=175219917]
+visible = false
 shape = SubResource("CapsuleShape2D_4yeyn")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1984904171]
+visible = false
+position = Vector2(0, -6)
 rect = Rect2(-10, -14, 20, 40)

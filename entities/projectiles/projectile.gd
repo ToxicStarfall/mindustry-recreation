@@ -46,3 +46,14 @@ func _physics_process(_delta: float) -> void:
 func collided():
 	# Do things after having collided with an object
 	self.queue_free()
+
+
+func scale_to(size: Vector2 = default_size):
+	if size != Vector2.ZERO:
+		print(scale, " to ", (size / default_size))
+		scale = (size / default_size)
+	pass
+
+
+func _on_lifetime_timeout():
+	queue_free()

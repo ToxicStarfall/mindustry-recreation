@@ -16,6 +16,22 @@ func _init() -> void:
 	child_exiting_tree.connect( _on_child_exiting_tree )
 
 
+func _on_child_entered_tree(node: Node):
+	if node is Entity:
+		node.mouse_entered.connect( _on_mouse_entered_entity.bind(node) )
+		node.mouse_exited.connect( _on_mouse_exited_entity.bind(node) )
+		if node is Unit:
+			units.append(node)
+		
+
+func _on_child_exiting_tree(node: Node):
+	if node is Entity:
+		node.mouse_entered.disconnect( _on_mouse_entered_entity )
+		node.mouse_exited.disconnect( _on_mouse_exited_entity )
+		if node is Unit:
+			units.erase(node)
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	# NOTE: event.factor is used for variable inputs such as trackpad scroll speed
 	var zoom_factor = 0.1

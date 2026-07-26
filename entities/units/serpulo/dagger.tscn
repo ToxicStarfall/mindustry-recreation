@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dqn7lmf30e67d"]
 
 [ext_resource type="Script" uid="uid://bhsguese4xrmc" path="res://entities/units/unit.gd" id="1_6pfi5"]
-[ext_resource type="Shader" uid="uid://b18i3ewnkii0c" path="res://entities/units/serpulo/unit_outline_shader.gdshader" id="1_y5dy5"]
+[ext_resource type="Shader" uid="uid://b18i3ewnkii0c" path="res://effects/shaders/unit_outline_shader.gdshader" id="1_y5dy5"]
 [ext_resource type="Texture2D" uid="uid://cbvgvlbq3iiuk" path="res://assets/sprites/entities/units/dagger-leg.png" id="2_xevnv"]
 [ext_resource type="Texture2D" uid="uid://c2j38hvlsp6kk" path="res://assets/sprites/entities/units/dagger-base.png" id="3_p3vrm"]
 [ext_resource type="Texture2D" uid="uid://doahpndk8ykpg" path="res://assets/sprites/entities/units/dagger.png" id="4_6pfi5"]

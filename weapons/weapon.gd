@@ -5,7 +5,7 @@ extends Node2D
 
 
 @export var damage_comp: DamageComponent
-@export var delay: float = 0.5
+@export var delay: float = 0.0
 @export var cooldown: float = 1.0
 
 var attacking: bool = false

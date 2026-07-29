@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://bc6a18hmma7u1"]
+
+[sub_resource type="Curve" id="Curve_3yhh2"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, 360), 0.0, 0.0, 0, 0, Vector2(1, -360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_ouac8"]
+_limits = [0.0, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0]
+point_count = 1
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="Curve" id="Curve_sjbic"]
+_limits = [0.0, 6.0, 0.0, 1.0]
+_data = [Vector2(0, 6), 0.0, 0.0, 0, 0]
+point_count = 1
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="Gradient" id="Gradient_8v6ah"]
+offsets = PackedFloat32Array(0, 0.2, 0.4, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 0.69803923, 0.3019608, 1, 1, 0.85490197, 0.6666667, 1, 1, 0.60333335, 0.3, 1, 1, 0.68333334, 0, 0)
+metadata/_snap_enabled = true
+
+[node name="BlastParticles" type="CPUParticles2D" unique_id=1894877607]
+emitting = false
+amount = 6
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+particle_flag_align_y = true
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 100.0
+angle_curve = SubResource("Curve_3yhh2")
+split_scale = true
+scale_curve_x = SubResource("Curve_ouac8")
+scale_curve_y = SubResource("Curve_sjbic")
+color_ramp = SubResource("Gradient_8v6ah")

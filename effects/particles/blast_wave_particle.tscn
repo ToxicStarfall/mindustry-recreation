@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dnf0o75vsj6en"]
+
+[ext_resource type="Script" uid="uid://bohrmjuvwru6g" path="res://effects/particles/shape_particle_2d.gd" id="1_yaq7c"]
+
+[sub_resource type="Gradient" id="Gradient_8v6ah"]
+offsets = PackedFloat32Array(0, 0.2, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 0.85490197, 0.6666667, 1, 1, 0.69666666, 0.3, 1, 1, 0.68333334, 0, 0)
+metadata/_snap_enabled = true
+
+[node name="BlastWaveParticle" type="Node2D" unique_id=881683668]
+script = ExtResource("1_yaq7c")
+radius = 4.0
+radius_final = 12.0
+filled = false
+width = 2.0
+lifetime = 0.3
+one_shot = true
+color_ramp = SubResource("Gradient_8v6ah")
+metadata/_custom_type_script = "uid://bohrmjuvwru6g"
+metadata/_edit_vertical_guides_ = [-65.0]

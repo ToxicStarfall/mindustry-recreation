@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cq32j2dyjvra6"]
+
+[ext_resource type="Texture2D" uid="uid://cu22ib6tmipf8" path="res://assets/sprites/custom/kite-centered.png" id="1_c0irk"]
+
+[sub_resource type="Curve" id="Curve_fh3np"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="FlashParticles" type="CPUParticles2D" unique_id=107484445]
+emitting = false
+amount = 1
+texture = ExtResource("1_c0irk")
+lifetime = 0.4
+one_shot = true
+particle_flag_align_y = true
+spread = 22.5
+gravity = Vector2(0, 0)
+scale_amount_min = 0.45
+scale_amount_max = 0.6
+scale_amount_curve = SubResource("Curve_fh3np")
+color = Color(1, 0.68235296, 0, 1)

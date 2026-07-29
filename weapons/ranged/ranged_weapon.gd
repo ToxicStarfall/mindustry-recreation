@@ -57,6 +57,9 @@ signal test_fired
 #@export var heatup_sound: AudioStream
 #@export var cooldown_sound: AudioStream
 
+@export_group("Particles")
+@export var fire_particles: Array[Node2D]
+
 #@export_group("Toggles")
 #@export var infinite_ammo: bool = false
 
@@ -83,8 +86,10 @@ func fire_projectile(dir: Vector2):
 	projectile.position = self.global_position
 	projectile.rotation = dir.normalized().rotated(deg_to_rad(90)).angle()
 	_animate_recoil()
+	_spawn_particles()
 	
 	Events.projectile_spawn_requested.emit( projectile )
+	Events.audio_2d_requested.emit( fire_sound, self.global_position )
 
 
 func _animate_recoil():
@@ -94,6 +99,15 @@ func _animate_recoil():
 		tween.tween_property($Sprite2D, "position:y", position.y + recoil_dist, 0.10 * cooldown).set_trans(Tween.TRANS_SINE)
 		tween.tween_property($Sprite2D, "position:y", start_y, 0.80 * cooldown).set_trans(Tween.TRANS_SINE)#.set_ease(Tween.EASE_IN)
 
+
+#func 
+
+
+func _spawn_particles():
+	for particle in fire_particles:
+		if particle is ShapeParticles2D or particle is CPUParticles2D:
+			particle.emitting = true
+			#Events.particle_spawn_requested.emit(particle, particle.position)
 
 
 # - - -  @TOOL FUNCTIONS  - - - #
@@ -107,9 +121,10 @@ func _set_auto_fire(value):
 ## @tool utility function
 func _auto_fire():
 	if auto_fire:
-		_test_fire()
-		await get_tree().create_timer( auto_fire_interval ).timeout
-		_auto_fire()
+		if get_tree():
+			_test_fire()
+			await get_tree().create_timer( auto_fire_interval ).timeout
+			_auto_fire()
 
 
 ## @tool utility function
@@ -131,6 +146,7 @@ func _test_fire():
 	projectile.rotation = dir.normalized().rotated(deg_to_rad(90)).angle()
 	
 	_animate_recoil()
+	_spawn_particles()
 	test_fired.emit(projectile)
 	
 	#Events.projectile_spawn_requested.emit( projectile )

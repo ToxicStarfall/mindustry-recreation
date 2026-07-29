@@ -57,3 +57,5 @@ func scale_to(size: Vector2 = default_size):
 
 func _on_lifetime_timeout():
 	queue_free()
+	Events.particle_spawn_requested.emit("res://effects/particles/blast_particles.tscn", self.position)
+	Events.particle_spawn_requested.emit("res://effects/particles/blast_wave_particle.tscn", self.position)

@@ -23,6 +23,7 @@ Events="*uid://dixnmsrmwieew"
 Factions="*uid://cd0an5smhdhjh"
 Game="*uid://ccxymib2uqhs0"
 AudioManager="*uid://810tvwr6vpby"
+ParticleManager="*uid://dufv8gi1o0xis"
 Debugger="*uid://1yufg282k3ip"
 
 [display]

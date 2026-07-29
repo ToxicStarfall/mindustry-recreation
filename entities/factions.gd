@@ -7,7 +7,7 @@ signal faction_removed(faction: Faction)
 signal faction_changed(faction: Faction)
 
 
-#enum { None, Shard, Crux, Malis }
+enum { None, Shard, Crux, Malis }
 
 #static var NONE: Faction = Faction.new("none", "None", Color.LIGHT_GRAY, true)
 static var NONE: Faction = Faction.new("none", "None", Color("b6b8c7"), true)

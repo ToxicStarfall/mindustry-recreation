@@ -9,7 +9,11 @@ enum Shape { CIRCLE, POLYGON }
 
 @export_group("Shape")
 @export var shape: Shape = Shape.CIRCLE
-@export var radius: float = 1.0
+@export_subgroup("Radius")
+@export var radius: float = 16.0
+@export var radius_final: float = 16.0
+@export var radius_curve: Curve#: get = _get_radius_curve
+@export_subgroup("")
 @export var filled: bool = true
 @export var width: float = -1.0
 @export var offset: Vector2 = Vector2.ZERO
@@ -20,7 +24,7 @@ enum Shape { CIRCLE, POLYGON }
 
 
 @export_group("Time")
-@export var lifetime: float = 1.0
+@export var lifetime: float = 1.0: set = _set_lifetime
 @export var one_shot: bool = false
 
 #@export_group("Initial Velocity")
@@ -32,7 +36,6 @@ enum Shape { CIRCLE, POLYGON }
 @export var color_ramp: Gradient
 
 
-
 var emit_timer = Timer.new()
 var draw_delta: float = 0.0
 
@@ -42,6 +45,8 @@ func _ready() -> void:
 	add_child(emit_timer)
 	emit_timer.wait_time = lifetime
 	emit_timer.timeout.connect( _end_emission )
+	if emitting:
+		emit_timer.start()
 	pass
 
 
@@ -55,7 +60,18 @@ func _draw() -> void:
 	if emitting:
 		match shape:
 			Shape.CIRCLE:
-				draw_circle( Vector2.ZERO, radius * draw_delta, color, filled, width )
+				draw_circle (
+					Vector2.ZERO,
+					#radius,
+					#radius * draw_delta,
+					#radius * (draw_delta / lifetime),
+					radius + ((radius_final - radius) * (draw_delta / lifetime)),
+					#radius * (radius_curve.sample(draw_delta / lifetime) if radius_curve != null else 1.0),
+					color * color_ramp.sample(draw_delta / lifetime),
+					filled,
+					width
+				)
+				#print(radius + ((radius_final - radius) * (draw_delta / lifetime)))
 
 			Shape.POLYGON:
 				#var points = []
@@ -64,10 +80,14 @@ func _draw() -> void:
 				pass
 
 
+# ======== SETTERS ======== #
+
 func _set_emitting(value):
 	emitting = value
 	if emitting:
-		emit_timer.start()
+		# Stops init error when starting timer before it is ready.
+		if emit_timer.is_inside_tree():  
+			emit_timer.start()
 	else:
 		queue_redraw()  # Redraw to clear drawing
 
@@ -76,5 +96,19 @@ func _end_emission():
 	if one_shot:
 		emitting = false
 	elif emitting:
-			emit_timer.start()
+		emit_timer.start()
 	draw_delta = 0.0
+
+
+func _set_lifetime(value: float):
+	lifetime = value
+	emit_timer.wait_time = lifetime
+
+
+# ======== GETTERS ======== #
+
+#func _get_radius_curve():
+	#if radius_curve:
+		#return radius_curve
+	#else:
+		#return 1.0

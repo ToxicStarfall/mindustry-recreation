@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://badp3oyyrdn65"
-path="res://.godot/imported/block-middle.png-6ca69638f18cb1c43f01bc4f3ebbcbae.ctex"
+uid="uid://bxhe460bck7jr"
+path="res://.godot/imported/copper-wall.png-80f9f127e41c283f3f3e3705f4c2e45d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/entities/blocks/extra/block-middle.png"
-dest_files=["res://.godot/imported/block-middle.png-6ca69638f18cb1c43f01bc4f3ebbcbae.ctex"]
+source_file="res://assets/sprites/blocks/walls/copper-wall.png"
+dest_files=["res://.godot/imported/copper-wall.png-80f9f127e41c283f3f3e3705f4c2e45d.ctex"]
 
 [params]
 

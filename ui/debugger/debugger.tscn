@@ -59,7 +59,7 @@ text = "Move Unit"
 [node name="FactionEditCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1034174477]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Edit Factoin"
+text = "Edit Faction"
 
 [node name="OptionButton" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=842394853]
 layout_mode = 2
@@ -68,3 +68,19 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 text = "Un-control Unit"
+
+[node name="FoldableContainer" type="FoldableContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=179646031]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=877819112]
+layout_mode = 2
+
+[node name="RangeVisuals" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1484577178]
+layout_mode = 2
+button_pressed = true
+text = "Range visuals"
+
+[node name="TargetingVisuals" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=18229011]
+layout_mode = 2
+text = "Targeting visuals"

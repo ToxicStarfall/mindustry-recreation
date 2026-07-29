@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://h0qr5yplnoso"
-path="res://.godot/imported/copper-wall-large.png-61c208a5665185b9df4edf510bfd2058.ctex"
+uid="uid://dx1unycr3r886"
+path="res://.godot/imported/duo-barrel-l.png-7e861993a397fc934e2537dffd469e51.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/entities/blocks/walls/copper-wall-large.png"
-dest_files=["res://.godot/imported/copper-wall-large.png-61c208a5665185b9df4edf510bfd2058.ctex"]
+source_file="res://assets/sprites/blocks/turrets/duo/duo-barrel-l.png"
+dest_files=["res://.godot/imported/duo-barrel-l.png-7e861993a397fc934e2537dffd469e51.ctex"]
 
 [params]
 

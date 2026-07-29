@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyonxrou4cktg"
-path="res://.godot/imported/place-arrow.png-4949a4be0008d5f565a63ef211a1bb68.ctex"
+uid="uid://hh027ogyfvga"
+path="res://.godot/imported/scrap-wall5.png-063f9ab29966c0587492836befe1ab9b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/entities/blocks/extra/place-arrow.png"
-dest_files=["res://.godot/imported/place-arrow.png-4949a4be0008d5f565a63ef211a1bb68.ctex"]
+source_file="res://assets/sprites/blocks/walls/scrap-wall5.png"
+dest_files=["res://.godot/imported/scrap-wall5.png-063f9ab29966c0587492836befe1ab9b.ctex"]
 
 [params]
 

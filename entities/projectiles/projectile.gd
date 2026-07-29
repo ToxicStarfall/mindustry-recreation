@@ -34,8 +34,7 @@ func _init() -> void:
 	
 
 func _ready() -> void:
-	if !is_inside_tree() or !Engine.is_editor_hint():
-		#$VisibleOnScreenNotifier2D.screen_exited.connect( func(): queue_free())
+	if get_tree().edited_scene_root != self:
 		get_tree().create_timer(lifetime).timeout.connect( _on_lifetime_timeout )
 
 
@@ -50,7 +49,7 @@ func collided():
 
 func scale_to(size: Vector2 = default_size):
 	if size != Vector2.ZERO:
-		print(scale, " to ", (size / default_size))
+		#print(scale, " to ", (size / default_size))
 		scale = (size / default_size)
 	pass
 

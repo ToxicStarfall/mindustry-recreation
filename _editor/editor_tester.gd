@@ -31,13 +31,3 @@ func _on_test_fired(projectile: Projectile):
 
 func _ready() -> void:
 	pass
-
-
-func _process(delta: float) -> void:
-	#draw_delta += delta
-	queue_redraw()
-
-
-func _draw() -> void:
-	#print("a")
-	draw_circle(Vector2.ZERO, 32 * draw_delta, Color.WHITE, false, 2)

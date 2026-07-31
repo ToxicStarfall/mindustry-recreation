@@ -71,11 +71,10 @@ func _process(delta: float) -> void:
 				var legs = unit.get_node("Legs").get_children()
 				var leg_count = legs.size()
 				var step_size = 10
-				var step_speed = 5
+				var step_speed = 4
 				
 				if !dir.is_zero_approx():
 					process_delta += delta
-					var last = 0.0
 					
 					for i in legs.size():
 						var leg = legs[i]
@@ -85,9 +84,41 @@ func _process(delta: float) -> void:
 						# Leg y pos follows sine movement pattern
 						leg.position.y = 0 + ( sin(process_delta * step_speed) * step_size ) * a
 						
-						# TODO - Scale leg.y from 1 <-> 0.5 as leg moves backwards and vice versa when forwards.
+						#if i == 0:
+						# Interval where sine is increasing / decreasing
+						var b = cos(process_delta * step_speed)
 						
-
+						## Difference from current leg pos and total distance.
+						var diff = abs(leg.position.y - (step_size))
+						## Ranges from 1-0 over full step length (fowards and back leg extension)
+						var scale = diff / (step_size * 2)
+						#print(scale)
+						leg.scale.y = 0.5 + (0.5 * scale)  ## Limit scale power to 50%
+						
+						if b < 0:  # Sine is decreasing:
+							pass
+						elif b > 0:  # Sine is increasing
+							pass
+						
+						# The current leg walk cycle movemnt direction
+						#var extend_dir = (sin(process_delta * step_speed) * step_size) * a
+						#if extend_dir > 0:  # Leg moving backwardsa
+							##leg.scale.y = 1 * (leg.position.y)
+							###leg.scale.y = 0 + sin(process_delta) * step_size
+							#pass
+						#elif extend_dir < 0:  # Leg moving forwards (-y is default foward facing position for units)
+							#pass
+						
+						#if last > process_delta:
+						#if leg.position.y > 0:
+							#var difference = abs(leg.position.y - (step_size * 2))
+							#var scaler = leg.position.y
+							#print(difference)
+							##print(scaler)
+							#leg.scale.y = 1 * scaler
+							#pass
+						#else:
+							#leg.scale.y = 1
 				pass
 				
 			MovementType.WHEELED:

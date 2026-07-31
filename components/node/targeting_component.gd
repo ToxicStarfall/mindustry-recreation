@@ -34,8 +34,8 @@ func _ready() -> void:
 		
 
 func _draw() -> void:
-	draw_circle(self.position, sight_range * Game.TILE_SIZE, Color(Color.WHITE_SMOKE, .5), true)#, ((sight_range * Game.TILE_SIZE) - (attack_range * Game.TILE_SIZE)))
-	draw_circle(self.position, attack_range * Game.TILE_SIZE, Color(Color.INDIAN_RED, .5), true, -1)
+	#draw_circle(self.position, sight_range * Game.TILE_SIZE, Color(Color.WHITE_SMOKE, .5), true)#, ((sight_range * Game.TILE_SIZE) - (attack_range * Game.TILE_SIZE)))
+	#draw_circle(self.position, attack_range * Game.TILE_SIZE, Color(Color.INDIAN_RED, .5), true, -1)
 	pass
 
 
@@ -69,7 +69,7 @@ func _physics_process(_delta: float) -> void:
 func _on_body_entered(body: Node2D):
 	if body is Entity:
 		if !body == self.owner:  # Disallow self
-			if body.faction != self.owner.faction or body.faction == Factions.NONE:  # Disallow same faction
+			if body.faction != self.owner.faction or body.faction == Factions.NONE.id:  # Disallow same faction
 				entities.append(body)
 	
 	

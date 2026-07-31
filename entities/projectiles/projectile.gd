@@ -6,7 +6,9 @@ extends Area2D
 #enum Faction { NONE, PLAYER, ENEMY }
 
 #@export var faction: Faction = Faction.NONE
-@export var faction: Faction
+#@export var faction: Factions.Default
+@export_enum("none", "shard", "crux", "malis") var faction: String
+
 @export var default_size: Vector2 = Vector2(20, 28)
 
 #@export var projectile: Texture2D
@@ -29,7 +31,7 @@ var spawner_entity: Entity
 
 func _init() -> void:
 	if !Engine.is_editor_hint():
-		faction = Factions.NONE
+		faction = Factions.NONE.id
 	pass
 	
 

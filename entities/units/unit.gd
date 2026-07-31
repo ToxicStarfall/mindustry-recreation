@@ -2,10 +2,8 @@ class_name Unit
 extends Entity
 
 
-#enum Faction { NONE, PLAYER, ENEMY }
 
 @export var body: Body
-#@export var faction: Faction = Faction.NONE
 	
 #@export_category("Toggles")
 #@export var is_targetable: bool = true

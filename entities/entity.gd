@@ -2,11 +2,9 @@ class_name Entity
 extends Node2D
 
 
-#enum Faction { NONE, PLAYER, ENEMY }
-
 #@export var faction: Faction = Faction.NONE
-@export var faction: Faction = Factions.NONE
-#@export_enum("None", "Shard", "Crux") var faction: String
+#@export var faction: Factions.Default = Factions.Default.NONE
+@export_enum("none", "shard", "crux", "malis") var faction: String
 	#get:
 		#return Factions.get_faction(faction)
 #@export var body: Body
@@ -141,7 +139,7 @@ func _on_target_changed(entity: Entity):
 
 
 ## Runs when the current target is lost and there are no other valid targets.
-func _on_target_lost(entity: Entity):
+func _on_target_lost(_entity: Entity):
 	if !is_controlled:
 			#print(self, " - target lost: ", entity)
 			AttackComp.set_target(null)

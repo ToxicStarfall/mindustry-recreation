@@ -24,12 +24,13 @@ func _on_hitbox_area_entered(area):
 		# Allow hitting only entities which did not spawn this projectile.
 		if projectile.spawner_entity != owner:
 			# Allow hitting only entities which belong to differing or NONE faction.
-			if owner.faction != projectile.faction or projectile.faction == Factions.NONE:
+			#if owner.faction != projectile.faction or projectile.faction == Factions.NONE:
+			if owner.faction != projectile.faction or projectile.faction == Factions.NONE.id:
 				hit.emit(projectile.damage_comp)
 				projectile.collided()
 
 
 # Handles body damage.
-func _on_hitbox_body_entered(body):
+func _on_hitbox_body_entered(_body):
 	#print(body, " entered hitbox.")
 	pass

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cv748w0eg0shm"
-path="res://.godot/imported/crawler-cell.png-ec3e2e11a220faaee8b036d2f57872cd.ctex"
+uid="uid://doahpndk8ykpg"
+path="res://.godot/imported/dagger.png-05dd406c39a1405b0620f734cfa7adf7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/entities/units/crawler-cell.png"
-dest_files=["res://.godot/imported/crawler-cell.png-ec3e2e11a220faaee8b036d2f57872cd.ctex"]
+source_file="res://assets/sprites/entities/units/dagger/dagger.png"
+dest_files=["res://.godot/imported/dagger.png-05dd406c39a1405b0620f734cfa7adf7.ctex"]
 
 [params]
 

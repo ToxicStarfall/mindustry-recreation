@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwxnwt8gl0gxa"
-path="res://.godot/imported/crawler-base.png-b41458c6a32ae72b32c5c44077586afe.ctex"
+uid="uid://dwhiktvad0ml6"
+path="res://.godot/imported/mace-cell.png-20c4be168955ee7ad9a202011a4f0730.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/entities/units/crawler-base.png"
-dest_files=["res://.godot/imported/crawler-base.png-b41458c6a32ae72b32c5c44077586afe.ctex"]
+source_file="res://assets/sprites/entities/units/mace/mace-cell.png"
+dest_files=["res://.godot/imported/mace-cell.png-20c4be168955ee7ad9a202011a4f0730.ctex"]
 
 [params]
 

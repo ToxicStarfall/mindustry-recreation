@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhv7jdgton5sl"
-path="res://.godot/imported/crawler.png-4f29e8d4584e50c2ea90c40aba4be0f4.ctex"
+uid="uid://bdqibq3chql1p"
+path="res://.godot/imported/mace-leg.png-b6e83584fe881b2d9ba394474cead4aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/entities/units/crawler.png"
-dest_files=["res://.godot/imported/crawler.png-4f29e8d4584e50c2ea90c40aba4be0f4.ctex"]
+source_file="res://assets/sprites/entities/units/mace/mace-leg.png"
+dest_files=["res://.godot/imported/mace-leg.png-b6e83584fe881b2d9ba394474cead4aa.ctex"]
 
 [params]
 

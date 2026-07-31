@@ -62,11 +62,8 @@ func _draw() -> void:
 			Shape.CIRCLE:
 				draw_circle (
 					Vector2.ZERO,
-					#radius,
-					#radius * draw_delta,
 					#radius * (draw_delta / lifetime),
 					radius + ((radius_final - radius) * (draw_delta / lifetime)),
-					#radius * (radius_curve.sample(draw_delta / lifetime) if radius_curve != null else 1.0),
 					color * color_ramp.sample(draw_delta / lifetime),
 					filled,
 					width

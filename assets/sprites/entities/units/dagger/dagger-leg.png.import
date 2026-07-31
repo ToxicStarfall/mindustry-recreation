@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvwcedhb08k0v"
-path="res://.godot/imported/crawler-leg.png-701c3b466e85c19ee6a42594ffffba80.ctex"
+uid="uid://cbvgvlbq3iiuk"
+path="res://.godot/imported/dagger-leg.png-2d22ef533e76249d51247cda964a4d49.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/entities/units/crawler-leg.png"
-dest_files=["res://.godot/imported/crawler-leg.png-701c3b466e85c19ee6a42594ffffba80.ctex"]
+source_file="res://assets/sprites/entities/units/dagger/dagger-leg.png"
+dest_files=["res://.godot/imported/dagger-leg.png-2d22ef533e76249d51247cda964a4d49.ctex"]
 
 [params]
 

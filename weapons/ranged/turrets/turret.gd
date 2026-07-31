@@ -34,16 +34,16 @@ func _physics_process(delta: float) -> void:
 			angle,
 			delta * deg_to_rad(rotation_speed)
 			)
+			
+		Events.audio_2d_requested.emit( rotation_sound, self.global_position )
 		
 		if !in_cooldown:
 			# Fires projectiles when current rotation is pointing in direction of aim within a certain margin.
 			if rotation == angle or abs(rotation - angle) < deg_to_rad(aim_margin_degrees):
 				in_cooldown = true
+				
 				#fire_projectile(self.targeted_position - self.global_position, get_angle_to(self.targeted_position))
 				fire_projectile(self.targeted_position - self.global_position)
-				
-				#if has_node("AudioStreamPlayer2D"):
-					#$AudioStreamPlayer2D.play()
 					
 				await get_tree().create_timer(cooldown).timeout
 				in_cooldown = false

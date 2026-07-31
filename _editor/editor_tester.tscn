@@ -53,14 +53,14 @@ metadata/_snap_enabled = true
 [node name="EditorTester" type="Node2D" unique_id=1235326342]
 script = ExtResource("1_6kecw")
 
-[node name="StellWeapon" type="Node2D" parent="." unique_id=1839585634 node_paths=PackedStringArray("fire_particles")]
+[node name="StellWeapon" type="Node2D" parent="." unique_id=1839585634]
 script = ExtResource("2_qdass")
 auto_fire_interval = 0.833
 projectile_scene = ExtResource("3_6ks36")
 damage = SubResource("Resource_rggjy")
 ammo_enabled = true
 overheating_enabled = true
-fire_particles = [ExtResource("6_w7htm"), ExtResource("8_ktfn6")]
+particle_offset = null
 cooldown = 0.833
 metadata/_custom_type_script = "uid://c42dn3jbjyl8l"
 
@@ -68,7 +68,7 @@ metadata/_custom_type_script = "uid://c42dn3jbjyl8l"
 rotation = -1.5707964
 texture = ExtResource("5_qoy54")
 
-[node name="DaggerWeapon" type="Node2D" parent="." unique_id=2033874296 node_paths=PackedStringArray("fire_particles")]
+[node name="DaggerWeapon" type="Node2D" parent="." unique_id=2033874296]
 position = Vector2(88, 0)
 script = ExtResource("2_qdass")
 auto_fire = true
@@ -77,12 +77,14 @@ projectile_scene = ExtResource("3_6ks36")
 projectile_size = Vector2(7, 5)
 speed = 5.0
 damage = SubResource("Resource_pp4ya")
-fire_particles = [ExtResource("6_w7htm"), ExtResource("8_ktfn6")]
+particle_offset = null
 cooldown = 0.6
 metadata/_custom_type_script = "uid://c42dn3jbjyl8l"
 
 [node name="FlashParticles" parent="DaggerWeapon" unique_id=107484445 instance=ExtResource("6_w7htm")]
-position = Vector2(0, -10)
+position = Vector2(0, -21)
+emitting = true
+one_shot = false
 
 [node name="Sprite2D" type="Sprite2D" parent="DaggerWeapon" unique_id=1108761726]
 position = Vector2(0, 0.22586524)
@@ -90,7 +92,9 @@ texture = ExtResource("7_chn1l")
 offset = Vector2(0, -7)
 
 [node name="SmokeParticles" parent="DaggerWeapon" unique_id=271168582 instance=ExtResource("8_ktfn6")]
-position = Vector2(0, -19)
+position = Vector2(0, -26)
+emitting = true
+one_shot = false
 
 [node name="Turret" type="Node2D" parent="." unique_id=350562269]
 position = Vector2(157, 0)
@@ -99,6 +103,7 @@ rotation_limit_left = 90.0
 projectile_scene = ExtResource("3_6ks36")
 lifetime = 10.0
 recoil_dist = 5.0
+particle_offset = null
 damage_comp = SubResource("Resource_2es7f")
 cooldown = 0.6
 metadata/_custom_type_script = "uid://dkeiv4mg3ytus"

@@ -58,10 +58,14 @@ signal test_fired
 #@export var cooldown_sound: AudioStream
 
 @export_group("Particles")
-@export var fire_particles: Array[Node2D]
+#@export var fire_particles: Array[Node2D]
+#@export var fire_particles: Array[PackedScene]
+@export var flash_particle: PackedScene
+@export var smoke_particle: PackedScene
+@export var particle_offset: Vector2
 
 #@export_group("Toggles")
-#@export var infinite_ammo: bool = false
+#@export var infinite_ammo: bool = false  ## Requires ammo system to be enabled.
 
 
 #func _physics_process(delta: float) -> void:
@@ -95,8 +99,8 @@ func fire_projectile(dir: Vector2):
 func _animate_recoil():
 	if has_node("Sprite2D"):
 		var tween = create_tween()
-		var start_y = position.y
-		tween.tween_property($Sprite2D, "position:y", position.y + recoil_dist, 0.10 * cooldown).set_trans(Tween.TRANS_SINE)
+		var start_y = $Sprite2D.position.y
+		tween.tween_property($Sprite2D, "position:y", start_y + recoil_dist, 0.10 * cooldown).set_trans(Tween.TRANS_SINE)
 		tween.tween_property($Sprite2D, "position:y", start_y, 0.80 * cooldown).set_trans(Tween.TRANS_SINE)#.set_ease(Tween.EASE_IN)
 
 
@@ -104,10 +108,12 @@ func _animate_recoil():
 
 
 func _spawn_particles():
-	for particle in fire_particles:
-		if particle is ShapeParticles2D or particle is CPUParticles2D:
-			particle.emitting = true
+	#for particle in fire_particles:
+		#if particle is ShapeParticles2D or particle is CPUParticles2D:
+			#particle.emitting = true
 			#Events.particle_spawn_requested.emit(particle, particle.position)
+	Events.particle_spawn_requested.emit(flash_particle, self.global_position + particle_offset)
+	Events.particle_spawn_requested.emit(smoke_particle, self.global_position + particle_offset)
 
 
 # - - -  @TOOL FUNCTIONS  - - - #

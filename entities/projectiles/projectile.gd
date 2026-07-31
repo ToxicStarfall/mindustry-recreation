@@ -11,6 +11,14 @@ extends Area2D
 
 @export var default_size: Vector2 = Vector2(20, 28)
 
+@export_group("Sounds")
+#@export var movement_sound: AudioStream
+#@export var hit_sound: AudioStream
+@export var despawn_sound: AudioStream
+
+@export_group("Particles")
+@export var despawn_particles: Array[PackedScene]
+
 #@export var projectile: Texture2D
 #@export var projectile_back: Texture2D
 #@export var casing: Texture2D
@@ -58,5 +66,7 @@ func scale_to(size: Vector2 = default_size):
 
 func _on_lifetime_timeout():
 	queue_free()
-	Events.particle_spawn_requested.emit("res://effects/particles/blast_particles.tscn", self.position)
-	Events.particle_spawn_requested.emit("res://effects/particles/blast_wave_particle.tscn", self.position)
+	for particle in despawn_particles:
+		Events.particle_spawn_requested.emit(particle, self.global_position)
+	#Events.particle_spawn_requested.emit("res://effects/particles/blast_particles.tscn", self.position)
+	#Events.particle_spawn_requested.emit("res://effects/particles/blast_wave_particle.tscn", self.position)

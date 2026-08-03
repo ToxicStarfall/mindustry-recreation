@@ -120,8 +120,8 @@ script = ExtResource("10_t0bvi")
 weapons = [NodePath("Turret"), NodePath("Turret2")]
 metadata/_custom_type_script = "uid://hyaclsf4mdaw"
 
-[node name="Body" type="Sprite2D" parent="WeaponGroup" unique_id=1182832936]
-texture = ExtResource("4_6pfi5")
+[node name="CanvasGroup" type="CanvasGroup" parent="WeaponGroup" unique_id=1019943235]
+material = ExtResource("10_we822")
 
 [node name="Cell" type="Sprite2D" parent="WeaponGroup" unique_id=1560672049]
 modulate = Color(0.98039216, 0.8156863, 0.34117648, 1)
@@ -136,49 +136,18 @@ projectile_size = Vector2(7, 9)
 speed = 7.0
 recoil_dist = 5.0
 fire_sound = ExtResource("15_tidit")
-fire_particles = [NodePath("FlashParticles"), NodePath("SmokeParticles")]
 damage_comp = SubResource("Resource_igvuf")
 cooldown = 0.5
 metadata/_custom_type_script = "uid://dkeiv4mg3ytus"
 
 [node name="Sprite2D" type="Sprite2D" parent="WeaponGroup/Turret" unique_id=156577280]
 texture = ExtResource("14_p3vrm")
-offset = Vector2(0, -7)
 
-[node name="FlashParticles" type="CPUParticles2D" parent="WeaponGroup/Turret" unique_id=2138877324]
-position = Vector2(0, -20)
-emitting = false
-amount = 1
-texture = ExtResource("17_dylhh")
-lifetime = 0.4
-one_shot = true
-particle_flag_align_y = true
-spread = 22.5
-gravity = Vector2(0, 0)
-scale_amount_min = 0.45
-scale_amount_max = 0.6
-scale_amount_curve = SubResource("Curve_dylhh")
-color = Color(1, 0.68235296, 0, 1)
+[node name="Marker2D" type="Marker2D" parent="WeaponGroup/CanvasGroup/Turret" unique_id=173220502]
+position = Vector2(0, -14)
 
-[node name="SmokeParticles" type="CPUParticles2D" parent="WeaponGroup/Turret" unique_id=1855458076]
-position = Vector2(0, -26)
-emitting = false
-amount = 6
-texture = ExtResource("18_tidit")
-lifetime = 0.4
-one_shot = true
-explosiveness = 0.9
-emission_shape = 3
-emission_rect_extents = Vector2(3, 8)
-spread = 22.5
-gravity = Vector2(0, 0)
-scale_amount_min = 0.15
-scale_amount_max = 0.2
-scale_amount_curve = SubResource("Curve_i5yey")
-color_initial_ramp = SubResource("Gradient_gbal3")
-
-[node name="Turret2" type="Node2D" parent="WeaponGroup" unique_id=874210564 node_paths=PackedStringArray("fire_particles")]
-position = Vector2(-16, 0)
+[node name="Turret2" type="Node2D" parent="WeaponGroup/CanvasGroup" unique_id=874210564]
+position = Vector2(-16, -7)
 script = ExtResource("13_igvuf")
 rotation_limit_right = 90.0
 projectile_scene = ExtResource("12_p3vrm")
@@ -186,7 +155,6 @@ projectile_size = Vector2(7, 9)
 speed = 7.0
 recoil_dist = 5.0
 fire_sound = ExtResource("15_tidit")
-fire_particles = [NodePath("FlashParticles"), NodePath("SmokeParticles")]
 damage_comp = SubResource("Resource_igvuf")
 cooldown = 0.5
 metadata/_custom_type_script = "uid://dkeiv4mg3ytus"
@@ -196,34 +164,9 @@ texture = ExtResource("14_p3vrm")
 offset = Vector2(0, -7)
 flip_h = true
 
-[node name="FlashParticles" type="CPUParticles2D" parent="WeaponGroup/Turret2" unique_id=1095658379]
-position = Vector2(0, -20)
-emitting = false
-amount = 1
-texture = ExtResource("17_dylhh")
-lifetime = 0.4
-one_shot = true
-particle_flag_align_y = true
-spread = 22.5
-gravity = Vector2(0, 0)
-scale_amount_min = 0.45
-scale_amount_max = 0.6
-scale_amount_curve = SubResource("Curve_dylhh")
-color = Color(1, 0.68235296, 0, 1)
+[node name="Marker2D" type="Marker2D" parent="WeaponGroup/CanvasGroup/Turret2" unique_id=2083092435]
+position = Vector2(0, -14)
 
-[node name="SmokeParticles" type="CPUParticles2D" parent="WeaponGroup/Turret2" unique_id=1923099647]
-position = Vector2(0, -26)
-emitting = false
-amount = 6
-texture = ExtResource("18_tidit")
-lifetime = 0.4
-one_shot = true
-explosiveness = 0.9
-emission_shape = 3
-emission_rect_extents = Vector2(3, 8)
-spread = 22.5
-gravity = Vector2(0, 0)
-scale_amount_min = 0.15
-scale_amount_max = 0.2
-scale_amount_curve = SubResource("Curve_i5yey")
-color_initial_ramp = SubResource("Gradient_gbal3")
+[node name="Cell" type="Sprite2D" parent="WeaponGroup" unique_id=1560672049]
+modulate = Color(0.98039216, 0.8156863, 0.34117648, 1)
+texture = ExtResource("13_dylhh")

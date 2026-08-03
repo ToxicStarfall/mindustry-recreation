@@ -60,12 +60,16 @@ signal test_fired
 @export_group("Particles")
 #@export var fire_particles: Array[Node2D]
 #@export var fire_particles: Array[PackedScene]
-@export var flash_particle: PackedScene
-@export var smoke_particle: PackedScene
-@export var particle_offset: Vector2
+@export var flash_particle: PackedScene = preload("res://effects/particles/flash_small.tscn")
+@export var smoke_particle: PackedScene = preload("res://effects/particles/smoke_small.tscn")
+#@export var particle_offset: Vector2
 
 #@export_group("Toggles")
 #@export var infinite_ammo: bool = false  ## Requires ammo system to be enabled.
+
+
+#func _ready() -> void:
+	#pass
 
 
 #func _physics_process(delta: float) -> void:
@@ -78,6 +82,7 @@ func attack():
 
 func fire_projectile(dir: Vector2):
 	var projectile: Projectile = projectile_scene.instantiate()
+	var projectile_spawn_pos: Vector2 = self.global_position if !has_node("Marker2D") else $Marker2D.global_position
 	projectile.faction = self.owner.faction
 	projectile.spawner_entity = self.owner
 	projectile.damage_comp = damage_comp
@@ -87,10 +92,11 @@ func fire_projectile(dir: Vector2):
 	
 	projectile.speed = speed
 	projectile.direction = dir.normalized()
-	projectile.position = self.global_position
+	projectile.position = projectile_spawn_pos
 	projectile.rotation = dir.normalized().rotated(deg_to_rad(90)).angle()
+	
 	_animate_recoil()
-	_spawn_particles()
+	_spawn_particles(projectile_spawn_pos, projectile.rotation)
 	
 	Events.projectile_spawn_requested.emit( projectile )
 	Events.audio_2d_requested.emit( fire_sound, self.global_position )
@@ -104,16 +110,11 @@ func _animate_recoil():
 		tween.tween_property($Sprite2D, "position:y", start_y, 0.80 * cooldown).set_trans(Tween.TRANS_SINE)#.set_ease(Tween.EASE_IN)
 
 
-#func 
-
-
-func _spawn_particles():
-	#for particle in fire_particles:
-		#if particle is ShapeParticles2D or particle is CPUParticles2D:
-			#particle.emitting = true
-			#Events.particle_spawn_requested.emit(particle, particle.position)
-	Events.particle_spawn_requested.emit(flash_particle, self.global_position + particle_offset)
-	Events.particle_spawn_requested.emit(smoke_particle, self.global_position + particle_offset)
+func _spawn_particles(spawn_position = self.global_position, angle = 0.0):
+	if flash_particle:
+		Events.particle_spawn_requested.emit(flash_particle, spawn_position, angle)
+	if smoke_particle:
+		Events.particle_spawn_requested.emit(smoke_particle, spawn_position, angle)
 
 
 # - - -  @TOOL FUNCTIONS  - - - #
@@ -134,7 +135,6 @@ func _auto_fire():
 
 
 ## @tool utility function
-#func _test_fire(dir = Vector2.RIGHT):
 func _test_fire():
 	var dir = Vector2.from_angle(rotation).rotated(deg_to_rad(-90))
 	

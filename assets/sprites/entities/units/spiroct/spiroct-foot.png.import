@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rkcxuebfj7ji"
-path="res://.godot/imported/stell-treads-short.png-869b0351b05bc2e28b8ff199e0a84c32.ctex"
+uid="uid://chosf1yclypno"
+path="res://.godot/imported/spiroct-foot.png-c796e772eeec15978c1713404f83ca53.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/units/stell/stell-treads-short.png"
-dest_files=["res://.godot/imported/stell-treads-short.png-869b0351b05bc2e28b8ff199e0a84c32.ctex"]
+source_file="res://assets/sprites/entities/units/spiroct/spiroct-foot.png"
+dest_files=["res://.godot/imported/spiroct-foot.png-c796e772eeec15978c1713404f83ca53.ctex"]
 
 [params]
 

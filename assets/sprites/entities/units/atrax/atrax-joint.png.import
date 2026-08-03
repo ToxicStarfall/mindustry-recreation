@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://uj3cyumcvnl6"
-path="res://.godot/imported/stell-weapon.png-e53b1671ed0fccae8257e43fb70932c0.ctex"
+uid="uid://c41q5ut2u3k4n"
+path="res://.godot/imported/atrax-joint.png-52876aeba0c005a29d85952ab8ab49ce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/units/stell/stell-weapon.png"
-dest_files=["res://.godot/imported/stell-weapon.png-e53b1671ed0fccae8257e43fb70932c0.ctex"]
+source_file="res://assets/sprites/entities/units/atrax/atrax-joint.png"
+dest_files=["res://.godot/imported/atrax-joint.png-52876aeba0c005a29d85952ab8ab49ce.ctex"]
 
 [params]
 

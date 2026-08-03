@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cktcjb4stlfbe"
-path="res://.godot/imported/stell.png-7693aa9973afa08283595b1961c2a81b.ctex"
+uid="uid://b7hq26lsk3qpg"
+path="res://.godot/imported/atrax-base.png-5ca6ddb85e0e9a7f5701a72c0c38394f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/units/stell/stell.png"
-dest_files=["res://.godot/imported/stell.png-7693aa9973afa08283595b1961c2a81b.ctex"]
+source_file="res://assets/sprites/entities/units/atrax/atrax-base.png"
+dest_files=["res://.godot/imported/atrax-base.png-5ca6ddb85e0e9a7f5701a72c0c38394f.ctex"]
 
 [params]
 

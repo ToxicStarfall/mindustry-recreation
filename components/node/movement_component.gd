@@ -8,9 +8,15 @@ enum MovementType {
 
 @export var movement_type: MovementType = MovementType.NONE  ## Movement method. Determines how 
 @export var speed: float = 5.0  ## Movement speed in tiles/s.
-@export var rot_speed: float = 120.0  ## Body rotation speed in degrees/s
+@export var rot_speed: float = 120.0  ## Body rotation speed in degrees/s. Affects leg base rot speed for legged units.
 
-#@export_group("Toggles")
+#@export_group("Legged")
+#@export var base_rotation: float = 210.0  ## Rotation speed of leg base / hip joint.
+
+@export_group("Flying")
+@export var drag: float = 10.0  ## Air
+
+
 @export_category("Toggles")
 @export var can_move: bool = true
 @export var is_ai_controllable: bool = true
@@ -68,14 +74,16 @@ func _process(delta: float) -> void:
 				
 			MovementType.LEGGED:
 				# NOTE - Legs scale and move on steps
-				var legs = unit.get_node("Legs").get_children()
+				var leg_base = unit.get_node("LegBase")  ## Pivot point for legs.
+				var legs = leg_base.get_children()
 				var leg_count = legs.size()
 				var step_size = 10
-				var step_speed = 4
+				var step_speed = 6
 				
 				if !dir.is_zero_approx():
 					process_delta += delta
 					
+					# Leg animation
 					for i in legs.size():
 						var leg = legs[i]
 						
@@ -84,7 +92,6 @@ func _process(delta: float) -> void:
 						# Leg y pos follows sine movement pattern
 						leg.position.y = 0 + ( sin(process_delta * step_speed) * step_size ) * a
 						
-						#if i == 0:
 						# Interval where sine is increasing / decreasing
 						var b = cos(process_delta * step_speed)
 						
@@ -99,26 +106,13 @@ func _process(delta: float) -> void:
 							pass
 						elif b > 0:  # Sine is increasing
 							pass
-						
-						# The current leg walk cycle movemnt direction
-						#var extend_dir = (sin(process_delta * step_speed) * step_size) * a
-						#if extend_dir > 0:  # Leg moving backwardsa
-							##leg.scale.y = 1 * (leg.position.y)
-							###leg.scale.y = 0 + sin(process_delta) * step_size
-							#pass
-						#elif extend_dir < 0:  # Leg moving forwards (-y is default foward facing position for units)
-							#pass
-						
-						#if last > process_delta:
-						#if leg.position.y > 0:
-							#var difference = abs(leg.position.y - (step_size * 2))
-							#var scaler = leg.position.y
-							#print(difference)
-							##print(scaler)
-							#leg.scale.y = 1 * scaler
-							#pass
-						#else:
-							#leg.scale.y = 1
+					
+					# Leg Base rotation
+					leg_base.rotation = rotate_toward(  # NOTE: rotate_towards() uses radians.
+						leg_base.rotation, 
+						dir.angle() + deg_to_rad(90),  ## Rotate to movement dir axis
+						delta * deg_to_rad(rot_speed)
+					)
 				pass
 				
 			MovementType.WHEELED:

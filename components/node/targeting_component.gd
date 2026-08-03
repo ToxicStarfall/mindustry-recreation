@@ -34,9 +34,14 @@ func _ready() -> void:
 		
 
 func _draw() -> void:
-	#draw_circle(self.position, sight_range * Game.TILE_SIZE, Color(Color.WHITE_SMOKE, .5), true)#, ((sight_range * Game.TILE_SIZE) - (attack_range * Game.TILE_SIZE)))
-	#draw_circle(self.position, attack_range * Game.TILE_SIZE, Color(Color.INDIAN_RED, .5), true, -1)
-	pass
+	if Debugger.range_visuals_enabled:
+		draw_circle(self.position, sight_range * Game.TILE_SIZE, Color(Color.WHITE_SMOKE, .5), true)#, ((sight_range * Game.TILE_SIZE) - (attack_range * Game.TILE_SIZE)))
+		draw_circle(self.position, attack_range * Game.TILE_SIZE, Color(Color.INDIAN_RED, .5), true, -1)
+
+
+#func _process(_delta: float) -> void:
+	#queue_redraw()
+	#pass
 
 
 func _physics_process(_delta: float) -> void:

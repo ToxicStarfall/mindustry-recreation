@@ -77,10 +77,11 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="RangeVisuals" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1484577178]
+unique_name_in_owner = true
 layout_mode = 2
-button_pressed = true
 text = "Range visuals"
 
 [node name="TargetingVisuals" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=18229011]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Targeting visuals"

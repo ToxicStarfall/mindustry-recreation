@@ -14,12 +14,19 @@ func _on_scene_tree_node_added(node: Node):
 		if node.input_pickable == false:
 			node.input_pickable = true
 
-	# Auto add collision
+	# Auto add CollisionShape2D to HitboxComponent
 	if node is HitboxComponent:
 		if !node.has_node("CollisionShape2D"):
 			var collision_shape = CollisionShape2D.new()
+			collision_shape.name = "CollisionShape2D"
 			node.add_child( collision_shape )
 			collision_shape.owner = get_tree().edited_scene_root
+			
+			## Auto-add Rectangle collision for blocks.
+			#if node.owner is Block:
+				#collision_shape.shape = RectangleShape2D.new()
+			#elif node.owner is Unit:
+				#pass
 		
 	# Auto add and set collision
 	elif node is TargetingComponent:

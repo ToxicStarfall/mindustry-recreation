@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c42dn3jbjyl8l" path="res://weapons/ranged/ranged_weapon.gd" id="2_qdass"]
 [ext_resource type="PackedScene" uid="uid://dbmtjqy8t7d4c" path="res://entities/projectiles/projectile.tscn" id="3_6ks36"]
 [ext_resource type="Script" uid="uid://dqbskq33gkjmw" path="res://components/resource/damage_component.gd" id="4_j81ia"]
-[ext_resource type="Texture2D" uid="uid://uj3cyumcvnl6" path="res://entities/units/stell/stell-weapon.png" id="5_qoy54"]
+[ext_resource type="Texture2D" uid="uid://uj3cyumcvnl6" path="res://assets/sprites/entities/units/stell/stell-weapon.png" id="5_qoy54"]
 [ext_resource type="PackedScene" uid="uid://cq32j2dyjvra6" path="res://effects/particles/flash_small.tscn" id="6_w7htm"]
 [ext_resource type="Texture2D" uid="uid://dbhgtwmkcvpb8" path="res://assets/sprites/entities/units/weapons/large-weapon.png" id="7_chn1l"]
 [ext_resource type="PackedScene" uid="uid://qpomi2v5rseb" path="res://effects/particles/smoke_small.tscn" id="8_ktfn6"]
@@ -60,7 +60,6 @@ projectile_scene = ExtResource("3_6ks36")
 damage = SubResource("Resource_rggjy")
 ammo_enabled = true
 overheating_enabled = true
-particle_offset = null
 cooldown = 0.833
 metadata/_custom_type_script = "uid://c42dn3jbjyl8l"
 
@@ -77,7 +76,6 @@ projectile_scene = ExtResource("3_6ks36")
 projectile_size = Vector2(7, 5)
 speed = 5.0
 damage = SubResource("Resource_pp4ya")
-particle_offset = null
 cooldown = 0.6
 metadata/_custom_type_script = "uid://c42dn3jbjyl8l"
 
@@ -103,7 +101,6 @@ rotation_limit_left = 90.0
 projectile_scene = ExtResource("3_6ks36")
 lifetime = 10.0
 recoil_dist = 5.0
-particle_offset = null
 damage_comp = SubResource("Resource_2es7f")
 cooldown = 0.6
 metadata/_custom_type_script = "uid://dkeiv4mg3ytus"

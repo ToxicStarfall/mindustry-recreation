@@ -10,6 +10,9 @@ var picked_unit: Unit
 var moving_unit_enabled: bool = false
 var is_moving_unit: bool = false
 
+var range_visuals_enabled: bool = false
+var targeting_visuals_enabled: bool = false
+
 
 func _ready() -> void:
 	#add_child( preload("res://ui/debugger/debugger.tscn").instrantiate() )
@@ -20,6 +23,7 @@ func _ready() -> void:
 		Game.controlled_entity = null
 		Game.Camera.reparent(Game.World) )
 
+	DebugPanel.get_node("%RangeVisuals").pressed.connect( _on_range_visuals_toggled )
 
 
 func _draw():
@@ -64,6 +68,11 @@ func _unhandled_input(event: InputEvent) -> void:
 					picked_unit = null
 		#else:
 
+
 func _moving_unit_toggled():
 	moving_unit_enabled = !moving_unit_enabled
-	pass
+
+
+func _on_range_visuals_toggled():
+	range_visuals_enabled = !range_visuals_enabled
+	get_tree().call_group("entities", &"queue_redraw")

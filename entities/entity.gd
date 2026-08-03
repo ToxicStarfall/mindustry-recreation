@@ -71,6 +71,8 @@ func _setup():
 		TargetingComp.target_found.connect( _on_target_found )
 		TargetingComp.target_changed.connect( _on_target_changed )
 		TargetingComp.target_lost.connect( _on_target_lost )
+	
+	add_to_group("entities")
 
 
 
@@ -80,10 +82,6 @@ func _draw() -> void:
 		#rect.size *= 1.1
 		#draw_rect(rect, Color.WHITE, false, 4)
 		pass
-
-
-func _process(_delta: float) -> void:
-	queue_redraw()
 
 
 #func _physics_process(delta: float) -> void:

@@ -44,6 +44,10 @@ folder_colors={
 "res://ui/": "green"
 }
 
+[global_group]
+
+entities=""
+
 [input]
 
 move_up={

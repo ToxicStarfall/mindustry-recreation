@@ -30,6 +30,11 @@ func _setup():
 	
 	if MovementComp:
 		MovementComp.unit = self
+	
+
+func _draw() -> void:
+	if TargetingComp:
+		TargetingComp.queue_redraw()
 
 
 func _physics_process(delta: float) -> void:

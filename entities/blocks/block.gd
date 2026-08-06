@@ -2,6 +2,11 @@ class_name Block
 extends Entity
 
 
+
+func _init() -> void:
+	pass
+
+
 func _ready() -> void:
 	_setup()
 	

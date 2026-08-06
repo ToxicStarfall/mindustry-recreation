@@ -1,0 +1,127 @@
+[gd_scene format=3 uid="uid://d134rp4ygecm"]
+
+[ext_resource type="Script" uid="uid://c40ltfv6qhs3l" path="res://entities/blocks/block.gd" id="1_3k6k8"]
+[ext_resource type="Texture2D" uid="uid://bot5antxgysbr" path="res://assets/sprites/blocks/turrets/duo/duo.png" id="2_31mr5"]
+[ext_resource type="Texture2D" uid="uid://d27jbd380t368" path="res://assets/sprites/blocks/bases/block-1.png" id="2_emu6e"]
+[ext_resource type="Material" uid="uid://df4dj2uyb6oub" path="res://assets/shaders/unit_canvas_outline_material.tres" id="2_j1jpr"]
+[ext_resource type="Script" uid="uid://dkeiv4mg3ytus" path="res://weapons/ranged/turrets/turret.gd" id="3_j1jpr"]
+[ext_resource type="Script" uid="uid://c6clt6s3n5xf4" path="res://components/node/defense_component.gd" id="4_te3fp"]
+[ext_resource type="PackedScene" uid="uid://dbmtjqy8t7d4c" path="res://entities/projectiles/projectile.tscn" id="4_tlbei"]
+[ext_resource type="Script" uid="uid://d00es5tts4om7" path="res://components/node/attack_component.gd" id="5_emu6e"]
+[ext_resource type="Script" uid="uid://hyaclsf4mdaw" path="res://components/resource/weapon_group.gd" id="5_xl4co"]
+[ext_resource type="Texture2D" uid="uid://dx1unycr3r886" path="res://assets/sprites/blocks/turrets/duo/duo-barrel-l.png" id="6_gvqmo"]
+[ext_resource type="Script" uid="uid://cyth0wwtyo0ym" path="res://components/node/targeting_component.gd" id="6_gyucd"]
+[ext_resource type="Texture2D" uid="uid://jwjfbvwgk7ff" path="res://assets/sprites/blocks/turrets/duo/duo-barrel-r.png" id="7_te3fp"]
+[ext_resource type="Script" uid="uid://bcnsah84lvxth" path="res://components/node/hitbox_component.gd" id="9_tlbei"]
+[ext_resource type="Script" uid="uid://capwm6jqredjg" path="res://components/node/health_component.gd" id="10_xl4co"]
+[ext_resource type="Script" uid="uid://dqbskq33gkjmw" path="res://components/resource/damage_component.gd" id="13_gyucd"]
+[ext_resource type="AudioStream" uid="uid://brxr5ex7ekl01" path="res://assets/sounds/pew.ogg" id="13_m84bq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3k6k8"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tlbei"]
+size = Vector2(32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m84bq"]
+radius = 960.0
+
+[sub_resource type="Resource" id="Resource_85nee"]
+script = ExtResource("13_gyucd")
+base_damage = 9.0
+metadata/_custom_type_script = "uid://dqbskq33gkjmw"
+
+[sub_resource type="Resource" id="Resource_dylhh"]
+script = ExtResource("13_gyucd")
+base_damage = 9.0
+metadata/_custom_type_script = "uid://dqbskq33gkjmw"
+
+[node name="Duo" type="StaticBody2D" unique_id=1924569839]
+input_pickable = true
+script = ExtResource("1_3k6k8")
+faction = "shard"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=601620833]
+visible = false
+shape = SubResource("RectangleShape2D_3k6k8")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=975283128]
+texture = ExtResource("2_emu6e")
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=470034411]
+script = ExtResource("9_tlbei")
+metadata/_custom_type_script = "uid://bcnsah84lvxth"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=808701073]
+visible = false
+shape = SubResource("RectangleShape2D_tlbei")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=796796197]
+script = ExtResource("10_xl4co")
+metadata/_custom_type_script = "uid://capwm6jqredjg"
+
+[node name="DefenseComponent" type="Node" parent="." unique_id=1787548250]
+script = ExtResource("4_te3fp")
+metadata/_custom_type_script = "uid://c6clt6s3n5xf4"
+
+[node name="AttackComponent" type="Node" parent="." unique_id=351549913 node_paths=PackedStringArray("groups")]
+script = ExtResource("5_emu6e")
+groups = [NodePath("../WeaponGroup")]
+metadata/_custom_type_script = "uid://d00es5tts4om7"
+
+[node name="TargetingComponent" type="Area2D" parent="." unique_id=691633386]
+z_index = -1
+collision_layer = 0
+collision_mask = 7
+script = ExtResource("6_gyucd")
+metadata/_custom_type_script = "uid://cyth0wwtyo0ym"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetingComponent" unique_id=96905333]
+shape = SubResource("CircleShape2D_m84bq")
+
+[node name="WeaponGroup" type="Node2D" parent="." unique_id=1894083497 node_paths=PackedStringArray("weapons")]
+script = ExtResource("5_xl4co")
+weapons = [NodePath("CanvasGroup/Turret"), NodePath("CanvasGroup/Turret2")]
+metadata/_custom_type_script = "uid://hyaclsf4mdaw"
+
+[node name="CanvasGroup" type="CanvasGroup" parent="WeaponGroup" unique_id=1534160438]
+material = ExtResource("2_j1jpr")
+
+[node name="Turret" type="Node2D" parent="WeaponGroup/CanvasGroup" unique_id=722142338]
+script = ExtResource("3_j1jpr")
+projectile_scene = ExtResource("4_tlbei")
+projectile_size = Vector2(7, 9)
+speed = 6.0
+damage = SubResource("Resource_85nee")
+recoil_dist = 2.0
+fire_sound = ExtResource("13_m84bq")
+damage_comp = SubResource("Resource_dylhh")
+cooldown = 0.33
+metadata/_custom_type_script = "uid://dkeiv4mg3ytus"
+
+[node name="Sprite2D" type="Sprite2D" parent="WeaponGroup/CanvasGroup/Turret" unique_id=884567292]
+texture = ExtResource("7_te3fp")
+
+[node name="Marker2D" type="Marker2D" parent="WeaponGroup/CanvasGroup/Turret" unique_id=1683713653]
+position = Vector2(6, -16)
+
+[node name="Turret2" type="Node2D" parent="WeaponGroup/CanvasGroup" unique_id=695574974]
+script = ExtResource("3_j1jpr")
+projectile_scene = ExtResource("4_tlbei")
+projectile_size = Vector2(7, 9)
+speed = 6.0
+damage = SubResource("Resource_85nee")
+recoil_dist = 2.0
+fire_sound = ExtResource("13_m84bq")
+damage_comp = SubResource("Resource_dylhh")
+cooldown = 0.33
+metadata/_custom_type_script = "uid://dkeiv4mg3ytus"
+
+[node name="Sprite2D" type="Sprite2D" parent="WeaponGroup/CanvasGroup/Turret2" unique_id=130275185]
+texture = ExtResource("6_gvqmo")
+
+[node name="Marker2D" type="Marker2D" parent="WeaponGroup/CanvasGroup/Turret2" unique_id=74449531]
+position = Vector2(-6, -16)
+
+[node name="TurretBase" type="Sprite2D" parent="WeaponGroup/CanvasGroup" unique_id=1552914784]
+texture = ExtResource("2_31mr5")

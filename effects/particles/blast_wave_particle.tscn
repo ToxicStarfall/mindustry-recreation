@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://bohrmjuvwru6g" path="res://_common/shape_particle_2d.gd" id="1_yaq7c"]
 
 [sub_resource type="Gradient" id="Gradient_8v6ah"]
-offsets = PackedFloat32Array(0, 0.2, 0.8, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 0.85490197, 0.6666667, 1, 1, 0.69666666, 0.3, 1, 1, 0.68333334, 0, 0)
+offsets = PackedFloat32Array(0, 0.1, 0.3, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.69666666, 0.3, 1, 1, 0.68333334, 0, 0)
 metadata/_snap_enabled = true
 
 [node name="BlastWaveParticle" type="Node2D" unique_id=881683668]

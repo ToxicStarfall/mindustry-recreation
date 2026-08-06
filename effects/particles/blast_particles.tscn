@@ -21,7 +21,7 @@ metadata/_snap_count = 20
 
 [sub_resource type="Gradient" id="Gradient_8v6ah"]
 offsets = PackedFloat32Array(0, 0.2, 0.4, 0.8, 1)
-colors = PackedColorArray(1, 1, 1, 0, 1, 0.69803923, 0.3019608, 1, 1, 0.85490197, 0.6666667, 1, 1, 0.60333335, 0.3, 1, 1, 0.68333334, 0, 0)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 0.85490197, 0.6666667, 1, 1, 0.60333335, 0.3, 1, 1, 0.68333334, 0, 0)
 metadata/_snap_enabled = true
 
 [node name="BlastParticles" type="CPUParticles2D" unique_id=1894877607]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cq32j2dyjvra6"]
 
-[ext_resource type="Texture2D" uid="uid://cu22ib6tmipf8" path="res://assets/sprites/custom/kite-centered.png" id="1_c0irk"]
+[ext_resource type="Texture2D" uid="uid://c1g6fmaumcynd" path="res://assets/sprites/custom/kite-offset.png" id="1_85nee"]
 
 [sub_resource type="Curve" id="Curve_fh3np"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -13,12 +13,13 @@ colors = PackedColorArray(0.98, 0.98, 0.98, 1, 0.9843137, 0.827451, 0.40392157, 
 [node name="FlashParticles" type="CPUParticles2D" unique_id=107484445]
 emitting = false
 amount = 1
-texture = ExtResource("1_c0irk")
+texture = ExtResource("1_85nee")
 lifetime = 0.4
 one_shot = true
 particle_flag_align_y = true
 spread = 22.5
 gravity = Vector2(0, 0)
-scale_amount_min = 0.8
+scale_amount_min = 0.4
+scale_amount_max = 0.5
 scale_amount_curve = SubResource("Curve_fh3np")
 color_ramp = SubResource("Gradient_85nee")

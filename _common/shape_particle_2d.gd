@@ -3,6 +3,8 @@ class_name ShapeParticles2D
 extends Node2D
 
 
+signal finished
+
 enum Shape { CIRCLE, POLYGON }
 
 @export var emitting: bool = false: set = _set_emitting
@@ -95,6 +97,7 @@ func _end_emission():
 	elif emitting:
 		emit_timer.start()
 	draw_delta = 0.0
+	finished.emit()
 
 
 func _set_lifetime(value: float):

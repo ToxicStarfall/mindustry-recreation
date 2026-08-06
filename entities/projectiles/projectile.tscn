@@ -18,7 +18,7 @@ collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_ek2yu")
 default_size = Vector2(26, 26)
-despawn_particle = Array[PackedScene]([ExtResource("2_eyncd"), ExtResource("3_k64t1")])
+despawn_particles = Array[PackedScene]([ExtResource("3_k64t1"), ExtResource("2_eyncd")])
 
 [node name="ProjectileBackSprite" type="Sprite2D" parent="." unique_id=2080071794]
 modulate = Color(0.9843137, 0.827451, 0.40392157, 1)

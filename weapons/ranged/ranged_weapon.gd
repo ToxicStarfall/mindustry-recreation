@@ -90,6 +90,7 @@ func fire_projectile(dir: Vector2):
 	projectile.lifetime = lifetime
 	projectile.scale_to(projectile_size)
 	
+	# TODO - Make unit movement velocity add-to projectile speed.
 	projectile.speed = speed
 	projectile.direction = dir.normalized()
 	projectile.position = projectile_spawn_pos
@@ -105,9 +106,9 @@ func fire_projectile(dir: Vector2):
 func _animate_recoil():
 	if has_node("Sprite2D"):
 		var tween = create_tween()
-		var start_y = $Sprite2D.position.y
-		tween.tween_property($Sprite2D, "position:y", start_y + recoil_dist, 0.10 * cooldown).set_trans(Tween.TRANS_SINE)
-		tween.tween_property($Sprite2D, "position:y", start_y, 0.80 * cooldown).set_trans(Tween.TRANS_SINE)#.set_ease(Tween.EASE_IN)
+		var start_y = $Sprite2D.offset.y
+		tween.tween_property($Sprite2D, "offset:y", start_y + recoil_dist, 0.10 * cooldown).set_trans(Tween.TRANS_SINE)
+		tween.tween_property($Sprite2D, "offset:y", start_y, 0.80 * cooldown).set_trans(Tween.TRANS_SINE)#.set_ease(Tween.EASE_IN)
 
 
 func _spawn_particles(spawn_position = self.global_position, angle = 0.0):

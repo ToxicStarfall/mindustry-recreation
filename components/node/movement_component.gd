@@ -10,7 +10,9 @@ enum MovementType {
 @export var speed: float = 5.0  ## Movement speed in tiles/s.
 @export var rot_speed: float = 120.0  ## Body rotation speed in degrees/s. Affects leg base rot speed for legged units.
 
-#@export_group("Legged")
+@export_group("Legged")
+@export var leg_count: int = 2
+@export var leg_extend_dist: float
 #@export var base_rotation: float = 210.0  ## Rotation speed of leg base / hip joint.
 
 @export_group("Flying")
@@ -76,7 +78,6 @@ func _process(delta: float) -> void:
 				# NOTE - Legs scale and move on steps
 				var leg_base = unit.get_node("LegBase")  ## Pivot point for legs.
 				var legs = leg_base.get_children()
-				var leg_count = legs.size()
 				var step_size = 10
 				var step_speed = 6
 				
@@ -84,35 +85,64 @@ func _process(delta: float) -> void:
 					process_delta += delta
 					
 					# Leg animation
-					for i in legs.size():
-						var leg = legs[i]
+					if leg_count == 2:
+						for i in legs.size():
+							var leg = legs[i]
+							
+							# Determines bipedal leg movement direction depending on leg index.
+							var a = (1 * -1) ** i
+							# Leg y pos follows sine movement pattern
+							leg.position.y = 0 + ( sin(process_delta * step_speed) * step_size ) * a
+							
+							# Interval where sine is increasing / decreasing
+							var b = cos(process_delta * step_speed)
+							
+							## Difference from current leg pos and total distance.
+							var diff = abs(leg.position.y - (step_size))
+							## Ranges from 1-0 over full step length (fowards and back leg extension)
+							var scale = diff / (step_size * 2)
+							#print(scale)
+							leg.scale.y = 0.5 + (0.5 * scale)  ## Limit scale power to 50%
+							
+							if b < 0:  # Sine is decreasing:
+								pass
+							elif b > 0:  # Sine is increasing
+								pass
 						
-						# Determines bipedal leg movement direction depending on leg index.
-						var a = (1 * -1) ** i
-						# Leg y pos follows sine movement pattern
-						leg.position.y = 0 + ( sin(process_delta * step_speed) * step_size ) * a
+						# Leg Base rotation
+						leg_base.rotation = rotate_toward(  # NOTE: rotate_towards() uses radians.
+							leg_base.rotation, 
+							dir.angle() + deg_to_rad(90),  ## Rotate to movement dir axis
+							delta * deg_to_rad(rot_speed)
+						)
 						
-						# Interval where sine is increasing / decreasing
-						var b = cos(process_delta * step_speed)
+					elif leg_count >= 3:
+						var leg_base_line: Line2D = leg_base.get_node("LegBaseLine")
+						var leg_joint: Sprite2D = leg_base.get_node("LegBaseLine/Joint")
+						var leg_line: Line2D = leg_base.get_node("LegBaseLine/Joint/LegLine")
 						
-						## Difference from current leg pos and total distance.
-						var diff = abs(leg.position.y - (step_size))
-						## Ranges from 1-0 over full step length (fowards and back leg extension)
-						var scale = diff / (step_size * 2)
-						#print(scale)
-						leg.scale.y = 0.5 + (0.5 * scale)  ## Limit scale power to 50%
+						var leg_joint_offset: Vector2 = leg_joint.position - leg_base_line.points[1]
 						
-						if b < 0:  # Sine is decreasing:
+						#leg_base_line.set_point_position( 1, leg_base_line.points[1] - (dir) )
+
+
+						var leg_length: float = leg_base_line.points[0].distance_to( leg_base_line.to_local(leg_base_line.current_foot_pos) )
+						
+						if abs(leg_length) > leg_extend_dist * 1.5:
+							#print(leg_base_line.current_foot_pos, " ", (dir.normalized() * leg_extend_dist * 2))
+							#leg_base_line.step(
+								#leg_base_line.current_foot_pos + (dir.normalized() * leg_extend_dist * 2),
+								##dir.normalized() * leg_extend_dist * 2,
+								#speed * 2 )
+							leg_base_line.step(dir, leg_extend_dist * 2, speed * 2)
 							pass
-						elif b > 0:  # Sine is increasing
-							pass
-					
-					# Leg Base rotation
-					leg_base.rotation = rotate_toward(  # NOTE: rotate_towards() uses radians.
-						leg_base.rotation, 
-						dir.angle() + deg_to_rad(90),  ## Rotate to movement dir axis
-						delta * deg_to_rad(rot_speed)
-					)
+
+						## Leg Base rotation
+						leg_base.rotation = rotate_toward(  # NOTE: rotate_towards() uses radians.
+							leg_base.rotation, 
+							dir.angle() + deg_to_rad(90),  ## Rotate to movement dir axis
+							delta * deg_to_rad(rot_speed)
+						)
 				pass
 				
 			MovementType.WHEELED:

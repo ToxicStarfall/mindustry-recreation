@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c42dn3jbjyl8l" path="res://weapons/ranged/ranged_weapon.gd" id="1_jie88"]
 [ext_resource type="PackedScene" uid="uid://dbmtjqy8t7d4c" path="res://entities/projectiles/projectile.tscn" id="2_i2rgu"]
-[ext_resource type="Texture2D" uid="uid://uj3cyumcvnl6" path="res://entities/units/stell/stell-weapon.png" id="3_fqdiy"]
+[ext_resource type="Texture2D" uid="uid://uj3cyumcvnl6" path="res://assets/sprites/entities/units/stell/stell-weapon.png" id="3_fqdiy"]
 
 [node name="RangedWeapon" type="Node2D" unique_id=1839585634]
 script = ExtResource("1_jie88")

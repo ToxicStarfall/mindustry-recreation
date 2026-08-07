@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://dg2jxt1mu6r4x"]
+
+[ext_resource type="Texture2D" uid="uid://cmyrbnms8i2w5" path="res://assets/sprites/entities/units/ground/spiroct/spiroct-leg.png" id="1_0hol4"]
+[ext_resource type="Texture2D" uid="uid://chosf1yclypno" path="res://assets/sprites/entities/units/ground/spiroct/spiroct-foot.png" id="2_q6r6c"]
+[ext_resource type="Texture2D" uid="uid://g0ln33wsgdld" path="res://assets/sprites/entities/units/ground/spiroct/spiroct-leg-base.png" id="3_kdubu"]
+[ext_resource type="Texture2D" uid="uid://d1ad78l1ocsd3" path="res://assets/sprites/entities/units/ground/spiroct/spiroct-joint.png" id="4_d21ai"]
+
+[sub_resource type="SkeletonModification2D" id="SkeletonModification2D_sjbic"]
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_ouac8"]
+modification_count = 1
+modifications/0 = SubResource("SkeletonModification2D_sjbic")
+
+[node name="Node2D" type="Node2D" unique_id=1608448898]
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=292344249]
+position = Vector2(42, -19)
+texture = ExtResource("1_0hol4")
+skeleton = NodePath("../Skeleton2D")
+polygon = PackedVector2Array(-0.096961975, -0.16550255, 3.8272247, 0.07232714, 7.513588, 4.353263, 40.928673, 4.353263, 48.30139, 12.677304, 47.94465, 23.855305, 40.45301, 30.514534, 7.275757, 29.91996, 3.4704819, 34.914387, -0.096961975, 35.033302)
+uv = PackedVector2Array(-0.096961975, -0.16550255, 3.8272247, 0.07232714, 7.513588, 4.353263, 40.928673, 4.353263, 48.30139, 12.677304, 47.94465, 23.855305, 40.45301, 30.514534, 7.275757, 29.91996, 3.4704819, 34.914387, -0.096961975, 35.033302)
+bones = ["Leg", PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1), "Leg/LegBase", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0), "Leg/LegBase/Foot", PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)]
+
+[node name="SpiroctFoot" type="Sprite2D" parent="." unique_id=1521291165]
+visible = false
+position = Vector2(90, 0)
+texture = ExtResource("2_q6r6c")
+
+[node name="SpiroctLegBase" type="Sprite2D" parent="." unique_id=689320668]
+visible = false
+show_behind_parent = true
+position = Vector2(67, 0)
+texture = ExtResource("3_kdubu")
+
+[node name="SpiroctJoint" type="Sprite2D" parent="." unique_id=583127925]
+visible = false
+show_behind_parent = true
+position = Vector2(42, 0)
+texture = ExtResource("4_d21ai")
+
+[node name="SpiroctLeg" type="Sprite2D" parent="." unique_id=1654852308]
+visible = false
+show_behind_parent = true
+position = Vector2(24, 0)
+texture = ExtResource("1_0hol4")
+
+[node name="Skeleton2D" type="Skeleton2D" parent="." unique_id=1986473790]
+modification_stack = SubResource("SkeletonModificationStack2D_ouac8")
+
+[node name="Leg" type="Bone2D" parent="Skeleton2D" unique_id=693442137]
+rest = Transform2D(1, 0, 0, 1, 42, 0)
+
+[node name="LegBase" type="Bone2D" parent="Skeleton2D/Leg" unique_id=1081899674]
+rest = Transform2D(1, 0, 0, 1, 0, 0)
+
+[node name="Foot" type="Bone2D" parent="Skeleton2D/Leg/LegBase" unique_id=1436209762]
+rest = Transform2D(1, 0, 0, 1, 37, 0)

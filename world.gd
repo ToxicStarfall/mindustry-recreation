@@ -18,7 +18,7 @@ func _init() -> void:
 	
 	child_entered_tree.connect( _on_child_entered_tree )
 	child_exiting_tree.connect( _on_child_exiting_tree )
-
+	
 
 func _on_child_entered_tree(node: Node):
 	if node is Entity:

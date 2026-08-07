@@ -40,7 +40,6 @@ func _draw() -> void:
 
 
 #func _process(_delta: float) -> void:
-	#queue_redraw()
 	#pass
 
 

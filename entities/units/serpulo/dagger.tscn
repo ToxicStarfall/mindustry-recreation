@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://dqn7lmf30e67d"]
 
 [ext_resource type="Script" uid="uid://bhsguese4xrmc" path="res://entities/units/unit.gd" id="1_6pfi5"]
-[ext_resource type="Texture2D" uid="uid://cbvgvlbq3iiuk" path="res://assets/sprites/entities/units/dagger/dagger-leg.png" id="2_xevnv"]
-[ext_resource type="Texture2D" uid="uid://c2j38hvlsp6kk" path="res://assets/sprites/entities/units/dagger/dagger-base.png" id="3_p3vrm"]
-[ext_resource type="Texture2D" uid="uid://doahpndk8ykpg" path="res://assets/sprites/entities/units/dagger/dagger.png" id="4_6pfi5"]
+[ext_resource type="Texture2D" uid="uid://cbvgvlbq3iiuk" path="res://assets/sprites/entities/units/ground/dagger/dagger-leg.png" id="2_xevnv"]
+[ext_resource type="Texture2D" uid="uid://c2j38hvlsp6kk" path="res://assets/sprites/entities/units/ground/dagger/dagger-base.png" id="3_p3vrm"]
+[ext_resource type="Texture2D" uid="uid://doahpndk8ykpg" path="res://assets/sprites/entities/units/ground/dagger/dagger.png" id="4_6pfi5"]
 [ext_resource type="Script" uid="uid://bcnsah84lvxth" path="res://components/node/hitbox_component.gd" id="5_igvuf"]
 [ext_resource type="Script" uid="uid://capwm6jqredjg" path="res://components/node/health_component.gd" id="6_t0bvi"]
 [ext_resource type="Script" uid="uid://c6clt6s3n5xf4" path="res://components/node/defense_component.gd" id="7_dylhh"]
@@ -13,7 +13,7 @@
 [ext_resource type="Script" uid="uid://hyaclsf4mdaw" path="res://components/resource/weapon_group.gd" id="10_t0bvi"]
 [ext_resource type="Material" uid="uid://df4dj2uyb6oub" path="res://assets/shaders/unit_canvas_outline_material.tres" id="10_we822"]
 [ext_resource type="PackedScene" uid="uid://dbmtjqy8t7d4c" path="res://entities/projectiles/projectile.tscn" id="12_p3vrm"]
-[ext_resource type="Texture2D" uid="uid://5wo4m237yyif" path="res://assets/sprites/entities/units/dagger/power-cell.png" id="13_dylhh"]
+[ext_resource type="Texture2D" uid="uid://5wo4m237yyif" path="res://assets/sprites/entities/units/ground/dagger/power-cell.png" id="13_dylhh"]
 [ext_resource type="Script" uid="uid://dkeiv4mg3ytus" path="res://weapons/ranged/turrets/turret.gd" id="13_igvuf"]
 [ext_resource type="Script" uid="uid://dqbskq33gkjmw" path="res://components/resource/damage_component.gd" id="13_y5dy5"]
 [ext_resource type="Texture2D" uid="uid://dbhgtwmkcvpb8" path="res://assets/sprites/entities/units/weapons/large-weapon.png" id="14_p3vrm"]
@@ -40,6 +40,10 @@ input_pickable = true
 motion_mode = 1
 script = ExtResource("1_6pfi5")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1483858453]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_t0bvi")
+
 [node name="LegBase" type="Sprite2D" parent="." unique_id=1754193387]
 texture = ExtResource("3_p3vrm")
 
@@ -54,11 +58,6 @@ position = Vector2(-1, 1)
 texture = ExtResource("2_xevnv")
 flip_h = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1483858453]
-visible = false
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_t0bvi")
-
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=1249276938]
 collision_layer = 0
 collision_mask = 6
@@ -71,6 +70,7 @@ shape = SubResource("RectangleShape2D_mbmgr")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1730491802]
 script = ExtResource("6_t0bvi")
+max_health = 150.0
 metadata/_custom_type_script = "uid://capwm6jqredjg"
 
 [node name="DefenseComponent" type="Node" parent="." unique_id=200269811]
@@ -80,7 +80,7 @@ metadata/_custom_type_script = "uid://c6clt6s3n5xf4"
 [node name="MovementComponent" type="Node" parent="." unique_id=1774487529]
 script = ExtResource("8_tidit")
 movement_type = 3
-speed = 4.5
+speed = 3.75
 rot_speed = 210.0
 metadata/_custom_type_script = "uid://bwug1nqyeoi7p"
 
@@ -94,7 +94,8 @@ z_index = -1
 collision_layer = 0
 collision_mask = 7
 script = ExtResource("10_gbal3")
-attack_range = 30.0
+sight_range = 18.0
+attack_range = 18.0
 metadata/_custom_type_script = "uid://cyth0wwtyo0ym"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TargetingComponent" unique_id=1979789748]
@@ -115,13 +116,14 @@ texture = ExtResource("4_6pfi5")
 [node name="Turret" type="Node2D" parent="WeaponGroup/CanvasGroup" unique_id=755576741]
 position = Vector2(16, -7)
 script = ExtResource("13_igvuf")
+rotation_limit_left = 45.0
 projectile_scene = ExtResource("12_p3vrm")
 projectile_size = Vector2(7, 9)
 speed = 7.0
 recoil_dist = 5.0
 fire_sound = ExtResource("15_tidit")
 damage_comp = SubResource("Resource_igvuf")
-cooldown = 0.5
+cooldown = 0.435
 metadata/_custom_type_script = "uid://dkeiv4mg3ytus"
 
 [node name="Sprite2D" type="Sprite2D" parent="WeaponGroup/CanvasGroup/Turret" unique_id=156577280]
@@ -133,13 +135,14 @@ position = Vector2(0, -14)
 [node name="Turret2" type="Node2D" parent="WeaponGroup/CanvasGroup" unique_id=874210564]
 position = Vector2(-16, -7)
 script = ExtResource("13_igvuf")
+rotation_limit_right = 45.0
 projectile_scene = ExtResource("12_p3vrm")
 projectile_size = Vector2(7, 9)
 speed = 7.0
 recoil_dist = 5.0
 fire_sound = ExtResource("15_tidit")
 damage_comp = SubResource("Resource_igvuf")
-cooldown = 0.5
+cooldown = 0.435
 metadata/_custom_type_script = "uid://dkeiv4mg3ytus"
 
 [node name="Sprite2D" type="Sprite2D" parent="WeaponGroup/CanvasGroup/Turret2" unique_id=976435731]

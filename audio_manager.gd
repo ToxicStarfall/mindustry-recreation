@@ -21,7 +21,8 @@ func _ready() -> void:
 
 
 func _on_audio_requested(stream: AudioStream):
-	pass
+	if stream:
+		pass
 
 
 func _on_audio_2d_requested(stream: AudioStream, audio_position: Vector2 = Vector2.ZERO):

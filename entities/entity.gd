@@ -93,10 +93,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if AttackComp: 
 		if is_controlled:
 			if event.is_action_pressed("attack", false, true):
-				#AttackComp.is_attacking = true
 				AttackComp.set_attack_status(true)
 			if event.is_action_released("attack"):
-				#AttackComp.is_attacking = false
 				AttackComp.set_attack_status(false)
 		if is_selected:
 			pass

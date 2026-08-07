@@ -3,10 +3,6 @@ class_name Projectile
 extends Area2D
 
 
-#enum Faction { NONE, PLAYER, ENEMY }
-
-#@export var faction: Faction = Faction.NONE
-#@export var faction: Factions.Default
 @export_enum("none", "shard", "crux", "malis") var faction: String
 
 @export var default_size: Vector2 = Vector2(20, 28)

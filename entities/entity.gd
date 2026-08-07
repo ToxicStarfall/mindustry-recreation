@@ -2,11 +2,7 @@ class_name Entity
 extends Node2D
 
 
-#@export var faction: Faction = Faction.NONE
-#@export var faction: Factions.Default = Factions.Default.NONE
-@export_enum("none", "shard", "crux", "malis") var faction: String
-	#get:
-		#return Factions.get_faction(faction)
+@export_enum("none", "shard", "crux", "malis") var faction: String : set = _set_faction
 #@export var body: Body
 
 @export_group("Toggles")
@@ -73,6 +69,7 @@ func _setup():
 		TargetingComp.target_lost.connect( _on_target_lost )
 	
 	add_to_group("entities")
+	#add_to_group(faction)
 
 
 
@@ -139,3 +136,17 @@ func _on_target_lost(_entity: Entity):
 	if !is_controlled:
 			#print(self, " - target lost: ", entity)
 			AttackComp.set_target(null)
+
+
+func _set_faction(new_faction: String):
+	remove_from_group(faction)
+	faction = new_faction
+	add_to_group(faction)
+
+
+# TODO - 
+func _get_movement_speed() -> float:
+	var speed: float = 0.0
+	if has_node("MovemmentComp"):
+		speed = get_node("MovemmentComp").speed
+	return speed

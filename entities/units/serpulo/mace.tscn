@@ -1,0 +1,235 @@
+[gd_scene format=3 uid="uid://cal1hjj0bveu4"]
+
+[ext_resource type="Script" uid="uid://bhsguese4xrmc" path="res://entities/units/unit.gd" id="1_bluox"]
+[ext_resource type="Texture2D" uid="uid://bdqibq3chql1p" path="res://assets/sprites/entities/units/ground/mace/mace-leg.png" id="2_bluox"]
+[ext_resource type="Texture2D" uid="uid://civ4exhwygatt" path="res://assets/sprites/entities/units/ground/mace/mace-base.png" id="3_plds5"]
+[ext_resource type="Script" uid="uid://bcnsah84lvxth" path="res://components/node/hitbox_component.gd" id="4_vq6f6"]
+[ext_resource type="Script" uid="uid://capwm6jqredjg" path="res://components/node/health_component.gd" id="5_p6qc1"]
+[ext_resource type="Script" uid="uid://c6clt6s3n5xf4" path="res://components/node/defense_component.gd" id="6_w5of8"]
+[ext_resource type="Script" uid="uid://bwug1nqyeoi7p" path="res://components/node/movement_component.gd" id="7_5qxpr"]
+[ext_resource type="Script" uid="uid://d00es5tts4om7" path="res://components/node/attack_component.gd" id="8_tfedm"]
+[ext_resource type="Script" uid="uid://cyth0wwtyo0ym" path="res://components/node/targeting_component.gd" id="9_stfpk"]
+[ext_resource type="Shader" uid="uid://qsl0dlys4677" path="res://effects/shaders/canvas_group_outline.gdshader" id="10_jk4sd"]
+[ext_resource type="Script" uid="uid://hyaclsf4mdaw" path="res://components/resource/weapon_group.gd" id="11_rdd1j"]
+[ext_resource type="Texture2D" uid="uid://djewxh6cyacdy" path="res://assets/sprites/entities/units/ground/mace/mace.png" id="12_pkjcq"]
+[ext_resource type="Texture2D" uid="uid://5wo4m237yyif" path="res://assets/sprites/entities/units/ground/dagger/power-cell.png" id="13_3svpy"]
+[ext_resource type="Script" uid="uid://dkeiv4mg3ytus" path="res://weapons/ranged/turrets/turret.gd" id="14_l22bl"]
+[ext_resource type="PackedScene" uid="uid://dbmtjqy8t7d4c" path="res://entities/projectiles/projectile.tscn" id="15_xd6eh"]
+[ext_resource type="AudioStream" uid="uid://brxr5ex7ekl01" path="res://assets/sounds/pew.ogg" id="16_ekn2m"]
+[ext_resource type="Script" uid="uid://dqbskq33gkjmw" path="res://components/resource/damage_component.gd" id="19_kcp2t"]
+[ext_resource type="Texture2D" uid="uid://cu22ib6tmipf8" path="res://assets/sprites/custom/kite-centered.png" id="21_0tjb1"]
+[ext_resource type="Texture2D" uid="uid://c2goo4gk1s3ju" path="res://assets/sprites/entities/units/ground/mace/flamethrower.png" id="21_plds5"]
+[ext_resource type="Texture2D" uid="uid://njssqpqfrng3" path="res://assets/sprites/entities/projectiles/circle-bullet.png" id="22_uhia8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t0bvi"]
+radius = 14.0
+height = 40.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbmgr"]
+size = Vector2(44, 48)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bbvc1"]
+radius = 960.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ouac8"]
+shader = ExtResource("10_jk4sd")
+shader_parameter/line_colour = Color(0.2, 0.2, 0.2, 1)
+shader_parameter/line_thickness = 2
+
+[sub_resource type="Resource" id="Resource_igvuf"]
+script = ExtResource("19_kcp2t")
+metadata/_custom_type_script = "uid://dqbskq33gkjmw"
+
+[sub_resource type="Curve" id="Curve_dylhh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_i5yey"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_gbal3"]
+offsets = PackedFloat32Array(0.4, 0.6)
+colors = PackedColorArray(0.7, 0.7, 0.7, 1, 0.9, 0.9, 0.9, 1)
+metadata/_snap_enabled = true
+
+[node name="Mace" type="CharacterBody2D" unique_id=686862671]
+collision_layer = 2
+collision_mask = 3
+input_pickable = true
+motion_mode = 1
+script = ExtResource("1_bluox")
+
+[node name="Legs" type="Node2D" parent="." unique_id=1654096471]
+use_parent_material = true
+
+[node name="LegLeft" type="Sprite2D" parent="Legs" unique_id=44361417]
+position = Vector2(-2, 1)
+texture = ExtResource("2_bluox")
+flip_h = true
+
+[node name="LegRight" type="Sprite2D" parent="Legs" unique_id=429078176]
+position = Vector2(1, 1)
+texture = ExtResource("2_bluox")
+
+[node name="Base" type="Sprite2D" parent="." unique_id=1754193387]
+texture = ExtResource("3_plds5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1483858453]
+visible = false
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_t0bvi")
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1249276938]
+collision_layer = 0
+collision_mask = 6
+script = ExtResource("4_vq6f6")
+metadata/_custom_type_script = "uid://bcnsah84lvxth"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=785027833]
+visible = false
+shape = SubResource("RectangleShape2D_mbmgr")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1730491802]
+script = ExtResource("5_p6qc1")
+metadata/_custom_type_script = "uid://capwm6jqredjg"
+
+[node name="DefenseComponent" type="Node" parent="." unique_id=200269811]
+script = ExtResource("6_w5of8")
+metadata/_custom_type_script = "uid://c6clt6s3n5xf4"
+
+[node name="MovementComponent" type="Node" parent="." unique_id=1774487529]
+script = ExtResource("7_5qxpr")
+movement_type = 3
+speed = 4.5
+rot_speed = 210.0
+metadata/_custom_type_script = "uid://bwug1nqyeoi7p"
+
+[node name="AttackComponent" type="Node" parent="." unique_id=1968296636 node_paths=PackedStringArray("groups")]
+script = ExtResource("8_tfedm")
+groups = [NodePath("../CanvasGroup/WeaponGroup")]
+metadata/_custom_type_script = "uid://d00es5tts4om7"
+
+[node name="TargetingComponent" type="Area2D" parent="." unique_id=1149713576]
+z_index = -1
+collision_layer = 0
+collision_mask = 7
+script = ExtResource("9_stfpk")
+attack_range = 30.0
+metadata/_custom_type_script = "uid://cyth0wwtyo0ym"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TargetingComponent" unique_id=1979789748]
+visible = false
+shape = SubResource("CircleShape2D_bbvc1")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="." unique_id=1019943235]
+material = SubResource("ShaderMaterial_ouac8")
+
+[node name="WeaponGroup" type="Node2D" parent="CanvasGroup" unique_id=1511550592 node_paths=PackedStringArray("weapons")]
+script = ExtResource("11_rdd1j")
+weapons = [NodePath("Turret"), NodePath("Turret2")]
+metadata/_custom_type_script = "uid://hyaclsf4mdaw"
+
+[node name="Body" type="Sprite2D" parent="CanvasGroup/WeaponGroup" unique_id=1182832936]
+texture = ExtResource("12_pkjcq")
+
+[node name="Cell" type="Sprite2D" parent="CanvasGroup/WeaponGroup" unique_id=1560672049]
+modulate = Color(0.98039216, 0.8156863, 0.34117648, 1)
+texture = ExtResource("13_3svpy")
+
+[node name="Turret" type="Node2D" parent="CanvasGroup/WeaponGroup" unique_id=755576741]
+position = Vector2(16, -7)
+script = ExtResource("14_l22bl")
+rotation_limit_left = 90.0
+projectile_scene = ExtResource("15_xd6eh")
+projectile_size = Vector2(7, 9)
+speed = 7.0
+recoil_dist = 5.0
+fire_sound = ExtResource("16_ekn2m")
+damage_comp = SubResource("Resource_igvuf")
+cooldown = 0.5
+metadata/_custom_type_script = "uid://dkeiv4mg3ytus"
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasGroup/WeaponGroup/Turret" unique_id=156577280]
+texture = ExtResource("21_plds5")
+
+[node name="FlashParticles" type="CPUParticles2D" parent="CanvasGroup/WeaponGroup/Turret" unique_id=2138877324]
+position = Vector2(0, -20)
+emitting = false
+amount = 1
+texture = ExtResource("21_0tjb1")
+lifetime = 0.4
+one_shot = true
+particle_flag_align_y = true
+spread = 22.5
+gravity = Vector2(0, 0)
+scale_amount_min = 0.45
+scale_amount_max = 0.6
+scale_amount_curve = SubResource("Curve_dylhh")
+color = Color(1, 0.68235296, 0, 1)
+
+[node name="SmokeParticles" type="CPUParticles2D" parent="CanvasGroup/WeaponGroup/Turret" unique_id=1855458076]
+position = Vector2(0, -26)
+emitting = false
+amount = 6
+texture = ExtResource("22_uhia8")
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.9
+emission_shape = 3
+emission_rect_extents = Vector2(3, 8)
+spread = 22.5
+gravity = Vector2(0, 0)
+scale_amount_min = 0.15
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_i5yey")
+color_initial_ramp = SubResource("Gradient_gbal3")
+
+[node name="Turret2" type="Node2D" parent="CanvasGroup/WeaponGroup" unique_id=874210564]
+position = Vector2(-16, -7)
+script = ExtResource("14_l22bl")
+rotation_limit_right = 90.0
+projectile_scene = ExtResource("15_xd6eh")
+projectile_size = Vector2(7, 9)
+speed = 7.0
+recoil_dist = 5.0
+fire_sound = ExtResource("16_ekn2m")
+damage_comp = SubResource("Resource_igvuf")
+cooldown = 0.5
+metadata/_custom_type_script = "uid://dkeiv4mg3ytus"
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasGroup/WeaponGroup/Turret2" unique_id=976435731]
+texture = ExtResource("21_plds5")
+flip_h = true
+
+[node name="FlashParticles" type="CPUParticles2D" parent="CanvasGroup/WeaponGroup/Turret2" unique_id=1095658379]
+position = Vector2(0, -20)
+emitting = false
+amount = 1
+texture = ExtResource("21_0tjb1")
+lifetime = 0.4
+one_shot = true
+particle_flag_align_y = true
+spread = 22.5
+gravity = Vector2(0, 0)
+scale_amount_min = 0.45
+scale_amount_max = 0.6
+scale_amount_curve = SubResource("Curve_dylhh")
+color = Color(1, 0.68235296, 0, 1)
+
+[node name="SmokeParticles" type="CPUParticles2D" parent="CanvasGroup/WeaponGroup/Turret2" unique_id=1923099647]
+position = Vector2(0, -26)
+emitting = false
+amount = 6
+texture = ExtResource("22_uhia8")
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.9
+emission_shape = 3
+emission_rect_extents = Vector2(3, 8)
+spread = 22.5
+gravity = Vector2(0, 0)
+scale_amount_min = 0.15
+scale_amount_max = 0.2
+scale_amount_curve = SubResource("Curve_i5yey")
+color_initial_ramp = SubResource("Gradient_gbal3")

@@ -15,8 +15,9 @@ enum MovementType {
 @export var leg_extend_dist: float
 #@export var base_rotation: float = 210.0  ## Rotation speed of leg base / hip joint.
 
-@export_group("Flying")
-@export var drag: float = 10.0  ## Air
+#@export_group("Flying")
+@export var accel: float = 1.0  ## Movement acceleration rate
+@export var drag: float = 1.0  ## Movement drag rate
 
 
 @export_category("Toggles")
@@ -26,6 +27,7 @@ enum MovementType {
 
 var unit: Entity
 var dir: Vector2
+var last_dir: Vector2 = Vector2.UP
 
 var physics_dalta: float = 0.0
 var process_delta: float = 0.0
@@ -44,7 +46,17 @@ func physics_process(delta: float) -> void:
 		var y = Input.get_axis("move_up", "move_down")
 		dir = Vector2(x, y)
 		
+		if dir != Vector2.ZERO:
+			last_dir = dir
+		
 		match movement_type:
+			MovementType.FLOATING:
+				# TODO - Test tracked-style movement(below) on boats
+				unit.velocity = Vector2(0, y * (speed * 32)).rotated(unit.rotation)
+				unit.move_and_slide()
+				unit.rotation_degrees += x * rot_speed * delta
+				pass
+			
 			MovementType.TRACKED:
 				#unit.move_and_collide(Vector2(0, y * speed * delta).rotated(unit.rotation))
 				#unit.move_and_collide( Vector2(0, y * (speed * 32) * delta).rotated(unit.rotation))
@@ -59,6 +71,28 @@ func physics_process(delta: float) -> void:
 				pass
 				
 			MovementType.WHEELED:
+				# TODO/NOTE - Wheeled movement should be similar to boat movement.
+				pass
+				
+			MovementType.HOVERING, MovementType.FLYING:
+				# TODO - Handle movement velocity using acceleration.
+				#unit.velocity = dir * (speed * Game.TILE_SIZE)
+				if dir != Vector2.ZERO:
+					unit.velocity = dir * (speed * Game.TILE_SIZE)# if dir!=Vector2.ZERO else (unit.velocity - (last_dir * drag * Game.TILE_SIZE)).min(Vector2.ZERO).max(Vector2.ZERO)
+					##if dir == Vector2.ZERO: unit.velocity = (unit.velocity - (last_dir * drag * Game.TILE_SIZE)).max(Vector2.ZERO)
+				else:
+					#var drag_dir: Vector2 = last_dir * min(drag, unit.velocity.length() / speed) * Game.TILE_SIZE
+					#unit.velocity = (unit.velocity - drag_dir)
+					unit.velocity = unit.velocity.move_toward(Vector2.ZERO, drag * Game.TILE_SIZE)
+					#print(unit.velocity.move_toward(Vector2.ZERO, drag * Game.TILE_SIZE * delta))
+					#print( unit.velocity, " ", unit.velocity.move_toward(Vector2.ZERO, drag * Game.TILE_SIZE * delta) )
+				
+				unit.move_and_slide()
+
+				#unit.rotation = last_dir.angle() + (PI / 2)
+				unit.rotation = rotate_toward(
+					unit.rotation, last_dir.angle() + (PI / 2), deg_to_rad(rot_speed) * delta
+				)
 				pass
 				
 			MovementType.NONE, _:

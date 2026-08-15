@@ -2,11 +2,25 @@
 
 [ext_resource type="Script" uid="uid://c2y81erlvnuku" path="res://ui/tool_box.gd" id="1_0ittb"]
 [ext_resource type="Theme" uid="uid://d3r3pl4o1n7ui" path="res://assets/theme.tres" id="1_sygiw"]
+[ext_resource type="Texture2D" uid="uid://dtn4s34jlsv1q" path="res://icon.svg" id="2_5yvv1"]
 [ext_resource type="Texture2D" uid="uid://bvrxaa0i47w6r" path="res://assets/icons/mindustry/menu.png" id="2_jtp2y"]
 [ext_resource type="Texture2D" uid="uid://dupgn00a3hyui" path="res://assets/icons/mindustry/units.png" id="3_ksc7r"]
 [ext_resource type="Texture2D" uid="uid://bltqyj74v3va2" path="res://assets/icons/mindustry/add.png" id="4_0ittb"]
 [ext_resource type="Texture2D" uid="uid://ppfjqxrhcucd" path="res://assets/icons/mindustry/defense.png" id="5_5yvv1"]
+[ext_resource type="Texture2D" uid="uid://cwrbltnbtjrm6" path="res://assets/icons/mindustry/quit.png" id="5_v6u0n"]
 [ext_resource type="Texture2D" uid="uid://3u5u5gw6j5y4" path="res://assets/icons/mindustry/turret.png" id="6_v6u0n"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ouac8"]
+bg_color = Color(0.15686275, 0.15686275, 0.15686275, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_bottom = 4
+corner_radius_top_left = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sygiw"]
 bg_color = Color(0.19966345, 0.19966345, 0.19966345, 1)
@@ -19,6 +33,17 @@ bg_color = Color(0.09500002, 0.6222499, 0.95, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pskj0"]
 bg_color = Color(1, 0.8666667, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5yvv1"]
+bg_color = Color(0.15686275, 0.15686275, 0.15686275, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+corner_radius_top_left = 10
+corner_detail = 1
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_aw2tu"]
 color = Color(0.4, 0.4, 0.4, 1)
@@ -52,6 +77,68 @@ offset_left = -131.0
 offset_top = -104.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="FactionPanel" type="PanelContainer" parent="VBoxContainer" unique_id=113752218]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_ouac8")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/FactionPanel" unique_id=1696473371]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/FactionPanel/MarginContainer" unique_id=624526633]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/FactionPanel/MarginContainer/VBoxContainer" unique_id=1915158921]
+layout_mode = 2
+text = "Factions  >
+"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/FactionPanel/MarginContainer/VBoxContainer" unique_id=1080811746]
+custom_minimum_size = Vector2(50, 70)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FlowContainer" type="FlowContainer" parent="VBoxContainer/FactionPanel/MarginContainer/VBoxContainer/ScrollContainer" unique_id=644287976]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button2" type="Button" parent="VBoxContainer/FactionPanel/MarginContainer/VBoxContainer/ScrollContainer/FlowContainer" unique_id=74687827]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("2_5yvv1")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button3" type="Button" parent="VBoxContainer/FactionPanel/MarginContainer/VBoxContainer/ScrollContainer/FlowContainer" unique_id=1478350012]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("2_5yvv1")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button4" type="Button" parent="VBoxContainer/FactionPanel/MarginContainer/VBoxContainer/ScrollContainer/FlowContainer" unique_id=55379216]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("2_5yvv1")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button5" type="Button" parent="VBoxContainer/FactionPanel/MarginContainer/VBoxContainer/ScrollContainer/FlowContainer" unique_id=1406494361]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("2_5yvv1")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button6" type="Button" parent="VBoxContainer/FactionPanel/MarginContainer/VBoxContainer/ScrollContainer/FlowContainer" unique_id=832573768]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("2_5yvv1")
+icon_alignment = 1
+expand_icon = true
 
 [node name="InfoPanel" type="PanelContainer" parent="VBoxContainer" unique_id=1555594994]
 unique_name_in_owner = true
@@ -135,32 +222,56 @@ text = "Faction: [color=red]FACTION[/color]"
 fit_content = true
 horizontal_alignment = 2
 
-[node name="SelectorPanel" type="PanelContainer" parent="VBoxContainer" unique_id=1039681025]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1673855734]
+layout_mode = 2
+
+[node name="PlacingTool" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=473204080]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_5yvv1")
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/PlacingTool" unique_id=455182525]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PlacingTool/MarginContainer" unique_id=1785898554]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/PlacingTool/MarginContainer/VBoxContainer" unique_id=1405488260]
+layout_mode = 2
+icon = ExtResource("4_0ittb")
+
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer/PlacingTool/MarginContainer/VBoxContainer" unique_id=1466204661]
+layout_mode = 2
+icon = ExtResource("5_v6u0n")
+
+[node name="SelectorPanel" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=1039681025]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 200)
 layout_mode = 2
 theme = ExtResource("1_sygiw")
 theme_type_variation = &"PanelContainerCorner1"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/SelectorPanel" unique_id=752299219]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel" unique_id=752299219]
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 2
 
-[node name="Units" type="HBoxContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer" unique_id=678933743]
+[node name="Units" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer" unique_id=678933743]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units" unique_id=116621264]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units" unique_id=116621264]
 layout_mode = 2
 size_flags_horizontal = 3
 follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
-[node name="UnitsGrid" type="ItemList" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units/ScrollContainer" unique_id=322053327]
+[node name="UnitsGrid" type="ItemList" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units/ScrollContainer" unique_id=322053327]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 160)
 layout_mode = 2
@@ -175,14 +286,14 @@ max_columns = 4
 same_column_width = true
 fixed_icon_size = Vector2i(32, 32)
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units" unique_id=146108770]
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units" unique_id=146108770]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_aw2tu")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units" unique_id=56993563]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units" unique_id=56993563]
 layout_mode = 2
 
-[node name="AllUnitButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=653428628]
+[node name="AllUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=653428628]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -190,7 +301,7 @@ icon = ExtResource("2_jtp2y")
 icon_alignment = 1
 expand_icon = true
 
-[node name="GroundUnitButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=799682998]
+[node name="GroundUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=799682998]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -198,7 +309,7 @@ icon = ExtResource("3_ksc7r")
 icon_alignment = 1
 expand_icon = true
 
-[node name="AirUnitButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=815381539]
+[node name="AirUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=815381539]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(32, 32)
@@ -206,7 +317,7 @@ layout_mode = 2
 icon_alignment = 1
 expand_icon = true
 
-[node name="NavalUnitButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=75626112]
+[node name="NavalUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=75626112]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(32, 32)
@@ -214,27 +325,28 @@ layout_mode = 2
 icon_alignment = 1
 expand_icon = true
 
-[node name="CustomUnitButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=1356224327]
+[node name="CustomUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=1356224327]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 icon = ExtResource("4_0ittb")
 
-[node name="Blocks" type="HBoxContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer" unique_id=657360125]
+[node name="Blocks" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer" unique_id=657360125]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks" unique_id=1158275857]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks" unique_id=1158275857]
 layout_mode = 2
 size_flags_horizontal = 3
 follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
-[node name="BlocksGrid" type="ItemList" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks/ScrollContainer" unique_id=146585323]
+[node name="BlocksGrid" type="ItemList" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks/ScrollContainer" unique_id=146585323]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 160)
 layout_mode = 2
@@ -242,19 +354,20 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
+allow_search = false
 auto_width = true
 auto_height = true
 max_columns = 4
 fixed_icon_size = Vector2i(32, 32)
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks" unique_id=1120430091]
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks" unique_id=1120430091]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_aw2tu")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks" unique_id=634314651]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks" unique_id=634314651]
 layout_mode = 2
 
-[node name="AllBlocksButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=806360170]
+[node name="AllBlocksButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=806360170]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -262,7 +375,7 @@ icon = ExtResource("2_jtp2y")
 icon_alignment = 1
 expand_icon = true
 
-[node name="DefenseBlockButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=598114924]
+[node name="DefenseBlockButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=598114924]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -270,7 +383,7 @@ icon = ExtResource("5_5yvv1")
 icon_alignment = 1
 expand_icon = true
 
-[node name="TurretBlockButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=888294196]
+[node name="TurretBlockButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=888294196]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -278,7 +391,7 @@ icon = ExtResource("6_v6u0n")
 icon_alignment = 1
 expand_icon = true
 
-[node name="CustomBlockButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=259648996]
+[node name="CustomBlockButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=259648996]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(32, 32)
@@ -287,11 +400,11 @@ icon = ExtResource("4_0ittb")
 icon_alignment = 1
 expand_icon = true
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/SelectorPanel/VBoxContainer" unique_id=1829798856]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer" unique_id=1829798856]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_sygiw")
 
-[node name="TabBar" type="TabBar" parent="VBoxContainer/SelectorPanel/VBoxContainer" unique_id=1385656741]
+[node name="TabBar" type="TabBar" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer" unique_id=1385656741]
 visible = false
 layout_mode = 2
 current_tab = 0
@@ -300,17 +413,17 @@ tab_count = 2
 tab_0/title = "Blocks"
 tab_1/title = "Units"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/SelectorPanel/VBoxContainer" unique_id=367310817]
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer" unique_id=367310817]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="UnitsButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/HBoxContainer3" unique_id=469717324]
+[node name="UnitsButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/HBoxContainer3" unique_id=469717324]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Units"
 
-[node name="BlocksButton" type="Button" parent="VBoxContainer/SelectorPanel/VBoxContainer/HBoxContainer3" unique_id=227118434]
+[node name="BlocksButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/HBoxContainer3" unique_id=227118434]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

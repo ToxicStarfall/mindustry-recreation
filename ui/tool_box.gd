@@ -26,10 +26,14 @@ var sprites: Dictionary = {
 	},
 }
 
+var selected_block
+var selected_unit: String
+
 
 
 func _ready() -> void:
 	#%UnitsGrid.item_clicked.connect( _on_unit_item_clicked )
+	%UnitsGrid.item_selected.connect( _on_unit_item_selected )
 	#%BlocksGrid.item_clicked.connect()
 	%UnitsButton.pressed.connect( func():
 		%Units.show()
@@ -43,6 +47,17 @@ func _ready() -> void:
 	_load_sprites()
 	_populate_units()
 	_populate_blocks()
+
+
+
+func _on_unit_item_selected(index: int):
+	for group in sprites.units.serpulo:
+		if sprites.units.serpulo[group].find_key( %UnitsGrid.get_item_icon(index) ) != null:
+			selected_unit = sprites.units.serpulo[group].find_key( %UnitsGrid.get_item_icon(index) )
+			break
+	#print(selected_unit)
+	var unit = load("res://entities/units/serpulo/" + selected_unit + ".tscn").instantiate()
+	Game.World.add_child(unit)
 
 
 func _load_sprites():

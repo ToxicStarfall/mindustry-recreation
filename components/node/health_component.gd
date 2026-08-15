@@ -10,7 +10,7 @@ signal damaged
 signal zeroed
 
 
-@export var max_health: float = 10.0
+@export var max_health: float = 100.0
 var health: float = max_health
 
 @export_category("Toggles")

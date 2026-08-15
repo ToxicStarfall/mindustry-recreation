@@ -154,20 +154,13 @@ func _process(delta: float) -> void:
 						var leg_base_line: Line2D = leg_base.get_node("LegBaseLine")
 						var leg_joint: Sprite2D = leg_base.get_node("LegBaseLine/Joint")
 						var leg_line: Line2D = leg_base.get_node("LegBaseLine/Joint/LegLine")
-						
-						var leg_joint_offset: Vector2 = leg_joint.position - leg_base_line.points[1]
+						#var leg_joint_offset: Vector2 = leg_joint.position - leg_base_line.points[1]
 						
 						#leg_base_line.set_point_position( 1, leg_base_line.points[1] - (dir) )
-
 
 						var leg_length: float = leg_base_line.points[0].distance_to( leg_base_line.to_local(leg_base_line.current_foot_pos) )
 						
 						if abs(leg_length) > leg_extend_dist * 1.5:
-							#print(leg_base_line.current_foot_pos, " ", (dir.normalized() * leg_extend_dist * 2))
-							#leg_base_line.step(
-								#leg_base_line.current_foot_pos + (dir.normalized() * leg_extend_dist * 2),
-								##dir.normalized() * leg_extend_dist * 2,
-								#speed * 2 )
 							leg_base_line.step(dir, leg_extend_dist * 2, speed * 2)
 							pass
 

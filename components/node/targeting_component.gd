@@ -10,8 +10,8 @@ signal target_changed (entity: Entity)
 signal target_lost (entity: Entity)
 
 
-@export var sight_range: float = 30.0
-@export var attack_range: float = 20.0
+@export var sight_range: float = 10.0
+@export var attack_range: float = 10.0
 
 @export_group("Targeting")
 @export var targets_closest: bool = true

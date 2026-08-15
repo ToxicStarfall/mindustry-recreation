@@ -215,5 +215,6 @@ flip_h = true
 position = Vector2(0, -14)
 
 [node name="Cell" type="Sprite2D" parent="WeaponGroup" unique_id=1560672049]
+unique_name_in_owner = true
 modulate = Color(0.98039216, 0.8156863, 0.34117648, 1)
 texture = ExtResource("20_sge4j")

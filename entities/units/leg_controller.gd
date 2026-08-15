@@ -1,6 +1,4 @@
-#@tool
 extends Line2D
-
 
 
 #var leg_pos: Vector2

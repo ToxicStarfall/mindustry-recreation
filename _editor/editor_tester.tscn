@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://qpomi2v5rseb" path="res://effects/particles/smoke_small.tscn" id="8_ktfn6"]
 [ext_resource type="Script" uid="uid://dkeiv4mg3ytus" path="res://weapons/ranged/turrets/turret.gd" id="9_12taq"]
 [ext_resource type="AudioStream" uid="uid://bc375eituxqg8" path="res://assets/sounds/blaster.ogg" id="10_u7v6u"]
+[ext_resource type="Texture2D" uid="uid://cth6uij11x6q0" path="res://assets/sprites/blocks/turrets/arc.png" id="11_6ks36"]
+[ext_resource type="PackedScene" uid="uid://dl3nhacxsuyu3" path="res://entities/projectiles/laser_projectile.tscn" id="11_j81ia"]
 [ext_resource type="PackedScene" uid="uid://bc6a18hmma7u1" path="res://effects/particles/blast_particles.tscn" id="11_qdass"]
 [ext_resource type="Texture2D" uid="uid://njssqpqfrng3" path="res://assets/sprites/entities/projectiles/circle-bullet.png" id="12_b3h63"]
 [ext_resource type="PackedScene" uid="uid://dnf0o75vsj6en" path="res://effects/particles/blast_wave_particle.tscn" id="12_qdass"]
@@ -80,6 +82,7 @@ cooldown = 0.6
 metadata/_custom_type_script = "uid://c42dn3jbjyl8l"
 
 [node name="FlashParticles" parent="DaggerWeapon" unique_id=107484445 instance=ExtResource("6_w7htm")]
+visible = false
 position = Vector2(0, -21)
 emitting = true
 one_shot = false
@@ -90,6 +93,7 @@ texture = ExtResource("7_chn1l")
 offset = Vector2(0, -7)
 
 [node name="SmokeParticles" parent="DaggerWeapon" unique_id=271168582 instance=ExtResource("8_ktfn6")]
+visible = false
 position = Vector2(0, -26)
 emitting = true
 one_shot = false
@@ -113,6 +117,23 @@ offset = Vector2(0, -7)
 stream = ExtResource("10_u7v6u")
 max_polyphony = 2
 area_mask = 2
+
+[node name="Lancer" type="Node2D" parent="." unique_id=183084963]
+position = Vector2(256, 0)
+script = ExtResource("9_12taq")
+rotation_limit_left = 90.0
+projectile_scene = ExtResource("11_j81ia")
+recoil_dist = 5.0
+damage_comp = SubResource("Resource_2es7f")
+cooldown = 0.6
+metadata/_custom_type_script = "uid://dkeiv4mg3ytus"
+
+[node name="Sprite2D" type="Sprite2D" parent="Lancer" unique_id=1221753139]
+texture = ExtResource("11_6ks36")
+offset = Vector2(0, -7)
+
+[node name="Marker2D" type="Marker2D" parent="Lancer" unique_id=940779697]
+position = Vector2(0, -21)
 
 [node name="BlastParticles" parent="." unique_id=1894877607 instance=ExtResource("11_qdass")]
 position = Vector2(88, -83)

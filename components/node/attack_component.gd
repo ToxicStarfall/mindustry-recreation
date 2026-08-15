@@ -62,7 +62,7 @@ func set_target(target: Entity):
 	targeted_entity = target
 	
 	#print(self)
-	if !owner.is_controlled:
+	if owner and !owner.is_controlled:
 		for weapon in weapons:
 			weapon.targeted_entity = targeted_entity
 			weapon.attacking = (targeted_entity != null)

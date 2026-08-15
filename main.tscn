@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dqn7lmf30e67d" path="res://entities/units/serpulo/dagger.tscn" id="5_lquwl"]
 [ext_resource type="Script" uid="uid://bgtvafe7k85cx" path="res://block_tile_map.gd" id="6_4c57u"]
 [ext_resource type="PackedScene" uid="uid://er5bdrdfukxt" path="res://ui/debugger/debugger.tscn" id="6_7mycd"]
+[ext_resource type="PackedScene" uid="uid://cffit70pf36nf" path="res://entities/blocks/lancer.tscn" id="6_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://ooibjg5fi532" path="res://ui/tool_box.tscn" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://8sel28o4enk1" path="res://entities/units/serpulo/spiroct.tscn" id="9_efxa6"]
 [ext_resource type="PackedScene" uid="uid://bbsjj35uclyqr" path="res://entities/units/serpulo/gamma.tscn" id="10_dg77c"]
@@ -50,6 +51,7 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_4c57u"]
 resource_name = "Blocks"
 scenes/1/scene = ExtResource("5_kek77")
+scenes/2/scene = ExtResource("6_ycdy4")
 
 [sub_resource type="TileSet" id="TileSet_7mycd"]
 tile_size = Vector2i(32, 32)
@@ -72,7 +74,7 @@ script = ExtResource("1_0xm2m")
 
 [node name="Camera2D" type="Camera2D" parent="World" unique_id=986141999]
 unique_name_in_owner = true
-position = Vector2(1178, -366)
+position = Vector2(887, -158)
 
 [node name="EnvironmentFloorTileMap" type="TileMapLayer" parent="World" unique_id=1673399299]
 z_index = -1
@@ -80,11 +82,12 @@ tile_map_data = PackedByteArray("AAD2////AQABAAAAAADz//n/AQACAAAAAAD0//n/AQACAAA
 tile_set = SubResource("TileSet_7mycd")
 
 [node name="EnvironmentBlockTileMap" type="TileMapLayer" parent="World" unique_id=1189785490]
+visible = false
 z_index = -1
 tile_set = SubResource("TileSet_7mycd")
 
 [node name="BlockTileMap" type="TileMapLayer" parent="World" unique_id=451337776]
-tile_map_data = PackedByteArray("AADo//P/AAAAAAAAAQDo//T/AAAAAAAAAQDp//T/AAAAAAAAAQDp//P/AAAAAAAAAQDs//P/AAAAAAAAAQDs//T/AAAAAAAAAQDt//P/AAAAAAAAAQDt//T/AAAAAAAAAQDs//v/AQACAAEAAADs//z/AQACAAEAAADt//v/AQACAAEAAADt//z/AQACAAEAAADv//z/AQACAAEAAAAIAPP/AwAAAAAAAQA=")
+tile_map_data = PackedByteArray("AADo//P/AAAAAAAAAQDo//T/AAAAAAAAAQDp//T/AAAAAAAAAQDp//P/AAAAAAAAAQDs//P/AAAAAAAAAQDs//T/AAAAAAAAAQDt//P/AAAAAAAAAQDt//T/AAAAAAAAAQDs//v/AQACAAEAAADs//z/AQACAAEAAADt//v/AQACAAEAAADt//z/AQACAAEAAADv//z/AQACAAEAAAAIAPP/AwAAAAAAAQD+/xEAAwAAAAAAAgA=")
 tile_set = SubResource("TileSet_7mycd")
 script = ExtResource("6_4c57u")
 
@@ -100,10 +103,12 @@ faction = "shard"
 position = Vector2(-915, 623)
 faction = "crux"
 
+[node name="HealthComponent" parent="World/Stell2" index="3" unique_id=1730491802]
+is_killable = false
+
 [node name="Spiroct" parent="World" unique_id=1142812495 instance=ExtResource("9_efxa6")]
 position = Vector2(1412, -359)
 faction = "shard"
-is_controlled = true
 
 [node name="Units" type="CanvasGroup" parent="World" unique_id=642149102]
 visible = false
@@ -118,3 +123,11 @@ faction = "shard"
 visible = false
 
 [node name="ToolBox" parent="UI" unique_id=620957327 instance=ExtResource("7_272bh")]
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI" unique_id=810836608]
+visible = false
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/MarginContainer2" unique_id=924492679]
+layout_mode = 2
+
+[editable path="World/Stell2"]

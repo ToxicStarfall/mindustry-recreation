@@ -25,6 +25,12 @@ signal test_fired
 @export var projectile_size: Vector2
 @export var speed: float = 10.0
 @export var damage: DamageComponent
+@export var movement_pattern: MovementPattern
+@export var mods: Array[ProjectileMod]
+
+#@export_subgroup("Mods")
+
+#@export_subgroup("Piercing")
 
 @export_subgroup("Acceleration")
 @export var acceleration: float
@@ -91,10 +97,12 @@ func fire_projectile(dir: Vector2):
 	projectile.scale_to(projectile_size)
 	
 	# TODO - Make unit movement velocity add-to projectile speed.
+	#owner.get_node("MovementComp").speed
 	projectile.speed = speed
 	projectile.direction = dir.normalized()
 	projectile.position = projectile_spawn_pos
 	projectile.rotation = dir.normalized().rotated(deg_to_rad(90)).angle()
+	#projectile.rotation = dir.normalized().angle()
 	
 	_animate_recoil()
 	_spawn_particles(projectile_spawn_pos, projectile.rotation)

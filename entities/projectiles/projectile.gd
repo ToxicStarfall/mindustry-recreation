@@ -24,10 +24,12 @@ extends Area2D
 #@export_range(-180.0, 180.0) var casing_angular_speed: float = -30.0
 
 var lifetime: float = 1.0  ## Projectile lifeitme in seconds.
-var speed: float = 10.0  ## Projectile speed in tiles/second.
+var speed: float = 5.0  ## Projectile speed in tiles/second.
 var direction: Vector2
+var trail_threshold: float = 5.0
 
 var damage_comp: DamageComponent
+var piercing: float = 2.0
 
 var spawner_entity: Entity
 
@@ -36,12 +38,20 @@ var spawner_entity: Entity
 func _init() -> void:
 	if !Engine.is_editor_hint():
 		faction = Factions.NONE.id
-	pass
 	
 
 func _ready() -> void:
 	if get_tree().edited_scene_root != self:
 		get_tree().create_timer(lifetime).timeout.connect( _on_lifetime_timeout )
+		
+	if speed > trail_threshold * Game.TILE_SIZE:
+		$Trail.show()
+
+
+func _process(_delta: float) -> void:
+	if speed >= trail_threshold:
+		#$Trail.set_point_position(1, Vector2(0, speed * Game.TILE_SIZE))
+		pass
 
 
 func _physics_process(_delta: float) -> void:
@@ -49,8 +59,13 @@ func _physics_process(_delta: float) -> void:
 
 
 func collided():
-	# Do things after having collided with an object
-	self.queue_free()
+	## Do things after having collided with an object
+	#if piercing > 0:
+		#piercing -= 1
+	#else:
+	if !is_queued_for_deletion():
+		self.queue_free()
+	pass
 
 
 func scale_to(size: Vector2 = default_size):

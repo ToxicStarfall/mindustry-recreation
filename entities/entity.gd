@@ -106,8 +106,12 @@ func _on_hitbox_hit(damage_comp: DamageComponent):
 
 func _on_health_damaged():
 	var tween = create_tween()
-	tween.tween_property(self, "modulate:v", modulate.v - modulate.v, 0.15)
-	tween.tween_property(self, "modulate:v", modulate.v, 0.1)
+	tween.tween_property(self, "modulate:v", 0.5, 0.1)
+	tween.tween_property(self, "modulate:v", 1, 0.075)
+	
+	if has_node("%Cell"):
+		%Cell.modulate.a = HealthComp.health / HealthComp.max_health
+		%Cell.modulate.v = HealthComp.health / HealthComp.max_health
 
 
 func _on_health_zeroed():
@@ -141,6 +145,7 @@ func _on_target_lost(_entity: Entity):
 func _set_faction(new_faction: String):
 	remove_from_group(faction)
 	faction = new_faction
+	if has_node("%Cell"):  %Cell.modulate = Factions.get_faction(faction).color
 	add_to_group(faction)
 
 

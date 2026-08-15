@@ -19,9 +19,15 @@ static var MALIS: Faction = Faction.new("malis", "Malis", Color("a17de5"), true)
 var factions: Dictionary
 
 
+func _init() -> void:
+	add_faction(NONE)
+	add_faction(SHARD)
+	add_faction(CRUX)
+	add_faction(MALIS)
+
 
 func _ready() -> void:
-	add_faction(NONE)
+	pass
 
 
 func add_faction(faction: Faction):

@@ -21,5 +21,5 @@ func start():
 
 
 func _physics_process():
-	projectile
+	#projectile
 	pass

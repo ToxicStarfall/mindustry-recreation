@@ -25,11 +25,12 @@ extends Area2D
 
 var lifetime: float = 1.0  ## Projectile lifeitme in seconds.
 var speed: float = 5.0  ## Projectile speed in tiles/second.
-var direction: Vector2
+var direction: Vector2  ## The movement direction of this projectile.
+
 var trail_threshold: float = 5.0
 
 var damage_comp: DamageComponent
-var piercing: float = 2.0
+var mods: Array[ProjectileMod]
 
 var spawner_entity: Entity
 
@@ -44,12 +45,14 @@ func _ready() -> void:
 	if get_tree().edited_scene_root != self:
 		get_tree().create_timer(lifetime).timeout.connect( _on_lifetime_timeout )
 		
-	if speed > trail_threshold * Game.TILE_SIZE:
-		$Trail.show()
+		for mod in mods: mod.call(&"_spawned", self)
+		
 
 
 func _process(_delta: float) -> void:
-	if speed >= trail_threshold:
+	if speed > trail_threshold * Game.TILE_SIZE:
+	#if speed >= trail_threshold:
+		$Trail.show()
 		#$Trail.set_point_position(1, Vector2(0, speed * Game.TILE_SIZE))
 		pass
 
@@ -59,12 +62,12 @@ func _physics_process(_delta: float) -> void:
 
 
 func collided():
+	# TODO - Figure out callback to mods to know it it handles freeing.
+	for mod in mods: mod.call(&"_collided", self)
+	
 	## Do things after having collided with an object
-	#if piercing > 0:
-		#piercing -= 1
-	#else:
-	if !is_queued_for_deletion():
-		self.queue_free()
+	#if !is_queued_for_deletion():
+		#self.queue_free()
 	pass
 
 
@@ -76,6 +79,8 @@ func scale_to(size: Vector2 = default_size):
 
 
 func _on_lifetime_timeout():
+	for mod in mods: mod.call(&"_despawned", self)
+	
 	queue_free()
 	for particle in despawn_particles:
 		Events.particle_spawn_requested.emit(particle, self.global_position)

@@ -24,8 +24,8 @@ func add_relation(relation: FactionRelation):
 
 func get_relation(faction_id: String):
 	#if hostile:
-		
-	pass
+	return relations.filter( func(fac: Faction): return faction_id == fac.id )
+
 
 
 ## A FactionRelation defines properties of the relation status with another faction.
@@ -39,4 +39,6 @@ class FactionRelation extends Resource:
 
 
 	func _init(new_faction_id: StringName, new_relation: int) -> void:
+		faction_id = new_faction_id
+		relation = new_relation
 		pass

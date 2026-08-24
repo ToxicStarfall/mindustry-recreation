@@ -24,13 +24,10 @@ signal test_fired
 @export var lifetime: float = 1.0
 @export var projectile_size: Vector2
 @export var speed: float = 10.0
-@export var damage: DamageComponent
+@export var deviation: float = 0.0
 @export var movement_pattern: MovementPattern
 @export var mods: Array[ProjectileMod]
 
-#@export_subgroup("Mods")
-
-#@export_subgroup("Piercing")
 
 @export_subgroup("Acceleration")
 @export var acceleration: float
@@ -43,18 +40,22 @@ signal test_fired
 @export_group("Ammo System")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var ammo_enabled: bool = false
 @export var ammo: int = 60
-@export var magazine: int = 20
 @export var max_ammo: int = 0  # 
+@export_subgroup("Magazines")
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var magazines_enabled: bool = false
+@export var magazine: int = 20
+@export var max_magazine: int = 0  # 
 
 @export_group("Overheating")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var overheating_enabled: bool = false
 @export var overheats: bool = false
 @export var heat_threshold: float = 100.0
-@export var heat_rate: float = 10.0
-@export var cool_rate: float = 8.0
+@export var heat_rate: float = 20.0
+@export var cool_rate: float = 10.0
 
 @export_group("Animation")
 @export var recoil_dist: float = 10.0  ## Distance of recoil effect in pixels.
+#@export var recoil_max: float = 10.0  ## Distance of recoil effect in pixels.
 
 @export_group("Sounds")
 @export var fire_sound: AudioStream
@@ -83,7 +84,10 @@ signal test_fired
 
 
 func attack():
-	fire_projectile(targeted_position)
+	for i in burst:
+		fire_projectile(targeted_position)
+		if burst_series and burst > 1:
+			await get_tree().create_timer(burst_cooldown).timeout
 
 
 func fire_projectile(dir: Vector2):
@@ -92,17 +96,19 @@ func fire_projectile(dir: Vector2):
 	projectile.faction = self.owner.faction
 	projectile.spawner_entity = self.owner
 	projectile.damage_comp = damage_comp
+	projectile.mods.assign( mods.map( func(mod: ProjectileMod): return mod.duplicate() ) )
 	
 	projectile.lifetime = lifetime
 	projectile.scale_to(projectile_size)
 	
 	# TODO - Make unit movement velocity add-to projectile speed.
 	#owner.get_node("MovementComp").speed
+	var deviation_amount = randf_range(-deviation, deviation)
 	projectile.speed = speed
-	projectile.direction = dir.normalized()
+	projectile.direction = dir.normalized().rotated( deg_to_rad(deviation_amount) )
 	projectile.position = projectile_spawn_pos
-	projectile.rotation = dir.normalized().rotated(deg_to_rad(90)).angle()
-	#projectile.rotation = dir.normalized().angle()
+	projectile.rotation = dir.normalized().rotated(PI/2).angle()
+	projectile.rotation = projectile.rotation + deg_to_rad(deviation_amount)  # Add projectile deviaion
 	
 	_animate_recoil()
 	_spawn_particles(projectile_spawn_pos, projectile.rotation)
@@ -114,7 +120,7 @@ func fire_projectile(dir: Vector2):
 func _animate_recoil():
 	if has_node("Sprite2D"):
 		var tween = create_tween()
-		var start_y = $Sprite2D.offset.y
+		var start_y = $Sprite2D.position.y
 		tween.tween_property($Sprite2D, "offset:y", start_y + recoil_dist, 0.10 * cooldown).set_trans(Tween.TRANS_SINE)
 		tween.tween_property($Sprite2D, "offset:y", start_y, 0.80 * cooldown).set_trans(Tween.TRANS_SINE)#.set_ease(Tween.EASE_IN)
 
@@ -145,23 +151,30 @@ func _auto_fire():
 
 ## @tool utility function
 func _test_fire():
-	var dir = Vector2.from_angle(rotation).rotated(deg_to_rad(-90))
-	
-	var projectile: Projectile = projectile_scene.instantiate()
-	#projectile.faction = self.owner.faction
-	#projectile.spawner_entity = self.owner
-	#projectile.damage_comp = damage_comp
-	
-	projectile.lifetime = lifetime
-	projectile.scale_to(projectile_size)
-	
-	projectile.speed = speed
-	projectile.direction = dir.normalized()
-	projectile.position = self.global_position
-	projectile.rotation = dir.normalized().rotated(deg_to_rad(90)).angle()
-	
-	_animate_recoil()
-	_spawn_particles()
-	test_fired.emit(projectile)
-	
-	#Events.projectile_spawn_requested.emit( projectile )
+	for i in burst:
+		var dir = Vector2.from_angle(rotation).rotated( -(PI/2) )
+		
+		var projectile: Projectile = projectile_scene.instantiate()
+		var projectile_spawn_pos: Vector2 = self.global_position if !has_node("Marker2D") else $Marker2D.global_position
+		projectile.faction = "none"
+		#projectile.spawner_entity = self.owner
+		#projectile.damage_comp = damage_comp
+		
+		projectile.lifetime = lifetime
+		projectile.scale_to(projectile_size)
+		
+		var deviation_amount = randf_range(-deviation, deviation)
+		projectile.speed = speed
+		projectile.direction = dir.normalized().rotated( deg_to_rad(deviation_amount) )
+		projectile.position = projectile_spawn_pos
+		projectile.rotation = dir.normalized().rotated(PI/2).angle()
+		projectile.rotation = projectile.rotation + deg_to_rad(deviation_amount)  # Add projectile deviaion
+		
+		_animate_recoil()
+		#_spawn_particles()
+		test_fired.emit(projectile)
+		
+		#Events.projectile_spawn_requested.emit( projectile )
+
+		if burst_series and burst > 1:  # Delay between projectiles in a burst.
+			await get_tree().create_timer(burst_cooldown).timeout

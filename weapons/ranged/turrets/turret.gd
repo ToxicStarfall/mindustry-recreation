@@ -9,10 +9,11 @@ extends RangedWeapon
 @export_range(0, 180.0)  var rotation_limit_right: float = 0.0  ##
 
 @export var smart_aiming: bool = true  ## Enables aiming prediction.
-
+@export var mounted: bool = false  ## If true, this turret rotates about its axis to aim.
 
 @export_group("Sounds")
 @export var rotation_sound: AudioStream
+
 
 
 func _physics_process(delta: float) -> void:
@@ -25,25 +26,31 @@ func _physics_process(delta: float) -> void:
 		#if get_parent() is WeaponGroup:
 			#if rotation < rotation_limit_left and rotation > rotation_limit_right:
 				#return
+
+		#if is_zero_approx(rotation):
+			#rotation = 0.0
+		#if rotation < deg_to_rad(rotation_limit_left) and rotation > deg_to_rad(rotation_limit_right):
 			
-		var angle = rotation + get_angle_to(self.targeted_position)
-		angle += deg_to_rad(90)
-		
-		rotation = rotate_toward(  # NOTE: rotate_towards() uses radians.
-			rotation, 
-			angle,
-			delta * deg_to_rad(rotation_speed)
-			)
+			var angle = rotation + get_angle_to(self.targeted_position)
+			angle += (PI/2)
 			
-		Events.audio_2d_requested.emit( rotation_sound, self.global_position )
-		
-		if !in_cooldown:
-			# Fires projectiles when current rotation is pointing in direction of aim within a certain margin.
-			if rotation == angle or abs(rotation - angle) < deg_to_rad(aim_margin_degrees):
-				in_cooldown = true
+			rotation = rotate_toward(  # NOTE: rotate_towards() uses radians.
+				rotation, 
+				angle,
+				delta * deg_to_rad(rotation_speed)
+				)
 				
-				#fire_projectile(self.targeted_position - self.global_position, get_angle_to(self.targeted_position))
-				fire_projectile(self.targeted_position - self.global_position)
+			Events.audio_2d_requested.emit( rotation_sound, self.global_position )
+			
+			if !in_cooldown:
+				# Fires projectiles when current rotation is pointing in direction of aim within a certain margin.
+				if rotation == angle or abs(rotation - angle) < deg_to_rad(aim_margin_degrees):
+					in_cooldown = true
 					
-				await get_tree().create_timer(cooldown).timeout
-				in_cooldown = false
+					for i in burst:
+						fire_projectile(self.targeted_position - self.global_position)
+						if burst_series and burst > 1:
+							await get_tree().create_timer(burst_cooldown).timeout
+
+					await get_tree().create_timer(cooldown).timeout
+					in_cooldown = false

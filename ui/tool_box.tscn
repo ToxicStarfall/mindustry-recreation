@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bltqyj74v3va2" path="res://assets/icons/mindustry/add.png" id="4_0ittb"]
 [ext_resource type="Texture2D" uid="uid://ppfjqxrhcucd" path="res://assets/icons/mindustry/defense.png" id="5_5yvv1"]
 [ext_resource type="Texture2D" uid="uid://cwrbltnbtjrm6" path="res://assets/icons/mindustry/quit.png" id="5_v6u0n"]
+[ext_resource type="Texture2D" uid="uid://dldx6l8ai7nfu" path="res://assets/sprites/custom/pane-top-left.png" id="6_31tr8"]
 [ext_resource type="Texture2D" uid="uid://3u5u5gw6j5y4" path="res://assets/icons/mindustry/turret.png" id="6_v6u0n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ouac8"]
@@ -45,6 +46,8 @@ expand_margin_left = 4.0
 expand_margin_top = 4.0
 expand_margin_right = 4.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sjbic"]
+
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_aw2tu"]
 color = Color(0.4, 0.4, 0.4, 1)
 thickness = 4
@@ -80,6 +83,7 @@ grow_vertical = 0
 
 [node name="FactionPanel" type="PanelContainer" parent="VBoxContainer" unique_id=113752218]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_ouac8")
@@ -251,27 +255,41 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 200)
 layout_mode = 2
 theme = ExtResource("1_sygiw")
-theme_type_variation = &"PanelContainerCorner1"
+theme_type_variation = &"PanelEmpty"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel" unique_id=752299219]
+[node name="NinePatchBorder" type="NinePatchRect" parent="VBoxContainer/HBoxContainer/SelectorPanel" unique_id=255777871]
+layout_mode = 2
+texture = ExtResource("6_31tr8")
+region_rect = Rect2(1, 1, 32, 23)
+patch_margin_left = 11
+patch_margin_top = 11
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel" unique_id=703408430]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer" unique_id=752299219]
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 2
 
-[node name="Units" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer" unique_id=678933743]
+[node name="Units" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer" unique_id=678933743]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units" unique_id=116621264]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Units" unique_id=116621264]
 layout_mode = 2
 size_flags_horizontal = 3
 follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
-[node name="UnitsGrid" type="ItemList" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units/ScrollContainer" unique_id=322053327]
+[node name="UnitsGrid" type="ItemList" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Units/ScrollContainer" unique_id=322053327]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 160)
 layout_mode = 2
@@ -279,21 +297,24 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
+theme_override_styles/panel = SubResource("StyleBoxEmpty_sjbic")
+select_mode = 2
 allow_search = false
 auto_width = true
 auto_height = true
+wraparound_items = false
 max_columns = 4
 same_column_width = true
 fixed_icon_size = Vector2i(32, 32)
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units" unique_id=146108770]
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Units" unique_id=146108770]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_aw2tu")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units" unique_id=56993563]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Units" unique_id=56993563]
 layout_mode = 2
 
-[node name="AllUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=653428628]
+[node name="AllUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Units/VBoxContainer" unique_id=653428628]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -301,7 +322,7 @@ icon = ExtResource("2_jtp2y")
 icon_alignment = 1
 expand_icon = true
 
-[node name="GroundUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=799682998]
+[node name="GroundUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Units/VBoxContainer" unique_id=799682998]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -309,7 +330,7 @@ icon = ExtResource("3_ksc7r")
 icon_alignment = 1
 expand_icon = true
 
-[node name="AirUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=815381539]
+[node name="AirUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Units/VBoxContainer" unique_id=815381539]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(32, 32)
@@ -317,7 +338,7 @@ layout_mode = 2
 icon_alignment = 1
 expand_icon = true
 
-[node name="NavalUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=75626112]
+[node name="NavalUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Units/VBoxContainer" unique_id=75626112]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(32, 32)
@@ -325,28 +346,28 @@ layout_mode = 2
 icon_alignment = 1
 expand_icon = true
 
-[node name="CustomUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Units/VBoxContainer" unique_id=1356224327]
+[node name="CustomUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Units/VBoxContainer" unique_id=1356224327]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 icon = ExtResource("4_0ittb")
 
-[node name="Blocks" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer" unique_id=657360125]
+[node name="Blocks" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer" unique_id=657360125]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks" unique_id=1158275857]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Blocks" unique_id=1158275857]
 layout_mode = 2
 size_flags_horizontal = 3
 follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
-[node name="BlocksGrid" type="ItemList" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks/ScrollContainer" unique_id=146585323]
+[node name="BlocksGrid" type="ItemList" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Blocks/ScrollContainer" unique_id=146585323]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 160)
 layout_mode = 2
@@ -354,20 +375,21 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
+select_mode = 1
 allow_search = false
 auto_width = true
 auto_height = true
 max_columns = 4
 fixed_icon_size = Vector2i(32, 32)
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks" unique_id=1120430091]
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Blocks" unique_id=1120430091]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_aw2tu")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks" unique_id=634314651]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Blocks" unique_id=634314651]
 layout_mode = 2
 
-[node name="AllBlocksButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=806360170]
+[node name="AllBlocksButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Blocks/VBoxContainer" unique_id=806360170]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -375,7 +397,7 @@ icon = ExtResource("2_jtp2y")
 icon_alignment = 1
 expand_icon = true
 
-[node name="DefenseBlockButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=598114924]
+[node name="DefenseBlockButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Blocks/VBoxContainer" unique_id=598114924]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -383,7 +405,7 @@ icon = ExtResource("5_5yvv1")
 icon_alignment = 1
 expand_icon = true
 
-[node name="TurretBlockButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=888294196]
+[node name="TurretBlockButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Blocks/VBoxContainer" unique_id=888294196]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
@@ -391,7 +413,7 @@ icon = ExtResource("6_v6u0n")
 icon_alignment = 1
 expand_icon = true
 
-[node name="CustomBlockButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/Blocks/VBoxContainer" unique_id=259648996]
+[node name="CustomBlockButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Blocks/VBoxContainer" unique_id=259648996]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(32, 32)
@@ -400,11 +422,11 @@ icon = ExtResource("4_0ittb")
 icon_alignment = 1
 expand_icon = true
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer" unique_id=1829798856]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer" unique_id=1829798856]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_sygiw")
 
-[node name="TabBar" type="TabBar" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer" unique_id=1385656741]
+[node name="TabBar" type="TabBar" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer" unique_id=1385656741]
 visible = false
 layout_mode = 2
 current_tab = 0
@@ -413,17 +435,17 @@ tab_count = 2
 tab_0/title = "Blocks"
 tab_1/title = "Units"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer" unique_id=367310817]
+[node name="Categories" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer" unique_id=367310817]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="UnitsButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/HBoxContainer3" unique_id=469717324]
+[node name="UnitsButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Categories" unique_id=469717324]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Units"
 
-[node name="BlocksButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/VBoxContainer/HBoxContainer3" unique_id=227118434]
+[node name="BlocksButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Categories" unique_id=227118434]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

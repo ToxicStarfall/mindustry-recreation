@@ -6,6 +6,7 @@ const TILE_SIZE: int = 32
 
 @onready var World = get_tree().root.get_node("Main/%World")
 @onready var Camera = World.get_node("%Camera2D")
+@onready var UI = get_tree().root.get_node("Main/%UI")
 
 #var camera_locked: bool = false
 
@@ -34,6 +35,7 @@ func _on_entity_controlled(entity: Entity):
 	
 	Camera.reparent(controlled_entity)
 	Camera.position = Vector2.ZERO
+	
 
 
 func _on_entity_selected(entity: Entity):

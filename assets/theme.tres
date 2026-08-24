@@ -19,7 +19,16 @@ border_color = Color(0.4, 0.4, 0.4, 1)
 corner_radius_top_left = 20
 corner_detail = 1
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bk45e"]
+
 [resource]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_y61vb")
 PanelContainerCorner1/base_type = &"PanelContainer"
 PanelContainerCorner1/styles/panel = SubResource("StyleBoxFlat_5x3i2")
+PanelEmpty/base_type = &"PanelContainer"
+PanelEmpty/styles/panel = SubResource("StyleBoxEmpty_bk45e")
+RichTextLabel/font_sizes/bold_font_size = 12
+RichTextLabel/font_sizes/bold_italics_font_size = 12
+RichTextLabel/font_sizes/italics_font_size = 12
+RichTextLabel/font_sizes/mono_font_size = 12
+RichTextLabel/font_sizes/normal_font_size = 12

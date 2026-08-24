@@ -1,7 +1,7 @@
 extends Node2D
 
 
-@onready var DebugPanel = get_tree().root.get_node("Main/UI/MarginContainer")
+@onready var DebugPanel = get_tree().root.get_node("Main/UI/%DebugMargin")
 @onready var DebugText = DebugPanel.get_node("%DebugText")
 var disabled
 var minimized

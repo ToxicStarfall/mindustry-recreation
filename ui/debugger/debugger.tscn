@@ -3,15 +3,15 @@
 [ext_resource type="Script" uid="uid://dmq13clxo6nbw" path="res://ui/nodes/close_button.gd" id="1_em0o5"]
 
 [node name="MarginContainer" type="MarginContainer" unique_id=743379157]
-offset_right = 132.0
-offset_bottom = 55.0
+offset_right = 455.0
+offset_bottom = 196.0
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1107729551]
-custom_minimum_size = Vector2(500, 100)
+custom_minimum_size = Vector2(200, 100)
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=939882899]
@@ -51,24 +51,6 @@ fit_content = true
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1971350584]
 layout_mode = 2
 
-[node name="MoveUnitCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1976309222]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Move Unit"
-
-[node name="FactionEditCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1034174477]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Edit Faction"
-
-[node name="OptionButton" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=842394853]
-layout_mode = 2
-
-[node name="UncontrolButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1868988659]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Un-control Unit"
-
 [node name="FoldableContainer" type="FoldableContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=179646031]
 visible = false
 layout_mode = 2
@@ -76,12 +58,33 @@ layout_mode = 2
 [node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=877819112]
 layout_mode = 2
 
-[node name="RangeVisuals" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1484577178]
+[node name="HFlowContainer" type="HFlowContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1673962777]
+layout_mode = 2
+
+[node name="MoveUnitCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer" unique_id=1976309222]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Move Unit"
+
+[node name="FactionEditCheckBox" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer" unique_id=1034174477]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Edit Faction"
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer" unique_id=842394853]
+layout_mode = 2
+
+[node name="UncontrolButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer" unique_id=1868988659]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Un-control Unit"
+
+[node name="RangeVisuals" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer" unique_id=1484577178]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Range visuals"
 
-[node name="TargetingVisuals" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3" unique_id=18229011]
+[node name="TargetingVisuals" type="CheckBox" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer" unique_id=18229011]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Targeting visuals"

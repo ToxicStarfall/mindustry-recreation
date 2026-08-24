@@ -31,6 +31,7 @@ radius = 960.0
 
 [sub_resource type="Resource" id="Resource_igvuf"]
 script = ExtResource("13_y5dy5")
+base_damage = 9.0
 metadata/_custom_type_script = "uid://dqbskq33gkjmw"
 
 [node name="Dagger" type="CharacterBody2D" unique_id=686862671]
@@ -105,6 +106,7 @@ shape = SubResource("CircleShape2D_bbvc1")
 [node name="WeaponGroup" type="Node2D" parent="." unique_id=1511550592 node_paths=PackedStringArray("weapons")]
 script = ExtResource("10_t0bvi")
 weapons = [NodePath("CanvasGroup/Turret"), NodePath("CanvasGroup/Turret2")]
+pivot_speed = 240.0
 metadata/_custom_type_script = "uid://hyaclsf4mdaw"
 
 [node name="CanvasGroup" type="CanvasGroup" parent="WeaponGroup" unique_id=1019943235]
@@ -120,6 +122,7 @@ rotation_limit_left = 45.0
 projectile_scene = ExtResource("12_p3vrm")
 projectile_size = Vector2(7, 9)
 speed = 7.0
+damage = null
 recoil_dist = 5.0
 fire_sound = ExtResource("15_tidit")
 damage_comp = SubResource("Resource_igvuf")
@@ -139,6 +142,7 @@ rotation_limit_right = 45.0
 projectile_scene = ExtResource("12_p3vrm")
 projectile_size = Vector2(7, 9)
 speed = 7.0
+damage = null
 recoil_dist = 5.0
 fire_sound = ExtResource("15_tidit")
 damage_comp = SubResource("Resource_igvuf")

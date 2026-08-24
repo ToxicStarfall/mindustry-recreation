@@ -60,15 +60,15 @@ input_pickable = true
 motion_mode = 1
 script = ExtResource("1_bluox")
 
-[node name="Legs" type="Node2D" parent="." unique_id=1654096471]
+[node name="LegBase" type="Node2D" parent="." unique_id=1654096471]
 use_parent_material = true
 
-[node name="LegLeft" type="Sprite2D" parent="Legs" unique_id=44361417]
+[node name="LegLeft" type="Sprite2D" parent="LegBase" unique_id=44361417]
 position = Vector2(-2, 1)
 texture = ExtResource("2_bluox")
 flip_h = true
 
-[node name="LegRight" type="Sprite2D" parent="Legs" unique_id=429078176]
+[node name="LegRight" type="Sprite2D" parent="LegBase" unique_id=429078176]
 position = Vector2(1, 1)
 texture = ExtResource("2_bluox")
 

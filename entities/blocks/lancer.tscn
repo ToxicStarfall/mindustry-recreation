@@ -23,12 +23,6 @@ size = Vector2(64, 64)
 size = Vector2(64, 64)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m84bq"]
-radius = 960.0
-
-[sub_resource type="Resource" id="Resource_85nee"]
-script = ExtResource("12_edl78")
-base_damage = 9.0
-metadata/_custom_type_script = "uid://dqbskq33gkjmw"
 
 [sub_resource type="Resource" id="Resource_dylhh"]
 script = ExtResource("12_edl78")
@@ -36,18 +30,20 @@ base_damage = 11.0
 metadata/_custom_type_script = "uid://dqbskq33gkjmw"
 
 [node name="Lancer" type="StaticBody2D" unique_id=1924569839]
+collision_mask = 0
 input_pickable = true
 script = ExtResource("1_l7vsh")
 faction = "shard"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=601620833]
-visible = false
 shape = SubResource("RectangleShape2D_3k6k8")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=975283128]
 texture = ExtResource("2_l7vsh")
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=470034411]
+collision_layer = 0
+collision_mask = 6
 script = ExtResource("3_mma57")
 metadata/_custom_type_script = "uid://bcnsah84lvxth"
 
@@ -91,10 +87,9 @@ material = ExtResource("9_s6ljf")
 script = ExtResource("10_87my5")
 rotation_speed = 210.0
 projectile_scene = ExtResource("11_l7vsh")
-lifetime = 0.5
+lifetime = 0.25
 projectile_size = Vector2(7, 9)
 speed = 6.0
-damage = SubResource("Resource_85nee")
 recoil_dist = 2.0
 fire_sound = ExtResource("13_dhwte")
 damage_comp = SubResource("Resource_dylhh")

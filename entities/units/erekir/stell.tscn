@@ -29,7 +29,6 @@ shader_parameter/dir_x = 0
 shader_parameter/dir_y = 0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bbvc1"]
-radius = 960.0
 
 [sub_resource type="Resource" id="Resource_bbvc1"]
 script = ExtResource("13_nkf8w")

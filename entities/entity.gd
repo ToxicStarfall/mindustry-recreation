@@ -68,6 +68,7 @@ func _setup():
 		TargetingComp.target_changed.connect( _on_target_changed )
 		TargetingComp.target_lost.connect( _on_target_lost )
 	
+	if !faction: faction = Factions.NONE.id
 	add_to_group("entities")
 	#add_to_group(faction)
 

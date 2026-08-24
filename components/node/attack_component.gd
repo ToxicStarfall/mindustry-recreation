@@ -59,14 +59,16 @@ func set_attack_status(status: bool):
 
 
 func set_target(target: Entity):
-	targeted_entity = target
+	# NOTE - AI attack is linked to whether there is a target in order to start/stop attacking. 
+	if can_attack:
+		targeted_entity = target
 	
-	#print(self)
-	if owner and !owner.is_controlled:
-		for weapon in weapons:
-			weapon.targeted_entity = targeted_entity
-			weapon.attacking = (targeted_entity != null)
-			#print((targeted_entity != null))
-		for weapon_group in groups:
-			weapon_group.targeted_entity = targeted_entity
-			weapon_group.attacking = (targeted_entity != null)
+		#print(self)
+		if owner and !owner.is_controlled:
+			for weapon in weapons:
+				weapon.targeted_entity = targeted_entity
+				weapon.attacking = (targeted_entity != null)
+				#print((targeted_entity != null))
+			for weapon_group in groups:
+				weapon_group.targeted_entity = targeted_entity
+				weapon_group.attacking = (targeted_entity != null)

@@ -11,6 +11,10 @@ var camera_pan_start: Vector2
 var blocks: Array[Block]
 var units: Array[Unit]
 
+@onready var FloorTileMap = %FloorTileMap
+@onready var EnvironmentTileMap = %EnvironmentTileMap
+@onready var BlockTileMap = %BlockTileMap
+
 
 
 func _init() -> void:

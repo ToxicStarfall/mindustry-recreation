@@ -28,16 +28,13 @@ var sprites: Dictionary = {
 
 var selected_block: String
 var selected_unit: String
+var placement_tester: Area2D
 var scene: PackedScene
-
-#var placing: bool = false
-#var place_sprite: Texture2D
+var instance: Entity
 
 
 
 func _ready() -> void:
-	# TODO - Add functionality for block selector.
-	#%UnitsGrid.item_selected.connect( _on_unit_item_selected )
 	%UnitsGrid.multi_selected.connect( _on_unit_item_multi_selected )
 	%BlocksGrid.multi_selected.connect( _on_block_item_multi_selected )
 	
@@ -55,63 +52,79 @@ func _ready() -> void:
 	_populate_blocks()
 
 
-func _draw() -> void:
-	#print("a")
-	#if place_sprite:
-		#print("b")
-		#draw_texture(place_sprite, Vector2.ZERO)
-		#draw_circle(Vector2.ZERO, 100, Color.RED)
-	pass
-
-
-func _process(_delta: float) -> void:
-	#if placing:
-		#queue_redraw()
-	pass
-
-
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
+		var mouse_pos = Game.World.get_global_mouse_position()  # Use global mouse position relative to World
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_released():
-			#print(selected_block)
-			#print(selected_unit)
-			
-			# TODO - Fix spawning using global mouse pos of UI Canvas Layer
 			if scene:
-				var mouse_pos = Game.World.get_global_mouse_position()
-				if selected_block:
-					#Game.World.BlockTileMap
-					var block: Unit = scene.instantiate()
-					block.position = mouse_pos
+				if selected_block and Drawer.valid_placement:
+					var block: Block = scene.instantiate()
+					var block_size: Vector2 = block.size * Game.TILE_SIZE
+					var block_offset = (block_size / 2)
+					
+					var tile_coords: Vector2 = ((mouse_pos - (block_size/2)) / Game.TILE_SIZE).round()
+					var tile_pos: Vector2 = (tile_coords * Game.TILE_SIZE) + block_offset
+					
+					# Block placement handling
+					var BlockTileMap: TileMapLayer = Game.World.BlockTileMap
+					
+					var tiles = []
+					for x in block.size.x:
+						for y in block.size.y:
+							tiles.append( tile_coords + Vector2(x, y) )
+					for tile in tiles:
+						BlockTileMap.set_cell(tile, 1, Vector2(3,0))  # Set to blank tile
+					
+					#placement_tester.position = tile_pos
+					# TODO - Add block to tile map  # NOTE - likely not possible
+					#BlockTileMap.set_cell(tile_coords, 3, Vector2.ZERO, 1)
+					
+					block.position = tile_pos
 					Game.World.add_child(block)
+					Events.audio_2d_requested.emit( AudioManager.find("place"), mouse_pos)
 					pass
+				# Unit Placmeent handling
 				elif selected_unit:
 					var unit: Unit = scene.instantiate()
 					unit.position = mouse_pos
-					#print(get_global_mouse_position())
 					Game.World.add_child(unit)
 					pass
+		
+		elif event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():
+			# TODO - properly clear placement hints on right click.
+			#%BlocksGrid.deselect_all()
+			#Drawer.block_placer = false
+			if instance:
+				clear()
+			elif Game.hovered_entity and Game.hovered_entity is Block:
+				Game.hovered_entity.queue_free()
+				Events.audio_2d_requested.emit( AudioManager.find("break"), mouse_pos)
+			pass
+
+	if event is InputEventMouse:
+		var mouse_pos = Game.World.get_global_mouse_position()
+		if scene:
+			if selected_block:
+				var block_size: Vector2 = instance.size * Game.TILE_SIZE
+				var block_offset = (block_size / 2)
+				
+				var tile_coords: Vector2 = ((mouse_pos - (block_size/2)) / Game.TILE_SIZE).round()
+				var tile_pos: Vector2 = (tile_coords * Game.TILE_SIZE) + block_offset
+				
+				placement_tester.position = tile_pos
 	pass
 
 
-#func _on_unit_item_selected(index: int):
-	#%UnitsGrid.deselect_all()
-	#%UnitsGrid.select(index)
-		##return
-		#
-	#for group in sprites.units.serpulo:
-		#if sprites.units.serpulo[group].find_key( %UnitsGrid.get_item_icon(index) ) != null:
-			#selected_unit = sprites.units.serpulo[group].find_key( %UnitsGrid.get_item_icon(index) )
-			#break
-	##print(selected_unit)
-	#if ResourceLoader.exists("res://entities/units/serpulo/" + selected_unit + ".tscn"):
-		#var unit_scene = load("res://entities/units/serpulo/" + selected_unit + ".tscn")
-		#var unit = unit_scene.instantiate()
-		#Game.World.add_child(unit)
-
-
 func _on_unit_item_multi_selected(index: int, selected: bool):
-	#placing = false
+	Drawer.block_placer_base_sprite = null
+	Drawer.entity_placer = false
+	Drawer.block_placer = false
+	%UnitsGrid.deselect_all()
+	selected_unit = ""
+	scene = null
+	if placement_tester: placement_tester.queue_free()
+	placement_tester = null
+	
 	if selected:
 		%UnitsGrid.select(index)
 		
@@ -119,32 +132,30 @@ func _on_unit_item_multi_selected(index: int, selected: bool):
 		for group in sprites.units.serpulo:
 			if sprites.units.serpulo[group].find_key( %UnitsGrid.get_item_icon(index) ) != null:
 				selected_unit = sprites.units.serpulo[group].find_key( %UnitsGrid.get_item_icon(index) )
-				#place_sprite = sprites.units.serpulo[group].get(selected_unit)
-				#placing = true
 				Drawer.entity_placer_sprite = sprites.units.serpulo[group].get(selected_unit)
 				Drawer.entity_placer = true
 				break
 		# Search for the unit's scene and spawn.
-		# TODO - Wait for mouse press after selecting to place
 		if ResourceLoader.exists("res://entities/units/serpulo/" + selected_unit + ".tscn"):
 			var unit_scene: PackedScene = load("res://entities/units/serpulo/" + selected_unit + ".tscn")
 			scene = unit_scene
-			#var unit: Unit = unit_scene.instantiate()
-			#unit.global_position = get_global_mouse_position()
-			#Game.World.add_child(unit)
-
-	else:
-		Drawer.entity_placer = false
-		%UnitsGrid.deselect_all()
-		selected_unit = ""
-		scene = null
+			instance = scene.instantiate()
 
 
 func _on_block_item_multi_selected(index: int, selected: bool):
+	Drawer.block_placer_base_sprite = null
+	Drawer.entity_placer = false
+	Drawer.block_placer = false
+	%BlocksGrid.deselect_all()
+	selected_block = ""
+	scene = null
+	if placement_tester: placement_tester.queue_free()
+	placement_tester = null
+	
 	if selected:
 		%BlocksGrid.select(index)
 	
-		# Find the unit associated with the selected unit icon.
+		# Find the block associated with the selected block icon.
 		for group in sprites.blocks:
 			if sprites.blocks[group].find_key( %BlocksGrid.get_item_icon(index) ) != null:
 				selected_block = sprites.blocks[group].find_key( %BlocksGrid.get_item_icon(index) )
@@ -159,19 +170,53 @@ func _on_block_item_multi_selected(index: int, selected: bool):
 					break
 		# Search for the block's scene and spawn.
 		# TODO - Wait for mouse press after selecting to place
+		selected_block = selected_block.get_slice("-preview",0)  # Remove -preview suffix
 		if ResourceLoader.exists("res://entities/blocks/" + selected_block + ".tscn"):
 			var block_scene: PackedScene = load("res://entities/blocks/" + selected_block + ".tscn")
 			scene = block_scene
-			#var block: Block = block_scene.instantiate()
-			#block.global_position = get_global_mouse_position()
-			#Game.World.add_child(block)
+			instance = scene.instantiate()
+			_block_tester()
+
+
+func _block_tester():
+	var placement_tester_collision: CollisionShape2D
+	if !placement_tester:
+		placement_tester = Area2D.new()
+		
+	if placement_tester:
+		# TODO - Clear 
+		placement_tester_collision = CollisionShape2D.new()
+		placement_tester_collision.shape = RectangleShape2D.new()
+		placement_tester_collision.shape.size = Vector2(instance.size) * Game.TILE_SIZE - Vector2(2,2)
+		placement_tester.add_child(placement_tester_collision)
+		placement_tester.collision_mask = 3
+
+	placement_tester.body_entered.connect( func(body):
+		if body is Block or body is Unit:
+			if body != instance:
+				Drawer.valid_placement = false
+		pass )
+	placement_tester.body_exited.connect( func(_body):
+		Drawer.valid_placement = true
+		pass )
 	
-	else:
-		Drawer.entity_placer = false
-		Drawer.block_placer = false
-		%BlocksGrid.deselect_all()
-		selected_block = ""
-		scene = null
+	Game.World.add_child(placement_tester)
+
+
+func clear():
+	Drawer.entity_placer = false
+	Drawer.block_placer = false
+	Drawer.block_placer_base_sprite = null
+	%UnitsGrid.deselect_all()
+	%BlocksGrid.deselect_all()
+	selected_unit = ""
+	selected_block = ""
+	scene = null
+	instance.queue_free()
+	instance = null
+	if placement_tester: placement_tester.queue_free()
+	placement_tester = null
+	pass
 
 
 ## Loads block and unit sprites.
@@ -195,13 +240,11 @@ func _load_sprites():
 				var preview_path = (dir + file)  # regular unfoldered unit png
 				if file.contains("/"):  # For units in seperate folder.
 					preview_path = dir + file + (file.get_slice("/", 0) + ".png")
-					#print(preview_path)
 
 					# TODO - Unit planet handling. Currently locked to serpulo
 					sprites.units.serpulo[group].set(file.get_slice("/", 0), ResourceLoader.load(preview_path) )
 					pass
 				else:
-					#sprites.units[group].set(file.get_slice(".", 0), ResourceLoader.load(preview_path) )
 					sprites.units.serpulo[group].set(file.get_slice(".", 0), ResourceLoader.load(preview_path) )
 					pass
 
@@ -217,6 +260,8 @@ func _populate_units():
 ## Adds blocks to panel
 func _populate_blocks():
 	for group in sprites.blocks:
-		for key in sprites.blocks[group]:
+		for key: String in sprites.blocks[group]:
+			if [2, 3, 4, 5].has( int(key.right(1) )):
+				continue  # Ignore variations for now.
 			var sprite = sprites.blocks[group][key]
 			%BlocksGrid.add_item("", sprite)

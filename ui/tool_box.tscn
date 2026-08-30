@@ -6,10 +6,17 @@
 [ext_resource type="Texture2D" uid="uid://bvrxaa0i47w6r" path="res://assets/icons/mindustry/menu.png" id="2_jtp2y"]
 [ext_resource type="Texture2D" uid="uid://dupgn00a3hyui" path="res://assets/icons/mindustry/units.png" id="3_ksc7r"]
 [ext_resource type="Texture2D" uid="uid://bltqyj74v3va2" path="res://assets/icons/mindustry/add.png" id="4_0ittb"]
+[ext_resource type="Texture2D" uid="uid://v2d74ifib0qx" path="res://assets/sprites/custom/pane-all.png" id="4_14ra1"]
 [ext_resource type="Texture2D" uid="uid://ppfjqxrhcucd" path="res://assets/icons/mindustry/defense.png" id="5_5yvv1"]
-[ext_resource type="Texture2D" uid="uid://cwrbltnbtjrm6" path="res://assets/icons/mindustry/quit.png" id="5_v6u0n"]
+[ext_resource type="Texture2D" uid="uid://bibv1syqukijt" path="res://assets/icons/mindustry/none.png" id="5_8o4p7"]
+[ext_resource type="Texture2D" uid="uid://bnvbp5ttpkkkh" path="res://assets/icons/mindustry/pencil.png" id="5_m0ocr"]
+[ext_resource type="Texture2D" uid="uid://4qldcfiemqm0" path="res://assets/icons/mindustry/trash-16.png" id="6_8o4p7"]
 [ext_resource type="Texture2D" uid="uid://dldx6l8ai7nfu" path="res://assets/sprites/custom/pane-top-left.png" id="6_31tr8"]
 [ext_resource type="Texture2D" uid="uid://3u5u5gw6j5y4" path="res://assets/icons/mindustry/turret.png" id="6_v6u0n"]
+[ext_resource type="Texture2D" uid="uid://ctd61xb7nxa7k" path="res://assets/sprites/teams/team-derelict.png" id="8_8c013"]
+[ext_resource type="Texture2D" uid="uid://dqincnkst3v35" path="res://assets/sprites/teams/team-sharded.png" id="9_6r7pl"]
+[ext_resource type="Texture2D" uid="uid://d33gtq3u6d04x" path="res://assets/sprites/teams/team-crux.png" id="10_dgg4x"]
+[ext_resource type="Texture2D" uid="uid://c23f6e7os6mu0" path="res://assets/sprites/teams/team-malis.png" id="11_p7o6t"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ouac8"]
 bg_color = Color(0.15686275, 0.15686275, 0.15686275, 1)
@@ -35,16 +42,8 @@ bg_color = Color(0.09500002, 0.6222499, 0.95, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pskj0"]
 bg_color = Color(1, 0.8666667, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5yvv1"]
-bg_color = Color(0.15686275, 0.15686275, 0.15686275, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-corner_radius_top_left = 10
-corner_detail = 1
-expand_margin_left = 4.0
-expand_margin_top = 4.0
-expand_margin_right = 4.0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ouac8"]
+content_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sjbic"]
 
@@ -231,24 +230,100 @@ layout_mode = 2
 
 [node name="PlacingTool" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=473204080]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_vertical = 8
-theme_override_styles/panel = SubResource("StyleBoxFlat_5yvv1")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ouac8")
+
+[node name="NinePatchBorder" type="NinePatchRect" parent="VBoxContainer/HBoxContainer/PlacingTool" unique_id=1876716497]
+layout_mode = 2
+texture = ExtResource("4_14ra1")
+region_rect = Rect2(1, 1, 36, 15)
+patch_margin_left = 13
+patch_margin_top = 13
+patch_margin_right = 13
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/PlacingTool" unique_id=455182525]
 layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PlacingTool/MarginContainer" unique_id=1785898554]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/PlacingTool/MarginContainer/VBoxContainer" unique_id=1405488260]
+[node name="SelectButton" type="Button" parent="VBoxContainer/HBoxContainer/PlacingTool/MarginContainer/VBoxContainer" unique_id=666556633]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
-icon = ExtResource("4_0ittb")
+icon = ExtResource("5_8o4p7")
 
-[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer/PlacingTool/MarginContainer/VBoxContainer" unique_id=1466204661]
+[node name="PlaceButton" type="Button" parent="VBoxContainer/HBoxContainer/PlacingTool/MarginContainer/VBoxContainer" unique_id=1405488260]
+unique_name_in_owner = true
 layout_mode = 2
-icon = ExtResource("5_v6u0n")
+icon = ExtResource("5_m0ocr")
+
+[node name="BreakButton" type="Button" parent="VBoxContainer/HBoxContainer/PlacingTool/MarginContainer/VBoxContainer" unique_id=1466204661]
+unique_name_in_owner = true
+layout_mode = 2
+icon = ExtResource("6_8o4p7")
+
+[node name="FactionSelectTool" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=954710216]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ouac8")
+
+[node name="NinePatchBorder" type="NinePatchRect" parent="VBoxContainer/HBoxContainer/FactionSelectTool" unique_id=104187063]
+layout_mode = 2
+texture = ExtResource("4_14ra1")
+region_rect = Rect2(1, 1, 36, 27)
+patch_margin_left = 13
+patch_margin_top = 13
+patch_margin_right = 13
+patch_margin_bottom = 13
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/FactionSelectTool" unique_id=1669863419]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/FactionSelectTool/MarginContainer" unique_id=422717757]
+layout_mode = 2
+
+[node name="NoneFactionButton" type="Button" parent="VBoxContainer/HBoxContainer/FactionSelectTool/MarginContainer/VBoxContainer" unique_id=1031229649]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+icon = ExtResource("8_8c013")
+icon_alignment = 1
+expand_icon = true
+
+[node name="ShardFactionButton" type="Button" parent="VBoxContainer/HBoxContainer/FactionSelectTool/MarginContainer/VBoxContainer" unique_id=851997004]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+icon = ExtResource("9_6r7pl")
+icon_alignment = 1
+expand_icon = true
+
+[node name="CruxFactionButton" type="Button" parent="VBoxContainer/HBoxContainer/FactionSelectTool/MarginContainer/VBoxContainer" unique_id=1531626309]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+icon = ExtResource("10_dgg4x")
+icon_alignment = 1
+expand_icon = true
+
+[node name="MalisFactionButton" type="Button" parent="VBoxContainer/HBoxContainer/FactionSelectTool/MarginContainer/VBoxContainer" unique_id=1825906997]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+icon = ExtResource("11_p7o6t")
+icon_alignment = 1
+expand_icon = true
 
 [node name="SelectorPanel" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=1039681025]
 unique_name_in_owner = true
@@ -375,7 +450,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
-select_mode = 1
+select_mode = 2
 allow_search = false
 auto_width = true
 auto_height = true

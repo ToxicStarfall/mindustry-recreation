@@ -82,6 +82,20 @@ func _draw() -> void:
 		pass
 
 
+func _process(_delta: float) -> void:
+	if has_node("%Cell"):
+		var time = Time.get_ticks_msec() / 1000.0
+		var freq = clamp(HealthComp.health / HealthComp.max_health, 0.1, 0.5)
+		#var value = 1.0
+		var r = (sin(time / freq) / 4) + 0.75  # Fluctuates from 0.5 - 1.0
+		#%Cell.modulate.a = HealthComp.health / HealthComp.max_health
+		#%Cell.modulate.v = HealthComp.health / HealthComp.max_health
+		#%Cell.modulate.a = abs(sin(delta)) * (HealthComp.health / HealthComp.max_health)
+		%Cell.modulate.v = 1.0 * (r if freq < 1.0 else 1.0)
+		#if name == "Stell":
+			#print(r)
+
+
 #func _physics_process(delta: float) -> void:
 	#if MovementComp:
 		#MovementComp._physics_process(delta)
@@ -110,9 +124,9 @@ func _on_health_damaged():
 	tween.tween_property(self, "modulate:v", 0.5, 0.1)
 	tween.tween_property(self, "modulate:v", 1, 0.075)
 	
-	if has_node("%Cell"):
-		%Cell.modulate.a = HealthComp.health / HealthComp.max_health
-		%Cell.modulate.v = HealthComp.health / HealthComp.max_health
+	#if has_node("%Cell"):
+		#%Cell.modulate.a = HealthComp.health / HealthComp.max_health
+		#%Cell.modulate.v = HealthComp.health / HealthComp.max_health
 
 
 func _on_health_zeroed():

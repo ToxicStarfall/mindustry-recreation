@@ -9,33 +9,36 @@ enum Shape { CIRCLE, POLYGON }
 
 @export var emitting: bool = false: set = _set_emitting
 
+@export_group("Time")
+@export var lifetime: float = 1.0: set = _set_lifetime
+@export var one_shot: bool = false
+
+
 @export_group("Shape")
 @export var shape: Shape = Shape.CIRCLE
-@export_subgroup("Radius")
-@export var radius: float = 16.0
-@export var radius_final: float = 16.0
-@export var radius_curve: Curve#: get = _get_radius_curve
 @export_subgroup("")
 @export var filled: bool = true
 @export var width: float = -1.0
 @export var offset: Vector2 = Vector2.ZERO
 
+@export_subgroup("Circle")
+@export var radius: float = 16.0
+@export var radius_final: float = 16.0
+@export var radius_curve: Curve#: get = _get_radius_curve
 @export_subgroup("Polygon")
 @export var sides: int = 3
 #@export var sides_length: float = 3
+#@export var initial_rotation: float = 0.0
 
-
-@export_group("Time")
-@export var lifetime: float = 1.0: set = _set_lifetime
-@export var one_shot: bool = false
 
 #@export_group("Initial Velocity")
 @export_group("Scale")
-@export var scale_amount: Curve2D
+@export var scale_amount: Curve
 
 @export_group("Color")
 @export var color: Color = Color.WHITE
 @export var color_ramp: Gradient
+#@export var color_ramp_lifetime: Gradient
 
 
 var emit_timer = Timer.new()
@@ -63,10 +66,13 @@ func _draw() -> void:
 		match shape:
 			Shape.CIRCLE:
 				draw_circle (
-					Vector2.ZERO,
+					Vector2.ZERO + offset,
 					#radius * (draw_delta / lifetime),
-					radius + ((radius_final - radius) * (draw_delta / lifetime)),
-					color * color_ramp.sample(draw_delta / lifetime),
+					#radius + ((radius_final - radius) * (draw_delta / lifetime)),
+					radius + (radius_curve.sample(draw_delta / lifetime) if radius_curve
+						else (radius_final - radius) * (draw_delta / lifetime)),
+					color * color_ramp.sample(draw_delta / lifetime) if color_ramp
+						else Color.WHITE,
 					filled,
 					width
 				)

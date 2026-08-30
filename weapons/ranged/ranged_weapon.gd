@@ -60,7 +60,7 @@ signal test_fired
 @export_group("Sounds")
 @export var fire_sound: AudioStream
 @export var reload_sound: AudioStream
-#@export var charge: AudioStream
+#@export var charge_sound: AudioStream
 #@export var heatup_sound: AudioStream
 #@export var cooldown_sound: AudioStream
 
@@ -111,6 +111,8 @@ func fire_projectile(dir: Vector2):
 	projectile.rotation = projectile.rotation + deg_to_rad(deviation_amount)  # Add projectile deviaion
 	
 	_animate_recoil()
+	#if overheating_enabled:
+	_animate_heat()
 	_spawn_particles(projectile_spawn_pos, projectile.rotation)
 	
 	Events.projectile_spawn_requested.emit( projectile )
@@ -121,8 +123,15 @@ func _animate_recoil():
 	if has_node("Sprite2D"):
 		var tween = create_tween()
 		var start_y = $Sprite2D.position.y
-		tween.tween_property($Sprite2D, "offset:y", start_y + recoil_dist, 0.10 * cooldown).set_trans(Tween.TRANS_SINE)
-		tween.tween_property($Sprite2D, "offset:y", start_y, 0.80 * cooldown).set_trans(Tween.TRANS_SINE)#.set_ease(Tween.EASE_IN)
+		tween.tween_property($Sprite2D, "position:y", start_y + recoil_dist, 0.10 * cooldown).set_trans(Tween.TRANS_SINE)
+		tween.tween_property($Sprite2D, "position:y", start_y, 0.80 * cooldown).set_trans(Tween.TRANS_SINE)#.set_ease(Tween.EASE_IN)
+
+
+func _animate_heat():
+	if has_node("Heat"):
+		var tween = create_tween()
+		tween.tween_property($Heat, "modulate", Color("ab3400ff", 0.5), 0.40 * cooldown).set_trans(Tween.TRANS_SINE)
+		tween.tween_property($Heat, "modulate", Color("ab3400ff", 0.0), 0.40 * cooldown).set_trans(Tween.TRANS_SINE)
 
 
 func _spawn_particles(spawn_position = self.global_position, angle = 0.0):

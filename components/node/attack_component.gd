@@ -28,11 +28,15 @@ func _physics_process(_delta: float) -> void:
 		for weapon_group in groups:
 			weapon_group.targeted_position = owner.get_global_mouse_position()
 			
-	#else:
-		#for weapon in weapons:
-			#weapon.targeted_entity = targeted_entity
-		#for weapon_group in groups:
-			#weapon_group.targeted_entity = targeted_entity
+	else:
+		#print()
+		if !owner.is_controlled:
+			for weapon in weapons:
+				weapon.targeted_entity = null if !targeted_entity else targeted_entity
+				weapon.attacking = (targeted_entity != null)
+			for weapon_group in groups:
+				weapon_group.targeted_entity = null if !targeted_entity else targeted_entity
+				weapon_group.attacking = (targeted_entity != null)
 
 
 func set_attack_status(status: bool):
@@ -62,13 +66,28 @@ func set_target(target: Entity):
 	# NOTE - AI attack is linked to whether there is a target in order to start/stop attacking. 
 	if can_attack:
 		targeted_entity = target
-	
-		#print(self)
-		if owner and !owner.is_controlled:
-			for weapon in weapons:
-				weapon.targeted_entity = targeted_entity
-				weapon.attacking = (targeted_entity != null)
-				#print((targeted_entity != null))
-			for weapon_group in groups:
-				weapon_group.targeted_entity = targeted_entity
-				weapon_group.attacking = (targeted_entity != null)
+		
+		# NOTE - redundant with _phsysics process?
+		#if owner and !owner.is_controlled:
+			#for weapon in weapons:
+				#weapon.targeted_entity = targeted_entity
+				#weapon.attacking = (targeted_entity != null)
+				##print((targeted_entity != null))
+			#for weapon_group in groups:
+				#weapon_group.targeted_entity = targeted_entity
+				#weapon_group.attacking = (targeted_entity != null)
+
+
+#func look_at(target):
+	#pass
+
+
+# HACK - improve call flow later
+func get_weapon_ranges():
+	var ranges = []
+	for w in weapons:
+		ranges.append( (w.speed * w.lifetime) * 60 )
+	for weapon_group in groups:
+		for w in weapon_group.weapons:
+			ranges.append( (w.speed * w.lifetime) * 60 )
+	return ranges

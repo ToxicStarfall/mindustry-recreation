@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://c6xq2k407t4ei"]
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" unique_id=1509775986]
+path_desired_distance = 32.0
+target_desired_distance = 32.0
+navigation_layers = 3
+avoidance_enabled = true
+radius = 48.0
+debug_use_custom = true

@@ -25,9 +25,13 @@ enum MovementType {
 @export var is_ai_controllable: bool = true
 @export var is_player_controllable: bool = true
 
+var is_player_controlled: bool = false
+
 var unit: Entity
 var dir: Vector2
 var last_dir: Vector2 = Vector2.UP
+
+var target_position: Vector2
 
 var physics_dalta: float = 0.0
 var process_delta: float = 0.0
@@ -38,13 +42,51 @@ func _ready() -> void:
 	unit = get_parent()
 	if !unit is Unit:
 		push_warning("Movement component assigned to non-Unit entity.")
+		
+	#if unit.has_node("NavigationAgent2D"):
+		#unit.get_node("NavigationAgent2D").target_position = Vector2(-50 * 32, 50 * 32)
+		#print(unit)
+	match movement_type:
+		MovementType.FLOATING, MovementType.WHEELED, MovementType.TRACKED:
+			owner.add_child.call_deferred(preload("res://entities/ground_nav_agent_2d.tscn").instantiate())
+		MovementType.LEGGED:
+			owner.add_child.call_deferred(preload("res://entities/ground_nav_agent_2d.tscn").instantiate())
+		MovementType.HOVERING, MovementType.FLYING:
+			owner.add_child.call_deferred(preload("res://entities/air_nav_agent_2d.tscn").instantiate())
 
 
 func physics_process(delta: float) -> void:
-	if can_move: 
-		var x = Input.get_axis("move_left", "move_right")
-		var y = Input.get_axis("move_up", "move_down")
-		dir = Vector2(x, y)
+	if can_move:
+		var x: float = 0.0
+		var y: float = 0.0
+		
+		# Player movement
+		if unit.is_controlled:
+			x = Input.get_axis("move_left", "move_right")
+			y = Input.get_axis("move_up", "move_down")
+			dir = Vector2(x, y)
+		# AI movement
+		else:
+			if unit.has_node("NavigationAgent2D"):
+				var NavAgent: NavigationAgent2D = unit.get_node("NavigationAgent2D")
+				#NavAgent.target_position = owner.get_global_mouse_position()
+				#target_position = Vector2.INF
+				#if NavAgent.is_target_reached():
+					#dir = Vector2.ZERO
+					#print("a")
+				#elif !NavAgent.is_target_reachable():
+					#dir = Vector2.ZERO
+					#print("unreachable")
+				if NavAgent.is_target_reached() or !NavAgent.is_target_reachable():
+					dir = Vector2.ZERO
+					#print("a or unreachable")
+				# Stop moving when position is within attack range
+				elif (NavAgent.get_final_position() - owner.global_position).length() < NavAgent.target_desired_distance:
+					#print("b")
+					dir = Vector2.ZERO
+				else:
+					dir = (NavAgent.get_next_path_position() - owner.global_position).normalized()
+					#print("c")
 		
 		if dir != Vector2.ZERO:
 			last_dir = dir
@@ -58,8 +100,7 @@ func physics_process(delta: float) -> void:
 				pass
 			
 			MovementType.TRACKED:
-				#unit.move_and_collide(Vector2(0, y * speed * delta).rotated(unit.rotation))
-				#unit.move_and_collide( Vector2(0, y * (speed * 32) * delta).rotated(unit.rotation))
+				#if target_position
 				unit.velocity = Vector2(0, y * (speed * 32)).rotated(unit.rotation)
 				unit.move_and_slide()
 				unit.rotation_degrees += x * rot_speed * delta
@@ -74,8 +115,9 @@ func physics_process(delta: float) -> void:
 				# TODO/NOTE - Wheeled movement should be similar to boat movement.
 				pass
 				
+			# TODO - Handle movement velocity using acceleration.
+			# TODO - Reduce movement when moving backwards
 			MovementType.HOVERING, MovementType.FLYING:
-				# TODO - Handle movement velocity using acceleration.
 				#unit.velocity = dir * (speed * Game.TILE_SIZE)
 				if dir != Vector2.ZERO:
 					unit.velocity = dir * (speed * Game.TILE_SIZE)# if dir!=Vector2.ZERO else (unit.velocity - (last_dir * drag * Game.TILE_SIZE)).min(Vector2.ZERO).max(Vector2.ZERO)
@@ -90,9 +132,11 @@ func physics_process(delta: float) -> void:
 				unit.move_and_slide()
 
 				#unit.rotation = last_dir.angle() + (PI / 2)
-				unit.rotation = rotate_toward(
-					unit.rotation, last_dir.angle() + (PI / 2), deg_to_rad(rot_speed) * delta
-				)
+				if !unit.AttackComp.is_attacking and !dir == Vector2.ZERO:
+					unit.rotation = rotate_toward(
+						unit.rotation, last_dir.angle() + (PI/2), deg_to_rad(rot_speed) * delta
+					)
+				#print("r")
 				pass
 				
 			MovementType.NONE, _:
@@ -161,7 +205,11 @@ func _process(delta: float) -> void:
 						var leg_length: float = leg_base_line.points[0].distance_to( leg_base_line.to_local(leg_base_line.current_foot_pos) )
 						
 						if abs(leg_length) > leg_extend_dist * 1.5:
-							leg_base_line.step(dir, leg_extend_dist * 2, speed * 2)
+							#leg_base_line.step(dir, leg_extend_dist * 2, speed * 2)
+							
+							var rot = (dir.angle() -(PI/2)) - leg_base_line.rotation
+							#print(rot)
+							leg_base_line.rotate_step(dir, leg_extend_dist * 2, speed * 2, rot)
 							pass
 
 						## Leg Base rotation

@@ -2,6 +2,8 @@
 class_name Projectile
 extends Area2D
 
+#signal despawn_handled
+
 
 @export_enum("none", "shard", "crux", "malis") var faction: String
 
@@ -27,12 +29,14 @@ var lifetime: float = 1.0  ## Projectile lifeitme in seconds.
 var speed: float = 5.0  ## Projectile speed in tiles/second.
 var direction: Vector2  ## The movement direction of this projectile.
 
-var trail_threshold: float = 5.0
+var trail_threshold: float = 8.0
 
 var damage_comp: DamageComponent
 var mods: Array[ProjectileMod]
+var despawn_handled: bool = false
 
 var spawner_entity: Entity
+var spawner_velocity: Vector2  ## The movement direction of the spaner
 
 
 
@@ -57,17 +61,19 @@ func _process(_delta: float) -> void:
 		pass
 
 
-func _physics_process(_delta: float) -> void:
-	self.position += direction * speed
+func _physics_process(delta: float) -> void:
+	#self.position += (direction * speed)
+	self.position += (direction * speed) + ((spawner_velocity / 2) * delta)  # spawner_vel / 2 to reduce speed issues
 
 
 func collided():
 	# TODO - Figure out callback to mods to know it it handles freeing.
 	for mod in mods: mod.call(&"_collided", self)
 	
+	#if !despawn_handled:
 	## Do things after having collided with an object
-	#if !is_queued_for_deletion():
-		#self.queue_free()
+	if !is_queued_for_deletion():
+		self.queue_free()
 	pass
 
 

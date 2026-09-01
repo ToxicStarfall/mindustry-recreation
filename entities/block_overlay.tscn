@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://bvm07w6fuisnj"]
+
+[ext_resource type="Script" uid="uid://d1bypcqipiilq" path="res://block_overlay.gd" id="1_2f77x"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ogrmx"]
+domain_warp_enabled = true
+domain_warp_type = 1
+domain_warp_fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2f77x"]
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_ogrmx")
+
+[sub_resource type="Gradient" id="Gradient_ouac8"]
+resource_local_to_scene = true
+offsets = PackedFloat32Array(0.999, 1)
+colors = PackedColorArray(0.2436, 0.2436, 0.29, 0, 0.23520002, 0.23520002, 0.28, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bk45e"]
+resource_local_to_scene = true
+noise_type = 2
+frequency = 0.05
+fractal_lacunarity = 0.0
+cellular_distance_function = 1
+cellular_return_type = 6
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sjbic"]
+resource_local_to_scene = true
+width = 64
+height = 64
+noise = SubResource("FastNoiseLite_bk45e")
+color_ramp = SubResource("Gradient_ouac8")
+
+[node name="BlockOverlay" type="Node2D" unique_id=1623321145]
+script = ExtResource("1_2f77x")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=711575390]
+visible = false
+texture = SubResource("NoiseTexture2D_2f77x")
+
+[node name="Damage" type="Sprite2D" parent="." unique_id=1175481630]
+scale = Vector2(0.5, 0.5)
+texture = SubResource("NoiseTexture2D_sjbic")

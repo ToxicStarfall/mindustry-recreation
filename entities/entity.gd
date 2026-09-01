@@ -2,6 +2,10 @@ class_name Entity
 extends Node2D
 
 
+signal faction_changed (new_faction: String)
+signal control_changed ()
+
+
 @export_enum("none", "shard", "crux", "malis") var faction: String : set = _set_faction
 #@export var body: Body
 
@@ -44,6 +48,13 @@ func _on_child_exiting_tree(child: Node):
 		weapons.erase(child)
 
 
+func _exit_tree() -> void:
+	#if Game.controlled_entity == self:  Game.World.Camera.reparent.call_deferred(Game.World)
+	if Game.controlled_entity == self:
+		remove_child(Game.World.Camera)
+		Game.World.add_child.call_deferred(Game.World.Camera)
+	if self is Block:  Game.World.get_node("NavigationRegion2D").bake_navigation_polygon()
+
 
 func _ready() -> void:
 	_setup()
@@ -70,7 +81,9 @@ func _setup():
 	
 	if !faction: faction = Factions.NONE.id
 	add_to_group("entities")
-	#add_to_group(faction)
+	add_to_group(faction)
+	
+	if has_node("%Cell"):  %Cell.modulate = Factions.get_faction(faction).color
 
 
 
@@ -85,18 +98,19 @@ func _draw() -> void:
 func _process(_delta: float) -> void:
 	if has_node("%Cell"):
 		var time = Time.get_ticks_msec() / 1000.0
-		var freq = clamp(HealthComp.health / HealthComp.max_health, 0.1, 0.5)
-		#var value = 1.0
-		var r = (sin(time / freq) / 4) + 0.75  # Fluctuates from 0.5 - 1.0
+		var health_percent = HealthComp.health / HealthComp.max_health
+		var freq = clamp(health_percent, 0.125, 0.6)  # Limit flash speed
+		var fluct = (sin(time / freq) / 4) + 0.75  # Fluctuates from 0.5 - 1.0
 		#%Cell.modulate.a = HealthComp.health / HealthComp.max_health
 		#%Cell.modulate.v = HealthComp.health / HealthComp.max_health
-		#%Cell.modulate.a = abs(sin(delta)) * (HealthComp.health / HealthComp.max_health)
-		%Cell.modulate.v = 1.0 * (r if freq < 1.0 else 1.0)
+		#%Cell.modulate.v = 1.0 * (fluct if health_percent < 1.0 else 1.0)
+		%Cell.modulate.v = 1.0 - ((1 - fluct) if health_percent < 1.0 else 0.0)
 		#if name == "Stell":
-			#print(r)
+			#print( ((1 - fluct) if health_percent < 1.0 else 0.0) )
 
 
 #func _physics_process(delta: float) -> void:
+	# Handled in unit.gd
 	#if MovementComp:
 		#MovementComp._physics_process(delta)
 
@@ -113,8 +127,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_hitbox_hit(damage_comp: DamageComponent):
-	#if DefenseComp:
-		#damage_comp = DefenceComp.process_damage(damage_comp)
+	if DefenseComp:
+		damage_comp = DefenseComp.process_damage(damage_comp)
 	if HealthComp:
 		HealthComp.damage(damage_comp.base_damage)
 
@@ -131,12 +145,13 @@ func _on_health_damaged():
 
 func _on_health_zeroed():
 	if HealthComp.is_killable:
+		Events.audio_2d_requested.emit(AudioManager.find("explosion"), self.position)
 		self.queue_free()
 
 
 ## Runs when there is no current target and a new target is found.
 func _on_target_found(entity: Entity):
-	if !is_controlled:
+	#if !is_controlled:
 		if entity.is_targetable:
 			#print(self, " - target found: ", entity)
 			AttackComp.set_target(entity)
@@ -144,7 +159,7 @@ func _on_target_found(entity: Entity):
 
 ## Runs when the current target changes to another valid target.
 func _on_target_changed(entity: Entity):
-	if !is_controlled:
+	#if !is_controlled:
 		if entity.is_targetable:
 			#print(self, " - target changed: ", entity)
 			AttackComp.set_target(entity)
@@ -152,16 +167,24 @@ func _on_target_changed(entity: Entity):
 
 ## Runs when the current target is lost and there are no other valid targets.
 func _on_target_lost(_entity: Entity):
-	if !is_controlled:
-			#print(self, " - target lost: ", entity)
+	#if !is_controlled:
+			#print(self, " - target lost: ", _entity)
 			AttackComp.set_target(null)
+
+
+func _on_control_changed():
+	pass
 
 
 func _set_faction(new_faction: String):
 	remove_from_group(faction)
 	faction = new_faction
-	if has_node("%Cell"):  %Cell.modulate = Factions.get_faction(faction).color
 	add_to_group(faction)
+	faction_changed.emit(new_faction)
+	
+	if has_node("%Cell") and is_inside_tree():
+		#%Cell.modulate = Factions.get_faction(faction).color
+		var _tween = get_tree().create_tween().tween_property(%Cell, "modulate", Factions.get_faction(faction).color, 0.5)
 
 
 # TODO - 

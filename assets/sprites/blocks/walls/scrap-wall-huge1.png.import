@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://uj3cyumcvnl6"
-path="res://.godot/imported/stell-weapon.png-302d866cc433c5a3a17dcbfa53c5873f.ctex"
+uid="uid://dghvbfqcnxt01"
+path="res://.godot/imported/scrap-wall-huge1.png-00a06ae0ba48f4985afda2b7be8b8a66.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/entities/units/stell/stell-weapon.png"
-dest_files=["res://.godot/imported/stell-weapon.png-302d866cc433c5a3a17dcbfa53c5873f.ctex"]
+source_file="res://assets/sprites/blocks/walls/scrap-wall-huge1.png"
+dest_files=["res://.godot/imported/scrap-wall-huge1.png-00a06ae0ba48f4985afda2b7be8b8a66.ctex"]
 
 [params]
 

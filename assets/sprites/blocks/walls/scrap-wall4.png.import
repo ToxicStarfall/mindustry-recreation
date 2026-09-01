@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://do1og1v40pbix"
-path="res://.godot/imported/stell-treads.png-3176010467fb204c72953d7c0cc23d44.ctex"
+uid="uid://cpto4ujr2pkd1"
+path="res://.godot/imported/scrap-wall4.png-0bbe92f7423df8476c0b59ce26ca9dd0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/entities/units/stell/stell-treads.png"
-dest_files=["res://.godot/imported/stell-treads.png-3176010467fb204c72953d7c0cc23d44.ctex"]
+source_file="res://assets/sprites/blocks/walls/scrap-wall4.png"
+dest_files=["res://.godot/imported/scrap-wall4.png-0bbe92f7423df8476c0b59ce26ca9dd0.ctex"]
 
 [params]
 

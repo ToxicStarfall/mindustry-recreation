@@ -39,16 +39,11 @@ func _draw() -> void:
 
 func _physics_process(delta: float) -> void:
 	if MovementComp:
-		if is_controlled:
-			MovementComp.physics_process(delta)
-		if is_selected:
-			pass
-	#velocity = Vector2.ZERO
-	#for index in get_slide_collision_count():
-		#var collision: KinematicCollision2D = get_slide_collision(index)
-		#if collision.get_collider().name == "Player":
-			#velocity = collision.get_normal() * collision.get_collider_velocity().length()
-	#move_and_slide()
+		#if is_controlled:
+			#MovementComp.physics_process(delta)
+		#if is_selected:
+			#pass
+		MovementComp.physics_process(delta)
 
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -1,6 +1,12 @@
 extends Node2D
 
 
+var debris = {
+	blocks = {},
+	#units = {}
+}
+var max_debris = 30
+
 # Block and unit placement
 var valid_placement: bool = true
 var entity_placer: bool = false
@@ -63,6 +69,8 @@ func _draw_entity_placer():
 			if !valid_placement:
 				draw_texture(entity_placer_sprite, placer_hint_position, Color(1.0, 0.5, 0.5, 0.6))
 			
-		
+
+func add_block_debris(debris_position: Vector2, size: Vector2):
+	pass
 		
 		

@@ -4,8 +4,8 @@ extends Node2D
 
 @export var weapons: Array[Weapon] = []
 @export var alternating: bool = true
-@export var pivoting: bool = true  ## If true, weapons attached
-@export var pivot_speed: float = 160.0  ## Pivot speed in degrees/s
+@export var pivoting: bool = true  ## If true, this acts as a base which weapons pivot with. Otherwise rotate whole entity body
+@export var pivot_speed: float = 480.0  ## Pivot speed in degrees/s
 #@export var alternate_delay: float = 0.0  ## If 0.0, delay is half of weapon 
 #@export var subgroups: Array[WeaponGroup]
 
@@ -17,12 +17,10 @@ var attacking: bool = false: set = attack_status
 var targeted_entity: Entity
 var targeted_position: Vector2
 
-var last_fired_idx: int = 0
+#var last_fired_idx: int = 0
 
 
 func _ready() -> void:
-	#for weapon in weapons:
-		#weapon.attack
 	pass
 
 
@@ -40,49 +38,58 @@ func _physics_process(delta: float) -> void:
 					## Asume all weapons in group are the same when alternating.
 					## Make an even delay between weapons to make consecutive shots smooth.
 					#await get_tree().create_timer( weapon.cooldown / weapons.size() ).timeout
-			#
-	#else:
-		#
+
 	if attacking:
 		if pivoting:
 			var angle = rotation + get_angle_to(targeted_position)
-			angle += deg_to_rad(90)  # Adjust for built-in 0 degree pointing towards Vector2.RIGHT
+			angle += (PI/2)  # Adjust for built-in 0 degree pointing towards Vector2.RIGHT
 			
-			# NOTE: rotate_towards() uses radians.
-			rotation = rotate_toward(
+			rotation = rotate_toward (  # NOTE: rotate_towards() uses radians.
 				rotation,
 				angle,
-				delta * deg_to_rad(pivot_speed)
-			)  
+				delta * deg_to_rad(pivot_speed) )
+				  
 			# TODO Play rotation noise.
 
 			# Allow mounted weapons to fire once bod
 			if rotation == angle or abs(rotation - angle) < deg_to_rad(aim_margin_degrees):
 				
 				# TODO Make consecutive clicks alternate weapons.
-				for w_idx in weapons.size():
-				#for w_idx in weapons.slice(last_fired_idx, weapons.size()).size():
-					#if last_fired_idx == weapons.size() - 1:
-						#w_idx = 0
-					#else:
-						#w_idx += last_fired_idx
-
-					var weapon = weapons.get(w_idx)
+				#for w_idx in weapons.size():
+				for weapon in weapons: if weapon:
+					#var weapon = weapons.get(w_idx)
 					weapon.targeted_position = self.targeted_position
 					weapon.attacking = true
 					
-					#last_fired_idx = w_idx
-					#weapons.find(weapon)
+					if alternating:
+						# Asume all weapon cooldowns are the same when alternating.
+						# Make an equal delay between weapons to make consecutive shots smooth.
+						await get_tree().create_timer( weapon.cooldown / weapons.size() ).timeout
+						
+		else:
+			var angle = owner.rotation + owner.get_angle_to(targeted_position)
+			angle += (PI/2)  # Adjust for built-in 0 degree pointing towards Vector2.RIGHT
+
+			owner.rotation = rotate_toward (
+				owner.rotation,
+				angle,
+				delta * deg_to_rad(owner.MovementComp.rot_speed) )  # TODO - make less hacky
+
+			if rotation == angle or abs(owner.rotation - angle) < deg_to_rad(aim_margin_degrees):
+				# TODO Make consecutive clicks alternate weapons.
+				for weapon in weapons: if weapon:
+					weapon.targeted_position = self.targeted_position
+					weapon.attacking = true
 					
 					if alternating:
-						# Asume all weapons in group are the same when alternating.
-						# Make an even delay between weapons to make consecutive shots smooth.
+						# Asume all weapon cooldowns are the same when alternating.
+						# Make an equal delay between weapons to make consecutive shots smooth.
 						await get_tree().create_timer( weapon.cooldown / weapons.size() ).timeout
-
 	else:
 		for weapon in weapons:
-			weapon.targeted_position = self.targeted_position
-			weapon.attacking = false
+			if weapon:  # Use non-null weapons
+				#weapon.targeted_position = self.targeted_position  # NOTE - breaks self -> targetposition aiming
+				weapon.attacking = false
 
 
 func attack_status(status: bool):

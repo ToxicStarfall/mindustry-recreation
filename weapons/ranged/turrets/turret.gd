@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 				delta * deg_to_rad(rotation_speed)
 				)
 				
-			Events.audio_2d_requested.emit( rotation_sound, self.global_position )
+			Events.audio_2d_requested.emit( rotation_sound, self.global_position )  # Play rotation sound.
 			
 			if !in_cooldown:
 				# Fires projectiles when current rotation is pointing in direction of aim within a certain margin.

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://d2pxhschrwd1l"]
+
+[ext_resource type="Script" uid="uid://c40ltfv6qhs3l" path="res://entities/blocks/block.gd" id="1_l4c11"]
+[ext_resource type="Texture2D" uid="uid://bxhe460bck7jr" path="res://assets/sprites/blocks/walls/copper-wall.png" id="2_koox8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xduj2"]
+size = Vector2(32, 32)
+
+[node name="Pine" type="StaticBody2D" unique_id=25492494]
+collision_mask = 6
+input_pickable = true
+script = ExtResource("1_l4c11")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1247725909]
+texture = ExtResource("2_koox8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=898936017]
+shape = SubResource("RectangleShape2D_xduj2")

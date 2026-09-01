@@ -12,9 +12,9 @@
 [ext_resource type="Script" uid="uid://dkeiv4mg3ytus" path="res://weapons/ranged/turrets/turret.gd" id="10_87my5"]
 [ext_resource type="PackedScene" uid="uid://dl3nhacxsuyu3" path="res://entities/projectiles/laser_projectile.tscn" id="11_l7vsh"]
 [ext_resource type="Script" uid="uid://dqbskq33gkjmw" path="res://components/resource/damage_component.gd" id="12_edl78"]
-[ext_resource type="AudioStream" uid="uid://brxr5ex7ekl01" path="res://assets/sounds/pew.ogg" id="13_dhwte"]
-[ext_resource type="Texture2D" uid="uid://cth6uij11x6q0" path="res://assets/sprites/blocks/turrets/arc.png" id="14_8560w"]
-[ext_resource type="Texture2D" uid="uid://dmhowacnjvc04" path="res://assets/sprites/blocks/turrets/arc-heat.png" id="15_pki8v"]
+[ext_resource type="AudioStream" uid="uid://b0e2gcqy5pe31" path="res://assets/sounds/laser.ogg" id="12_l7vsh"]
+[ext_resource type="Texture2D" uid="uid://d25sj3v56iaq4" path="res://assets/sprites/blocks/turrets/lancer.png" id="14_l7vsh"]
+[ext_resource type="Texture2D" uid="uid://blj5u65lo5vkj" path="res://assets/sprites/blocks/turrets/lancer-heat.png" id="15_l7vsh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3k6k8"]
 size = Vector2(64, 64)
@@ -26,14 +26,14 @@ size = Vector2(64, 64)
 
 [sub_resource type="Resource" id="Resource_dylhh"]
 script = ExtResource("12_edl78")
-base_damage = 11.0
+base_damage = 140.0
 metadata/_custom_type_script = "uid://dqbskq33gkjmw"
 
 [node name="Lancer" type="StaticBody2D" unique_id=1924569839]
 collision_mask = 0
 input_pickable = true
 script = ExtResource("1_l7vsh")
-faction = "shard"
+size = Vector2i(2, 2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=601620833]
 shape = SubResource("RectangleShape2D_3k6k8")
@@ -48,11 +48,11 @@ script = ExtResource("3_mma57")
 metadata/_custom_type_script = "uid://bcnsah84lvxth"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=808701073]
-visible = false
 shape = SubResource("RectangleShape2D_tlbei")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=796796197]
 script = ExtResource("4_qvbon")
+max_health = 1120.0
 metadata/_custom_type_script = "uid://capwm6jqredjg"
 
 [node name="DefenseComponent" type="Node" parent="." unique_id=1787548250]
@@ -69,6 +69,8 @@ z_index = -1
 collision_layer = 0
 collision_mask = 7
 script = ExtResource("7_487n0")
+sight_range = 20.62
+attack_range = 20.62
 metadata/_custom_type_script = "uid://cyth0wwtyo0ym"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TargetingComponent" unique_id=96905333]
@@ -89,22 +91,24 @@ rotation_speed = 210.0
 projectile_scene = ExtResource("11_l7vsh")
 lifetime = 0.25
 projectile_size = Vector2(7, 9)
-speed = 6.0
 recoil_dist = 2.0
-fire_sound = ExtResource("13_dhwte")
+fire_sound = ExtResource("12_l7vsh")
 damage_comp = SubResource("Resource_dylhh")
 delay = 0.667
 cooldown = 1.333
 metadata/_custom_type_script = "uid://dkeiv4mg3ytus"
 
 [node name="Sprite2D" type="Sprite2D" parent="WeaponGroup/CanvasGroup/Turret" unique_id=884567292]
-texture = ExtResource("14_8560w")
+texture = ExtResource("14_l7vsh")
 
-[node name="Heat" type="Sprite2D" parent="WeaponGroup/CanvasGroup/Turret" unique_id=1643057693]
-visible = false
-texture = ExtResource("15_pki8v")
+[node name="Heat" type="Sprite2D" parent="WeaponGroup/CanvasGroup/Turret/Sprite2D" unique_id=1643057693]
+unique_name_in_owner = true
+texture = ExtResource("15_l7vsh")
 
 [node name="Marker2D" type="Marker2D" parent="WeaponGroup/CanvasGroup/Turret" unique_id=1683713653]
-position = Vector2(0, -12)
+position = Vector2(0, -27)
 
-[node name="TurretBase" type="Sprite2D" parent="WeaponGroup/CanvasGroup" unique_id=1552914784]
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="." unique_id=1280660604]
+vertices = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+affect_navigation_mesh = true
+carve_navigation_mesh = true

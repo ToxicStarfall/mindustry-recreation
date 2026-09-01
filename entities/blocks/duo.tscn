@@ -34,7 +34,6 @@ metadata/_custom_type_script = "uid://dqbskq33gkjmw"
 collision_mask = 0
 input_pickable = true
 script = ExtResource("1_3k6k8")
-faction = "shard"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=601620833]
 visible = false
@@ -55,6 +54,7 @@ shape = SubResource("RectangleShape2D_tlbei")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=796796197]
 script = ExtResource("10_xl4co")
+max_health = 250.0
 metadata/_custom_type_script = "uid://capwm6jqredjg"
 
 [node name="DefenseComponent" type="Node" parent="." unique_id=1787548250]
@@ -71,6 +71,8 @@ z_index = -1
 collision_layer = 0
 collision_mask = 7
 script = ExtResource("6_gyucd")
+sight_range = 13.0
+attack_range = 13.0
 metadata/_custom_type_script = "uid://cyth0wwtyo0ym"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TargetingComponent" unique_id=96905333]

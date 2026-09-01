@@ -45,6 +45,22 @@ bg_color = Color(1, 0.8666667, 0, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ouac8"]
 content_margin_bottom = 4.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8c013"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 1
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sjbic"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_aw2tu"]
@@ -230,6 +246,7 @@ layout_mode = 2
 
 [node name="PlacingTool" type="PanelContainer" parent="VBoxContainer/HBoxContainer" unique_id=473204080]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxEmpty_ouac8")
@@ -298,29 +315,50 @@ theme_override_constants/margin_bottom = 8
 layout_mode = 2
 
 [node name="NoneFactionButton" type="Button" parent="VBoxContainer/HBoxContainer/FactionSelectTool/MarginContainer/VBoxContainer" unique_id=1031229649]
+unique_name_in_owner = true
+modulate = Color(0.7137255, 0.72156864, 0.78039217, 1)
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
+tooltip_text = "Faction None"
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8c013")
+toggle_mode = true
+button_pressed = true
 icon = ExtResource("8_8c013")
 icon_alignment = 1
 expand_icon = true
 
 [node name="ShardFactionButton" type="Button" parent="VBoxContainer/HBoxContainer/FactionSelectTool/MarginContainer/VBoxContainer" unique_id=851997004]
+unique_name_in_owner = true
+modulate = Color(0.98039216, 0.8156863, 0.34117648, 1)
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
+tooltip_text = "Faction Shard"
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8c013")
+toggle_mode = true
 icon = ExtResource("9_6r7pl")
 icon_alignment = 1
 expand_icon = true
 
 [node name="CruxFactionButton" type="Button" parent="VBoxContainer/HBoxContainer/FactionSelectTool/MarginContainer/VBoxContainer" unique_id=1531626309]
+unique_name_in_owner = true
+modulate = Color(0.9764706, 0.31764707, 0.36862746, 1)
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
+tooltip_text = "Faction Crux"
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8c013")
+toggle_mode = true
 icon = ExtResource("10_dgg4x")
 icon_alignment = 1
 expand_icon = true
 
 [node name="MalisFactionButton" type="Button" parent="VBoxContainer/HBoxContainer/FactionSelectTool/MarginContainer/VBoxContainer" unique_id=1825906997]
+unique_name_in_owner = true
+modulate = Color(0.6313726, 0.49019608, 0.8980392, 1)
 custom_minimum_size = Vector2(28, 28)
 layout_mode = 2
+tooltip_text = "Faction Malis"
+theme_override_styles/pressed = SubResource("StyleBoxFlat_8c013")
+toggle_mode = true
 icon = ExtResource("11_p7o6t")
 icon_alignment = 1
 expand_icon = true
@@ -387,6 +425,7 @@ layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_aw2tu")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Units" unique_id=56993563]
+visible = false
 layout_mode = 2
 
 [node name="AllUnitButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Units/VBoxContainer" unique_id=653428628]
@@ -462,6 +501,7 @@ layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_aw2tu")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Blocks" unique_id=634314651]
+visible = false
 layout_mode = 2
 
 [node name="AllBlocksButton" type="Button" parent="VBoxContainer/HBoxContainer/SelectorPanel/MarginContainer/VBoxContainer/Blocks/VBoxContainer" unique_id=806360170]

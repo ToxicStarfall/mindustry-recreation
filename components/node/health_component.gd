@@ -20,6 +20,11 @@ var health: float = max_health
 @export var is_killable: bool = true
 
 
+func _ready() -> void:
+	health = max_health
+	#print(health, " - ", max_health)
+	pass
+
 
 func heal(value: float):
 	health = min(max_health, health + value)

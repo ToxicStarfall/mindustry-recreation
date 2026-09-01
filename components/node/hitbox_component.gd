@@ -6,9 +6,9 @@ extends Area2D
 signal hit(damage_comp: DamageComponent)
 
 
+
 func _init() -> void:
-	pass
-	
+	pass	
 
 
 func _ready() -> void:
@@ -18,11 +18,12 @@ func _ready() -> void:
 
 # Handles attack damage aoe damage.
 func _on_hitbox_area_entered(area):
-	#print(area, " entered hitbox.")
+	#print(area)
 	if area is Projectile:
 		var projectile: Projectile = area
 		# Allow hitting only entities which did not spawn this projectile.
 		if projectile.spawner_entity != owner:
+			#print(area, " entered hitbox.")
 			# Allow hitting only entities which belong to differing or NONE faction.
 			#if owner.faction != projectile.faction or projectile.faction == Factions.NONE:
 			if owner.faction != projectile.faction or projectile.faction == Factions.NONE.id:
@@ -32,5 +33,5 @@ func _on_hitbox_area_entered(area):
 
 # Handles body damage.
 func _on_hitbox_body_entered(_body):
-	#print(body, " entered hitbox.")
+	#print(_body, " entered hitbox.")
 	pass

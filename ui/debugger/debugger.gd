@@ -16,7 +16,7 @@ var targeting_visuals_enabled: bool = false
 
 func _ready() -> void:
 	#add_child( preload("res://ui/debugger/debugger.tscn").instrantiate() )
-	DebugPanel.show()
+	#DebugPanel.show()
 	DebugPanel.get_node("%MoveUnitCheckBox").pressed.connect( _moving_unit_toggled )
 	
 	DebugPanel.get_node("%UncontrolButton").pressed.connect( func():
@@ -36,15 +36,19 @@ func _process(_delta: float) -> void:
 	DebugText.append_text("[hr height=1 width=100%]")
 	DebugText.add_text("Controlled Entity - %s " % [Game.controlled_entity])
 	if Game.controlled_entity:
-		DebugText.add_text("Player Attack: %s" % [Game.controlled_entity.AttackComp.is_attacking])
-		DebugText.add_text("    AI Attack: %s" % [Game.controlled_entity.TargetingComp.current_target != null])
+		if Game.controlled_entity.AttackComp:
+			DebugText.add_text("Player Attack: %s" % [Game.controlled_entity.AttackComp.is_attacking])
+		if Game.controlled_entity.TargetingComp:
+			DebugText.add_text("    AI Attack: %s" % [Game.controlled_entity.TargetingComp.current_target != null])
 		DebugText.append_text("[br]Health: %s" % [Game.controlled_entity.HealthComp.health])
 		
 	DebugText.append_text("[hr height=1 width=100%]")
 	DebugText.add_text("Hovered Entity - %s " % [Game.hovered_entity])
 	if Game.hovered_entity:
-		if Game.hovered_entity is Unit:
+		#if Game.hovered_entity is Unit:
+		if Game.hovered_entity.AttackComp:
 			DebugText.add_text("Player Attack: %s" % [Game.hovered_entity.AttackComp.is_attacking])
+		if Game.hovered_entity.TargetingComp:
 			DebugText.add_text("    AI Attack: %s" % [Game.hovered_entity.TargetingComp.current_target != null])
 		DebugText.append_text("[br]Health: %s" % [Game.hovered_entity.HealthComp.health])
 		

@@ -18,7 +18,7 @@ signal damage_fully_blocked  ## Emitted when damage is processed and fully block
 
 ## Applies defence damage reduction to applied damage comps.
 func process_damage(damage_comp: DamageComponent):
-	if can_block_damage:
-		damage_comp.damage -= defense
+	#if can_block_damage:
+		#damage_comp.base_damage = max(damage_comp.base_damage - defense, 0.0)
 
 	return damage_comp

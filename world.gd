@@ -42,27 +42,28 @@ func _on_child_exiting_tree(node: Node):
 
 func _unhandled_input(event: InputEvent) -> void:
 	# NOTE: event.factor is used for variable inputs such as trackpad scroll speed
-	var zoom_factor = 0.1
-	if Camera.zoom.length() > 1.0:  zoom_factor = 0.2 # Increase zoom factor on mousewheel at close zoom.
-	else: zoom_factor = 0.1
-	
-	# Makes trackpad zoom more smooth and less spotaneous
-	if event is InputEventMouseButton and !event.factor == 1:
-		zoom_factor = event.factor
-		zoom_factor = 0.01
+	if Camera:
+		var zoom_factor = 0.1
+		if Camera.zoom.length() > 1.0:  zoom_factor = 0.2 # Increase zoom factor on mousewheel at close zoom.
+		else: zoom_factor = 0.1
+		
+		# Makes trackpad zoom more smooth and less spotaneous
+		if event is InputEventMouseButton and !event.factor == 1:
+			zoom_factor = event.factor
+			zoom_factor = 0.01
 
-	if event.is_action_pressed("zoom_in"):
-		Camera.zoom = (Camera.zoom + (Vector2.ONE * zoom_factor)).minf(2.5)
-	if event.is_action_pressed("zoom_out"):
-		Camera.zoom = (Camera.zoom - (Vector2.ONE * zoom_factor)).maxf(0.25)
-	RenderingServer.global_shader_parameter_set("zoom_level", Camera.zoom.length())
-	
-	if !Game.controlled_entity:
-		if event.is_action_pressed("pan_camera"):
-			camera_panning = true
-			camera_pan_start = get_global_mouse_position()
-	if event.is_action_released("pan_camera"):
-		camera_panning = false
+		if event.is_action_pressed("zoom_in"):
+			Camera.zoom = (Camera.zoom + (Vector2.ONE * zoom_factor)).minf(2.5)
+		if event.is_action_pressed("zoom_out"):
+			Camera.zoom = (Camera.zoom - (Vector2.ONE * zoom_factor)).maxf(0.25)
+		RenderingServer.global_shader_parameter_set("zoom_level", Camera.zoom.length())
+		
+		if !Game.controlled_entity:
+			if event.is_action_pressed("pan_camera"):
+				camera_panning = true
+				camera_pan_start = get_global_mouse_position()
+		if event.is_action_released("pan_camera"):
+			camera_panning = false
 
 	#if !camera_locked:
 		#var pan_x = Input.get_axis("camera_pan_left", "camera_pan_right")

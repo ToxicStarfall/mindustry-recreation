@@ -24,9 +24,11 @@ func _ready() -> void:
 		tween.tween_property(self, "modulate:a", 1, 0.1)
 		tween.tween_property($Line2D, "width", 48, 0.1)
 		
+		beam_length = spawner_entity.TargetingComp.attack_range
 		$CollisionShape2D.shape.size = Vector2(beam_width / 2, beam_length * Game.TILE_SIZE + 16)
 		$CollisionShape2D.position = -Vector2(0, (beam_length * Game.TILE_SIZE + 16) / 2)
 
+		
 
 
 func _process(_delta: float) -> void:

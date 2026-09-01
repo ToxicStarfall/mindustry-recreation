@@ -2,6 +2,9 @@ class_name PiercingMod
 extends ProjectileMod
 
 
+signal despawn_handled
+
+
 @export var max_piercing: float = 1.0
 @export var damage_multiplier: float = 0.75
 #@export var pierce_damage_multiplier: float = 1.0

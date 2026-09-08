@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://dbmtjqy8t7d4c" path="res://entities/projectiles/projectile.tscn" id="11_g8sh4"]
 [ext_resource type="AudioStream" uid="uid://dhve0oy1xmobp" path="res://assets/sounds/shootBig.ogg" id="12_g8sh4"]
 [ext_resource type="Script" uid="uid://dqbskq33gkjmw" path="res://components/resource/damage_component.gd" id="13_15jyo"]
+[ext_resource type="PackedScene" uid="uid://c2la7ajh4gck6" path="res://effects/particles/smoke.tscn" id="13_e5e4x"]
+[ext_resource type="PackedScene" uid="uid://diono2ue6a2ch" path="res://effects/particles/flash.tscn" id="13_u68cf"]
 [ext_resource type="Texture2D" uid="uid://d3esg2yaqckwf" path="res://assets/sprites/blocks/turrets/ripple.png" id="14_e5e4x"]
 [ext_resource type="Texture2D" uid="uid://bpn3icxl0g731" path="res://assets/sprites/blocks/turrets/ripple-heat.png" id="15_u68cf"]
 
@@ -96,6 +98,8 @@ speed = 11.25
 deviation = 6.0
 recoil_dist = 2.0
 fire_sound = ExtResource("12_g8sh4")
+flash_particle = ExtResource("13_u68cf")
+smoke_particle = ExtResource("13_e5e4x")
 damage_comp = SubResource("Resource_dylhh")
 delay = 0.667
 cooldown = 1.333

@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://qpomi2v5rseb"]
+[gd_scene format=3 uid="uid://c2la7ajh4gck6"]
 
-[ext_resource type="Texture2D" uid="uid://njssqpqfrng3" path="res://assets/sprites/entities/projectiles/circle-bullet.png" id="1_yl6pa"]
+[ext_resource type="Texture2D" uid="uid://njssqpqfrng3" path="res://assets/sprites/entities/projectiles/circle-bullet.png" id="1_h2tf5"]
 
 [sub_resource type="Curve" id="Curve_fh3np"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -11,18 +11,18 @@ offsets = PackedFloat32Array(0.4, 0.6)
 colors = PackedColorArray(0.7, 0.7, 0.7, 1, 0.9, 0.9, 0.9, 1)
 metadata/_snap_enabled = true
 
-[node name="SmokeSmallParticles" type="CPUParticles2D" unique_id=271168582]
+[node name="SmokeParticles" type="CPUParticles2D" unique_id=271168582]
 emitting = false
-amount = 6
-texture = ExtResource("1_yl6pa")
+amount = 4
+texture = ExtResource("1_h2tf5")
 lifetime = 0.4
 one_shot = true
 explosiveness = 0.9
 emission_shape = 3
-emission_rect_extents = Vector2(2.5, 8)
+emission_rect_extents = Vector2(4, 16)
 spread = 22.5
 gravity = Vector2(0, 0)
-scale_amount_min = 0.15
-scale_amount_max = 0.2
+scale_amount_min = 0.2
+scale_amount_max = 0.4
 scale_amount_curve = SubResource("Curve_fh3np")
 color_initial_ramp = SubResource("Gradient_pvxlq")

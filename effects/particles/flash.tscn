@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://diono2ue6a2ch"]
+
+[ext_resource type="Texture2D" uid="uid://c1g6fmaumcynd" path="res://assets/sprites/custom/kite-offset.png" id="1_ey5mg"]
+
+[sub_resource type="Curve" id="Curve_fh3np"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_85nee"]
+offsets = PackedFloat32Array(0, 0.3479452, 0.6136986, 1)
+colors = PackedColorArray(0.98, 0.98, 0.98, 1, 0.9843137, 0.827451, 0.40392157, 1, 0.9843137, 0.827451, 0.40392157, 1, 1, 0.68235296, 0, 1)
+
+[node name="FlashParticles" type="CPUParticles2D" unique_id=107484445]
+emitting = false
+amount = 1
+texture = ExtResource("1_ey5mg")
+lifetime = 0.4
+one_shot = true
+particle_flag_align_y = true
+spread = 22.5
+gravity = Vector2(0, 0)
+scale_amount_min = 0.9
+scale_amount_curve = SubResource("Curve_fh3np")
+color_ramp = SubResource("Gradient_85nee")

@@ -77,29 +77,29 @@ func _physics_process(_delta: float) -> void:
 		pass
 
 	else:
+		# Remove invalid instances
+		var a: Array[Entity] = []
+		a.assign( entities.map( func(e): if is_instance_valid(e): return e ) )
+		entities = a
+		a.clear()
+		a.assign( targets.map( func(e):  if is_instance_valid(e): return e ) )
+		targets = a
+		
 		# Add entities in range to list of valid targets.
-		for entity in entities:
-			var dist = (self.global_position - entity.global_position).length()
-			if dist <= attack_range * Game.TILE_SIZE:
-				if !targets.has(entity):
-					targets.append(entity)
-			else:
-				targets.erase(entity)
+		for entity in entities: 
+			if is_instance_valid(entity):  # NOTE: Blocks are added manually via signal in block.gd
+				var dist = (self.global_position - entity.global_position).length()
+				if dist <= attack_range * Game.TILE_SIZE:
+					if !targets.has(entity):
+						targets.append(entity)
+				else:
+					targets.erase(entity)
 		
 		# If there are targets, set the closest one as the current target.
 		if !targets.is_empty():
-			#var distances = targets.map( func(target): return self.global_position.distance_to(target.global_position))
-			#var distances_sorted = distances.duplicate()
-			#distances_sorted.sort()
-			#var closest = targets.get(distances.find( distances_sorted.get(0) ))
 			var closest = get_closest_target(targets)
-			#if seeking:
-				#if owner.has_node("NavigationAgent2D"):
-					#var NavAgent: NavigationAgent2D = owner.get_node("NavigationAgent2D")
-					#NavAgent.target_position = closest.global_position
 			if closest:
 				if current_target == null:
-					#print(current_target)
 					current_target = closest
 					target_found.emit(current_target)
 				elif current_target != null:
@@ -145,11 +145,14 @@ func find_target() -> Entity:
 
 # Return closest targets from target_list, else null if no targets in list.
 func get_closest_target(target_list: Array, idx: int = 0) -> Entity:
-	var distances: Array = target_list.map( func(target): return self.global_position.distance_to(target.global_position))
+	var distances: Array = target_list.map( func(target):
+		if is_instance_valid(target):
+			return self.global_position.distance_to(target.global_position))
 	var distances_sorted = distances.duplicate()
 	distances_sorted.sort()
 	var closest: Entity = target_list.get(distances.find( distances_sorted.get( idx ) )) if target_list.size() > 0 else null
 	return closest
+
 
 func get_strongest_target():
 	pass
@@ -157,9 +160,6 @@ func get_strongest_target():
 
 func is_in_range(target: Entity) -> bool:
 	var NavAgent: NavigationAgent2D = owner.get_node("NavigationAgent2D")
-	#if target is Block:
-		
-	#return owner.global_position.distance_to(target.global_position) < owner.AttackComp.get_weapon_ranges()[0]
 	#return (NavAgent.get_next_path_position() - owner.global_position).length() < NavAgent.target_desired_distance
 	#return (NavAgent.get_final_position() - owner.global_position).length() < NavAgent.target_desired_distance
 	return (target.global_position - owner.global_position).length() < NavAgent.target_desired_distance

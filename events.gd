@@ -6,8 +6,10 @@ extends Node
 signal entity_hovered (entity: Entity)
 signal entity_controlled (entity: Entity)
 signal entity_selected (entity: Entity)
+signal entity_spawned (entity: Entity)
 
 signal projectile_spawn_requested (projectile: Projectile)
+#signal projectile_spawn_requested (config: ProjectileConfig)
 
 #signal particle_spawn_requested (particle: Node2D, position: Vector2)
 signal particle_spawn_requested (particle_scene: PackedScene, position: Vector2)

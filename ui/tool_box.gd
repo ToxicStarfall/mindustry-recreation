@@ -101,9 +101,9 @@ func _unhandled_input(event: InputEvent) -> void:
 					block.position = tile_pos
 					#block.get_node("Sprite2D").texture =   # sprite variation
 					block.faction = selected_faction
-					#Game.World.add_child(block)
 					Game.World.get_node("NavigationRegion2D").add_child(block)
 					Game.World.get_node("NavigationRegion2D").bake_navigation_polygon()
+					Events.entity_spawned.emit(block)
 					Events.audio_2d_requested.emit( AudioManager.find("place"), mouse_pos)
 					pass
 				# Unit Placmeent handling
@@ -112,6 +112,7 @@ func _unhandled_input(event: InputEvent) -> void:
 					unit.position = mouse_pos
 					unit.faction = selected_faction
 					Game.World.add_child(unit)
+					Events.entity_spawned.emit(unit)
 					pass
 		
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.is_released():

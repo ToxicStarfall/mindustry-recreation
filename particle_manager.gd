@@ -17,7 +17,8 @@ func _on_particle_spawn_requested(particle_scene: PackedScene, spawn_position: V
 	var particle = particle_scene.instantiate()
 	particle.position = spawn_position
 	
-	if particle.name == "SmokeParticles":
+	#if particle.name == "SmokeParticles":
+	if ["SmokeParticles","SmokeSmallParticles"].has(particle.name):
 		# Adjust spawn position for smoke emission rect center by half of its length.
 		particle.position += Vector2.from_angle(spawn_rotation).rotated(-PI / 2) * (particle.emission_rect_extents.y / 2)
 	

@@ -14,3 +14,8 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Godot ignores
+addons/*
+# Exclude personal addon
+!addons/_shared

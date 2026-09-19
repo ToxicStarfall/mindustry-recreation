@@ -8,8 +8,6 @@ const TILE_SIZE: int = 32
 @onready var Camera = World.get_node("%Camera2D")
 @onready var UI = get_tree().root.get_node("Main/%UI")
 
-#var camera_locked: bool = false
-
 var hovered_entity: Entity
 var controlled_entity: Entity
 var selected_entities: Array[Entity]

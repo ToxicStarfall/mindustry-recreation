@@ -2,8 +2,6 @@
 class_name Projectile
 extends Area2D
 
-#signal despawn_handled
-
 
 @export_enum("none", "shard", "crux", "malis") var faction: String
 
@@ -33,11 +31,15 @@ var trail_threshold: float = 8.0
 
 var damage_comp: DamageComponent
 var mods: Array[ProjectileMod]
+
+# Projectile modifiers callback handle checks
+var collision_handled: bool = false
 var despawn_handled: bool = false
+var timeout_handled: bool = false
+
 
 var spawner_entity: Entity
-var spawner_velocity: Vector2  ## The movement direction of the spaner
-
+var spawner_velocity: Vector2  ## The movement velocity of the spawner entity. (added to projectile final velocity)
 
 
 func _init() -> void:
@@ -49,7 +51,7 @@ func _ready() -> void:
 	if get_tree().edited_scene_root != self:
 		get_tree().create_timer(lifetime).timeout.connect( _on_lifetime_timeout )
 		
-		for mod in mods: mod.call(&"_spawned", self)
+		for mod in mods: mod.call(&"spawned", self)
 		
 
 
@@ -63,12 +65,13 @@ func _process(_delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	#self.position += (direction * speed)
-	self.position += (direction * speed) + ((spawner_velocity / 2) * delta)  # spawner_vel / 2 to reduce speed issues
+	self.position += (direction * speed) + ((spawner_velocity / 2) * delta)  # NOTE - spawner_vel / 2 to reduce speed issues
+	pass
 
 
 func collided():
 	# TODO - Figure out callback to mods to know it it handles freeing.
-	for mod in mods: mod.call(&"_collided", self)
+	for mod in mods: mod.call(&"collided", self)
 	
 	#if !despawn_handled:
 	## Do things after having collided with an object
@@ -85,10 +88,8 @@ func scale_to(size: Vector2 = default_size):
 
 
 func _on_lifetime_timeout():
-	for mod in mods: mod.call(&"_despawned", self)
-	
+	#if despawn_handled
+	for mod in mods: mod.call(&"despawned", self)
 	queue_free()
 	for particle in despawn_particles:
 		Events.particle_spawn_requested.emit(particle, self.global_position)
-	#Events.particle_spawn_requested.emit("res://effects/particles/blast_particles.tscn", self.position)
-	#Events.particle_spawn_requested.emit("res://effects/particles/blast_wave_particle.tscn", self.position)

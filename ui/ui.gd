@@ -16,7 +16,8 @@ func _ready() -> void:
 		%ToolBox.show()
 		$HBoxContainer.show()
 		pass )
-		
+	
+	%StartScreen.show()
 	%HelpButton.pressed.connect( func(): %Tutorial.show())
 	%ContinueButton.pressed.connect(func(): %Tutorial.hide())
 		

@@ -4,7 +4,6 @@ class_name RangedWeapon
 extends Weapon
 
 
-#@export_group("Testing")
 signal test_fired
 
 @export_tool_button("Test Fire") var test_fire_button = _test_fire
@@ -12,14 +11,11 @@ signal test_fired
 @export var auto_fire_interval: float = 1.0
 
 @export_group("")
-
-
-#@export_group("")
 #@export_file(".") var projectile_scene: PackedScene
 #@export_file("*.tscn") var projectile_scene: PackedScene = "res://entities/projectiles/"
 
-
 @export_group("Projectile")
+@export var projectile_config = ProjectileConfig
 @export var projectile_scene: PackedScene
 @export var lifetime: float = 1.0
 @export var projectile_size: Vector2
@@ -42,6 +38,7 @@ signal test_fired
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var ammo_enabled: bool = false
 @export var ammo: int = 60
 @export var max_ammo: int = 0  # 
+#@export var infinite_ammo: bool = false  ## Requires ammo system to be enabled.
 @export_subgroup("Magazines")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var magazines_enabled: bool = false
 @export var magazine: int = 20
@@ -66,14 +63,12 @@ signal test_fired
 #@export var cooldown_sound: AudioStream
 
 @export_group("Particles")
-#@export var fire_particles: Array[Node2D]
 #@export var fire_particles: Array[PackedScene]
 @export var flash_particle: PackedScene = preload("res://effects/particles/flash_small.tscn")
 @export var smoke_particle: PackedScene = preload("res://effects/particles/smoke_small.tscn")
 #@export var particle_offset: Vector2
 
 #@export_group("Toggles")
-#@export var infinite_ammo: bool = false  ## Requires ammo system to be enabled.
 
 
 #func _ready() -> void:
@@ -107,7 +102,7 @@ func attack():
 func fire_projectile(dir: Vector2):
 	var projectile: Projectile = projectile_scene.instantiate()
 	var projectile_spawn_pos: Vector2 = self.global_position if !has_node("Marker2D") else $Marker2D.global_position
-	projectile.faction = self.owner.faction
+	projectile.faction = "none" if owner else owner.faction
 	projectile.spawner_entity = self.owner
 	projectile.spawner_velocity =  Vector2.ZERO if owner is Block else self.owner.velocity 
 	projectile.damage_comp = damage_comp
@@ -117,14 +112,13 @@ func fire_projectile(dir: Vector2):
 	projectile.lifetime = lifetime
 	projectile.scale_to(projectile_size)
 	
-	# TODO - Make unit movement velocity add-to projectile speed.
-	#owner.get_node("MovementComp").speed
-	var deviation_amount = randf_range(-deviation, deviation)
 	projectile.speed = speed
-	projectile.direction = dir.normalized().rotated( deg_to_rad(deviation_amount) )
 	projectile.position = projectile_spawn_pos
 	projectile.rotation = dir.normalized().rotated(PI/2).angle()
+	
+	var deviation_amount = randf_range(-deviation, deviation)
 	projectile.rotation = projectile.rotation + deg_to_rad(deviation_amount)  # Add projectile deviaion
+	projectile.direction = dir.normalized().rotated( deg_to_rad(deviation_amount) )
 	
 	_animate_recoil()
 	_animate_heat()

@@ -4,8 +4,7 @@ extends Node
 
 
 @warning_ignore_start("unused_signal")
-signal overhealed
-signal healed
+signal healed (overhealed: bool)
 signal damaged
 signal zeroed
 

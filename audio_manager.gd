@@ -17,11 +17,6 @@ func _ready() -> void:
 	
 	for i in 20:
 		_create_player_2d()
-		#var new_player_2d = AudioStreamPlayer2D.new()
-		#new_player_2d.max_polyphony = 5
-		#new_player_2d.bus = "Sfx"
-		#players_2d.append(new_player_2d)
-		#add_child(new_player_2d)
 
 
 func _on_audio_requested(stream: AudioStream):
@@ -32,7 +27,6 @@ func _on_audio_requested(stream: AudioStream):
 func _on_audio_2d_requested(stream: AudioStream, audio_position: Vector2 = Vector2.ZERO):
 	if stream:
 		var player = players_2d.pop_front()
-		#var temp: bool = false
 		if !player:  # Add new temproary player
 			player = _create_player_2d()
 			temp_2d += 1
@@ -53,6 +47,10 @@ func find(audio_id: String) -> AudioStream:
 	if ResourceLoader.exists("res://assets/sounds/" + audio_id + ".ogg"):
 		return ResourceLoader.load("res://assets/sounds/" + audio_id + ".ogg")
 	return null
+
+
+func _create_player():
+	pass
 
 
 func _create_player_2d():

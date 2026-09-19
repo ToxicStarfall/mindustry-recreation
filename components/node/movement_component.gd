@@ -52,6 +52,7 @@ func _ready() -> void:
 		MovementType.LEGGED:
 			owner.add_child.call_deferred(preload("res://entities/ground_nav_agent_2d.tscn").instantiate())
 		MovementType.HOVERING, MovementType.FLYING:
+			owner.z_index += 1
 			owner.add_child.call_deferred(preload("res://entities/air_nav_agent_2d.tscn").instantiate())
 
 
@@ -196,8 +197,8 @@ func _process(delta: float) -> void:
 						
 					elif leg_count >= 3:
 						var leg_base_line: Line2D = leg_base.get_node("LegBaseLine")
-						var leg_joint: Sprite2D = leg_base.get_node("LegBaseLine/Joint")
-						var leg_line: Line2D = leg_base.get_node("LegBaseLine/Joint/LegLine")
+						#var leg_joint: Sprite2D = leg_base.get_node("LegBaseLine/Joint")
+						#var leg_line: Line2D = leg_base.get_node("LegBaseLine/Joint/LegLine")
 						#var leg_joint_offset: Vector2 = leg_joint.position - leg_base_line.points[1]
 						
 						#leg_base_line.set_point_position( 1, leg_base_line.points[1] - (dir) )

@@ -6,6 +6,7 @@ extends Node2D
 var camera_locked: bool = false
 var camera_panning: bool = false
 var camera_pan_start: Vector2
+const camera_pan_speed: float = 50.0
 
 
 var blocks: Array[Block]
@@ -62,6 +63,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			if event.is_action_pressed("pan_camera"):
 				camera_panning = true
 				camera_pan_start = get_global_mouse_position()
+			#Input.get_axis("move_left", "move_right")
+			#Input.get_axis("move_up", "move_down")
 		if event.is_action_released("pan_camera"):
 			camera_panning = false
 

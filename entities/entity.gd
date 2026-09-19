@@ -49,11 +49,10 @@ func _on_child_exiting_tree(child: Node):
 
 
 func _exit_tree() -> void:
-	#if Game.controlled_entity == self:  Game.World.Camera.reparent.call_deferred(Game.World)
 	if Game.controlled_entity == self:
 		remove_child(Game.World.Camera)
 		Game.World.add_child.call_deferred(Game.World.Camera)
-	if self is Block:  Game.World.get_node("NavigationRegion2D").bake_navigation_polygon()
+
 
 
 func _ready() -> void:
@@ -61,6 +60,7 @@ func _ready() -> void:
 	
 
 func _setup():
+	# Component setup
 	if has_node("HitboxComponent"):  HitboxComp = $HitboxComponent
 	if has_node("HealthComponent"):  HealthComp = $HealthComponent
 	if has_node("DefenseComponent"):  DefenseComp = $DefenseComponent
@@ -79,10 +79,12 @@ func _setup():
 		TargetingComp.target_changed.connect( _on_target_changed )
 		TargetingComp.target_lost.connect( _on_target_lost )
 	
+	# Add to groups & faction handling
 	if !faction: faction = Factions.NONE.id
 	add_to_group("entities")
 	add_to_group(faction)
 	
+	# Set cell sprite color
 	if has_node("%Cell"):  %Cell.modulate = Factions.get_faction(faction).color
 
 
@@ -101,8 +103,6 @@ func _process(_delta: float) -> void:
 		var health_percent = HealthComp.health / HealthComp.max_health
 		var freq = clamp(health_percent, 0.125, 0.6)  # Limit flash speed
 		var fluct = (sin(time / freq) / 4) + 0.75  # Fluctuates from 0.5 - 1.0
-		#%Cell.modulate.a = HealthComp.health / HealthComp.max_health
-		#%Cell.modulate.v = HealthComp.health / HealthComp.max_health
 		#%Cell.modulate.v = 1.0 * (fluct if health_percent < 1.0 else 1.0)
 		%Cell.modulate.v = 1.0 - ((1 - fluct) if health_percent < 1.0 else 0.0)
 		#if name == "Stell":
@@ -137,10 +137,6 @@ func _on_health_damaged():
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:v", 0.5, 0.1)
 	tween.tween_property(self, "modulate:v", 1, 0.075)
-	
-	#if has_node("%Cell"):
-		#%Cell.modulate.a = HealthComp.health / HealthComp.max_health
-		#%Cell.modulate.v = HealthComp.health / HealthComp.max_health
 
 
 func _on_health_zeroed():
@@ -168,8 +164,8 @@ func _on_target_changed(entity: Entity):
 ## Runs when the current target is lost and there are no other valid targets.
 func _on_target_lost(_entity: Entity):
 	#if !is_controlled:
-			#print(self, " - target lost: ", _entity)
-			AttackComp.set_target(null)
+		#print(self, " - target lost: ", _entity)
+		AttackComp.set_target(null)
 
 
 func _on_control_changed():

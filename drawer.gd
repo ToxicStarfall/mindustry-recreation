@@ -91,7 +91,7 @@ func _draw_debris():
 		var scaler = debri.time / max_debris_time
 		var alpha = min(scaler, 0.1) / 0.1  # Scale alpha from 0-1 only while debris lifetime ratio < 0.1
 		draw_texture(debri.sprite, debri.position, Color(Color.BLACK, alpha))
-		draw_circle(debri.position, 8, Color.RED)  # Position debug hint at top-left.  NOTE - 1x1 block incorrectly offset by -1 tile (for some reason)
+		#draw_circle(debri.position, 8, Color.RED)  # Position debug hint at top-left.  NOTE - 1x1 block incorrectly offset by -1 tile (for some reason)
 	for debri in unit_debris:
 		#draw_texture(debri.sprite, debri.position)
 		pass

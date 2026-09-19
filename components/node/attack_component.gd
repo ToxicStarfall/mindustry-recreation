@@ -29,7 +29,6 @@ func _physics_process(_delta: float) -> void:
 			weapon_group.targeted_position = owner.get_global_mouse_position()
 			
 	else:
-		#print()
 		if !owner.is_controlled:
 			for weapon in weapons:
 				weapon.targeted_entity = null if !targeted_entity else targeted_entity

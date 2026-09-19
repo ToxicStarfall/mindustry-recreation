@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://hyaclsf4mdaw" path="res://components/resource/weapon_group.gd" id="8_73jvd"]
 [ext_resource type="Material" uid="uid://df4dj2uyb6oub" path="res://assets/shaders/unit_canvas_outline_material.tres" id="9_umnmu"]
 [ext_resource type="Script" uid="uid://dkeiv4mg3ytus" path="res://weapons/ranged/turrets/turret.gd" id="10_go8s5"]
+[ext_resource type="Script" uid="uid://y6vhhlnn8jso" path="res://entities/projectiles/projectile_config.gd" id="11_b6xrt"]
 [ext_resource type="PackedScene" uid="uid://dbmtjqy8t7d4c" path="res://entities/projectiles/projectile.tscn" id="11_d5h0v"]
 [ext_resource type="AudioStream" uid="uid://bgetdvwy7j48x" path="res://assets/sounds/bang.ogg" id="12_vujga"]
 [ext_resource type="Script" uid="uid://dqbskq33gkjmw" path="res://components/resource/damage_component.gd" id="13_7sus7"]
@@ -87,6 +88,7 @@ material = ExtResource("9_umnmu")
 [node name="Turret" type="Node2D" parent="WeaponGroup/CanvasGroup" unique_id=722142338]
 script = ExtResource("10_go8s5")
 rotation_speed = 180.0
+projectile_config = ExtResource("11_b6xrt")
 projectile_scene = ExtResource("11_d5h0v")
 lifetime = 1.333
 projectile_size = Vector2(16, 16)

@@ -32,6 +32,7 @@ func _draw_damage():
 	pass
 
 
+## Draws faction hint flag on block entities.
 func _draw_faction_hint():
 	var faction_hint: Texture2D = preload("res://assets/sprites/blocks/extra/block-border.png")
 	if faction_hint:
@@ -40,4 +41,3 @@ func _draw_faction_hint():
 		var pos = -(Vector2(block.size) * Game.TILE_SIZE) / 2.0
 		pos += Vector2(0, block.size.y - 1) * Game.TILE_SIZE
 		draw_texture( faction_hint, pos, Factions.get_faction(get_parent().faction).color )
-	pass

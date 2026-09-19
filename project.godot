@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Mindustry Recreation"
-config/version="0.1.0"
+config/version="0.2.0"
 run/main_scene="uid://13tvefgy3kup"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 run/max_fps=60
@@ -32,6 +32,7 @@ Debugger="*uid://1yufg282k3ip"
 
 window/size/viewport_width=1600
 window/size/viewport_height=900
+window/energy_saving/keep_screen_on=false
 
 [editor_plugins]
 
@@ -49,6 +50,7 @@ folder_colors={
 [global_group]
 
 entities=""
+blocks=""
 
 [input]
 
